@@ -61,7 +61,79 @@
 				top:4em;
 				left:1em;
 			}
+			#txt {
+				margin:0 10px 0 10px;
+				width:10%;
+				text-align:center;
+			}
+			#settings {
+				display:inline-block;
+				padding:5em 0 5em 0;
+				width:80%;
+				height:10em;
+				background-color:white;
+			}
+			#time-block {
+				margin-top:3em;
+			}
+			#time {
+				margin-top:1em;
+			}
 		</style>
+        <script type="text/javascript">
+			var a = 0;
+			var b = 0;
+			var c = 0;
+			var d = 0;
+			var e = 0;
+			var f = 0;
+			var t;
+			var timer_is_on = 0;
+			
+			function timedCount() {
+				document.getElementById('txt').value = "" + f + e + ":" + d + c + ":" + b + a;
+				a = a + 1;
+				if (a == 10) {
+					b = b + 1;
+					a = 0;
+				}
+				if (b == 6) {
+					c = c + 1;
+					b = 0;
+				}
+				if (c == 10) {
+					d = d + 1;
+					c = 0;
+				}
+				if (d == 6) {
+					e = e + 1;
+					d = 0;
+				}
+				if (e == 10) {
+					f = f + 1;
+					e = 0;
+				}
+				t = setTimeout("timedCount()", 1000);
+			}
+			
+			function doTimer() {
+				if (!timer_is_on) {
+					timer_is_on = 1;
+					timedCount();
+				}
+			}
+			
+			function stopCount() {
+				clearTimeout(t);
+				timer_is_on = 0;
+			}
+			
+			function timeFunction() {
+				var d = new Date();
+			  	document.getElementById('time').innerHTML = d.getHours() + ":" + d.getMinutes();
+			}
+					
+		</script>
 	</head>
     <header>
     </header>

@@ -5,7 +5,6 @@
 		$_COOKIE['remember_me'] = "";			//changes value of username-input to null
 	}
 
-	
 
   	if (isset($_POST) && isset($_POST['username'])) {
   		$username = $_POST['username'];
@@ -47,10 +46,12 @@
     	<div class="login-form divbg">
         	<form role="form" method="post" action="login.php">
             	<div class="form-group">
+                <label class="sr-only" for="username"></label>
                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?php
 echo $_COOKIE['remember_me']; ?>" />
                 </div>
                 <div class="form-group">
+               		<label class="sr-only" for="password"></label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
               	</div>
                 <div class="form-group" id="login-button-group">
