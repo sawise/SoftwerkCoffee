@@ -18,9 +18,11 @@
         	$_SESSION['return_to'] = null;
         	header('location: '.$return_to);
       	} else {
+			/*
 			$hour = time() + 3600;
 			setcookie('ID_my_site', $_POST['username'], $hour);		//sets one-hour temporary cookie for username
 			setcookie('Key_my_site', $_POST['password'], $hour);	//sets one-hour temporary cookie for password
+			*/
 			$year = time() + 31536000;
 			if($_POST['remember']) {										//if "Remember me"-checkbox is checked
 				setcookie('remember_me', $_POST['username'], $year);	//sets one-year cookie for username
