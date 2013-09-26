@@ -3,6 +3,8 @@
     require_once(ROOT_PATH.'/classes/authorization.php');
 	$progressSession = getSession(); 
 	$page_title = "Coffee";
+	$error = false;
+	$percent = "";
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 <script>/*
@@ -39,8 +41,11 @@ flush();
 			</div>
 			
 			<div class="inDiv">
+				<span id="error" class="checkbox toggle ios error" style="display:none;">ERROR</span>
+				<span id="percent"></span>
+
 					<label class="checkbox toggle ios" style="width:100px"  onclick="">
-					<?php if(!isset($_GET['status']) && $progressSession == 0 || (isset($_GET['status']) && $_GET['status'] == "off") || (isset($_GET['status']) && $_GET['status'] == "error")) : ?>
+					<?php if(!isset($_GET['status']) && $progressSession == 0 || (isset($_GET['status']) && $_GET['status'] == "off")) : ?>
 						<input id="switch" type="checkbox" onClick="location.href='index.php?status=on'">
 					<?php endif ?>
 					<?php if(isset($_GET['status']) && $_GET['status'] == "on" || $progressSession > 0 && !isset($_GET['status'])) : ?>
@@ -54,13 +59,7 @@ flush();
 					</span>
 					<a class="slide-button"></a>
 				</label>
-				<?php if($_GET['status'] == "error") : ?>
-				<label class="checkbox toggle ios error" style="width:100px" >
-					<span>
-					<span>Error</span>
-					</span>
-				</label>
-			<?php endif ?>
+				
 			</div>
 		
 			<?php 		
@@ -75,24 +74,35 @@ flush();
 					for($i=$progress; $i<=$total; $i++){
 						$percent = intval($i/$total * 100)."%";
 						$percentreverse = intval(100/$total*$i )."%";
-						$value = "";						
+						$value = "";					
 						if($i < 10){
 							$value = "0".$i;
 						} else {
 							$value = $i;
 						}
-						echo $percent.'<->'.$percentreverse;
-						if($i == 29){// Put the errorstatement in here
-							header('location: index.php?status=error');
-						}
-						echo '<script language="javascript">
-						document.getElementById("coffeepot").src="img/coffeepot'.$value.'.png";
-						</script>';
-						saveSession($i);
 
-						echo str_repeat(' ',1024*64);
-						flush();
-						sleep(1);
+						 if($i == 0){//$gpioTurnon == false){ // Returns false or true if the pin is on or off 
+								//header('location: index.php?status=error');
+								echo '<script language="javascript">
+							document.getElementById("error").style.display = "block";
+							</script>';
+							$error = true;
+							i == 100;
+						} if($error == false) {
+							//echo $percent.'<->'.$percentreverse;
+								echo '<script language="javascript">
+							document.getElementById("percent").innerHTML="'.$percent.'";
+							</script>';
+							echo '<script language="javascript">
+							document.getElementById("coffeepot").src="img/coffeepot'.$value.'.png";
+							</script>';
+							saveSession($i);
+							echo str_repeat(' ',1024*64);
+							flush();
+							sleep(1);
+						} 
+
+					
 					}
 				} if(isset($_GET['status']) && $_GET['status'] == "off") {
 					saveSession(0);				
@@ -100,14 +110,13 @@ flush();
 			?>
 </div> 
 
-<?php /*GPIO draft 
-	$gpio = new GPIO(); 
+<?php //GPIO draft 
+//use PhpGpio\Gpio;
+	/*$gpio = new GPIO(); 
 	$gpio->setup(17, "out"); // Enable control for pin 17
-	$gpio->output(17, 1); //Turning on pin 17
-	$gpio->output(17, 0); Turn off pin 17
-	$gpio->input(17); // Returns false or true if the pin is on or off
+	$gpioTurnon = $gpio->output(17, 1); //Turning on pin 17
+	$gpioTurnoff = gpio->output(17, 0); Turn off pin 17
 	*/
-
  ?>
     
     
