@@ -41,8 +41,8 @@ flush();
 			</div>
 			
 			<div class="inDiv">
-				<span id="error" class="checkbox toggle ios error" style="display:none;">ERROR</span>
-				<span id="percent"></span>
+				<span id="error" class="checkbox toggle ios error" style="display:none;">ERROR!</span>
+				<span id="progress"></span>
 
 					<label class="checkbox toggle ios" style="width:100px"  onclick="">
 					<?php if(!isset($_GET['status']) && $progressSession == 0 || (isset($_GET['status']) && $_GET['status'] == "off")) : ?>
@@ -81,17 +81,19 @@ flush();
 							$value = $i;
 						}
 
-						 if($i == 0){//$gpioTurnon == false){ // Returns false or true if the pin is on or off 
+						 if($i == 29 || $error){//$gpioTurnon == false){ // Returns false or true if the pin is on or off 
 								//header('location: index.php?status=error');
 								echo '<script language="javascript">
 							document.getElementById("error").style.display = "block";
 							</script>';
 							$error = true;
-							i == 100;
-						} if($error == false) {
+							i == 28; // Stopping the loop
+						}
+
+						if(!$error) {
 							//echo $percent.'<->'.$percentreverse;
 								echo '<script language="javascript">
-							document.getElementById("percent").innerHTML="'.$percent.'";
+							document.getElementById("progress").innerHTML="'.$percent.'";
 							</script>';
 							echo '<script language="javascript">
 							document.getElementById("coffeepot").src="img/coffeepot'.$value.'.png";
@@ -101,6 +103,12 @@ flush();
 							flush();
 							sleep(1);
 						} 
+
+						if($i == 28 && !$error) {
+							echo '<script language="javascript">
+							document.getElementById("progress").innerHTML="DONE!";
+							</script>';
+						}
 
 					
 					}
