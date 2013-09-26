@@ -82,8 +82,8 @@ flush();
 							$value = $i;
 						}
 						echo $percent.'<->'.$percentreverse;
-						if($i == 0){
-							//header('location: index.php?status=error');
+						if($i == 29){// Put the errorstatement in here
+							header('location: index.php?status=error');
 						}
 						echo '<script language="javascript">
 						document.getElementById("coffeepot").src="img/coffeepot'.$value.'.png";

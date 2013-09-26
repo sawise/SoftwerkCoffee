@@ -68,7 +68,7 @@ echo $_COOKIE['remember_me']; ?>" />
 										echo '';
 									} ?> 
                                     
-                          	 /> Remember me
+                          	 /> Remember me 
                     	</label>
                    	</div>
                 </div>
