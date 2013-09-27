@@ -55,7 +55,7 @@
 							$value = $i;
 						}
 
-						 if($i == 29 || /*$gpioTurnon == false*/){ // Returns false or true if the pin is on or off 
+						 if($i == 1 /*|| $gpioTurnon == false*/){ // Returns false or true if the pin is on or off 
 								//header('location: index.php?status=error');
 								echo '<script language="javascript">
 							document.getElementById("error").style.display = "block";
