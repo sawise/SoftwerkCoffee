@@ -5,12 +5,11 @@
 		$_COOKIE['remember_me'] = "";			//changes value of username-input to null
 	}
 
-
   	if (isset($_POST) && isset($_POST['username'])) {
   		$username = $_POST['username'];
-    	$password = $_POST['password'];
+    	      $password = crypt($_POST['password'], '$5$rounds=5000$notevenclose$'); 
 
-    if ($username == USER && $password == PASS) {
+    if ($username == USER && $password == crypt(PASS, '$5$rounds=5000$notevenclose$')) {
     	$_SESSION['is_logged_in'] = true;
 
       	if (isset($_SESSION['return_to'])) {
@@ -70,7 +69,7 @@ echo $_COOKIE['remember_me']; ?>" />
                                     
                           	 /> Remember me 
                     	</label>
-                   	</div>
+                    </div>
                 </div>
     		</form>
         </div>

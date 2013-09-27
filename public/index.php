@@ -4,34 +4,8 @@
 	$progressSession = getSession(); 
 	$page_title = "Coffee";
 	$error = false;
-	$percent = "";
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
-<script>/*
-function toggle(){
-	if (document.getElementById("switch").checked == true){
-		alert("ON!");
-		progress();
-	} else {
-		alert("OFF!");	
-	}
-}
-	function progress(){
-		for (var i=0;i<28;i++){
-
-			var value = "";	
-					
-			if(i < 10){
-					$value = "0".i;
-				} else {
-					$value = i;
-			}
-			alert(value);
-				document.getElementById("coffeepot").src="value";
-flush();
-		}
-	}*/
-</script>
 	
 <div class="row divbg">
 			<div class="inDiv">Softwerk Coffee</div>
@@ -81,7 +55,7 @@ flush();
 							$value = $i;
 						}
 
-						 if($i == 29 || $error){//$gpioTurnon == false){ // Returns false or true if the pin is on or off 
+						 if($i == 29 || /*$gpioTurnon == false*/){ // Returns false or true if the pin is on or off 
 								//header('location: index.php?status=error');
 								echo '<script language="javascript">
 							document.getElementById("error").style.display = "block";
@@ -109,7 +83,6 @@ flush();
 							document.getElementById("progress").innerHTML="DONE!";
 							</script>';
 						}
-
 					
 					}
 				} if(isset($_GET['status']) && $_GET['status'] == "off") {
