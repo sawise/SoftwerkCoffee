@@ -35,7 +35,6 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
 
         coffeeSwitch.setOnCheckedChangeListener(this);
         progressBar.setProgress(0);
-
         progressBar.setMax(100);
 
         anim = new AlphaAnimation(0.0f, 1.0f);
@@ -44,7 +43,6 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
         anim.setRepeatMode(Animation.REVERSE);
         anim.setRepeatCount(5);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,16 +82,12 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
                                     setStatusText("STOPPED!", error);
                                     p = 100;
                                 }
-                                if(error){
-                                    error = false;
-                                    progressBar.setProgress(0);
-                                    p = 100;
-                                }
                                 if(p == 50/*this value only simulates the error message, in future put a another statement*/){
-                                    progressBar.setProgress(p);
+                                    progressBar.setProgress(50/*should be p*/);
                                     error = true;
                                     setStatusText("ERROR!", error);
                                     p = 100;
+                                    error = false;
                                 }
                             }
                         });
