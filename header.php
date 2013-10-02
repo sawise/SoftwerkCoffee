@@ -12,6 +12,18 @@
 				background-repeat:repeat;
 			}
 
+			.error{
+				background-color: #FF0000;
+				margin-left:auto;
+				margin-right:auto;
+				text-align: center;
+				padding-top: 0.5em;
+				width:8em;
+				height:2em;
+				font:bold 2em;
+				color:#FFFFFF;
+			}
+
 			.divbg{
 				background: #FFFFFF;
 				border: 2px, #00FF00;
