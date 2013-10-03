@@ -1,0 +1,73 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegistrationActivity">
+
+    <!--
+    <ScrollView
+        android:id="@+id/registration_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    -->
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/new_username"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Username" />
+
+            <EditText
+                android:id="@+id/new_password"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:imeActionId="@+id/login"
+                android:imeOptions="actionUnspecified" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/register_user_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Register"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:layout_gravity="left" />
+
+                <Button android:id="@+id/delete_users_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Delete all users"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:layout_gravity="left" />
+
+            </LinearLayout>
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_list"/>
+
+        </LinearLayout>
+
+    <!--</ScrollView>-->
+</merge>
