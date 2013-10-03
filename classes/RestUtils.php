@@ -85,7 +85,7 @@
 		{
 			throw new InvalidArgumentException('Invalid data input for postBody.  Array expected');
 		}
-		
+		$_GET['variable']
 		$data = http_build_query($data, '', '&');
 		$this->requestBody = $data;
 	}
