@@ -26,14 +26,14 @@
 
 		return $html;
 	}
-	function saveSession($session){
+	function saveSession($session, $filename){
 	  //$session_data = $session; // Get the session data
-      $filehandle = fopen (ROOT_PATH.'/tmp/php_session.txt', 'w+'); // open a file write session data
+      $filehandle = fopen (ROOT_PATH.'/tmp/'.$filename.'.txt', 'w+'); // open a file write session data
       fwrite ($filehandle, $session); // write the session data to file
       fclose ($filehandle);
 	}
-	function getSession(){
-		 $filehandle = fopen (ROOT_PATH.'/tmp/php_session.txt', 'r'); // open file containing session data 
+	function getSession($filename){
+		 $filehandle = fopen (ROOT_PATH.'/tmp/'.$filename.'.txt', 'r'); // open file containing session data 
       $sessiondata = fread ($filehandle, 4096); // read the session data from file
       fclose ($filehandle);
       return $sessiondata;
