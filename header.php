@@ -12,93 +12,86 @@
 				background-repeat:repeat;
 			}
 
+			.progressbg{
+				height: 25em;
+				width: 25em;
+				padding-bottom: 1.5em;
+				text-align: left;
+			}
+
+			.imgA1 {
+				padding: 5em;
+				padding: 4em 0 0 1em;
+			    position:absolute;
+			    z-index:2;
+			  }
+
 			.meter { 
-				height: 20px;  /* Can be anything */
-				position: relative;
-				background: url('img/coffeepot.png')
-				-moz-border-radius: 25px;
-				-webkit-border-radius: 25px;
-				border-radius: 25px;
+				height: 30em;  
+				width: 25.5em;
 				padding: 10px;
+				z-index: 1;
 				-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
 				-moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
 				box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
 			}
-
-			.meter > span {
-	display: block;
-	height: 100%;
-	   -webkit-border-top-right-radius: 8px;
-	-webkit-border-bottom-right-radius: 8px;
-	       -moz-border-radius-topright: 8px;
-	    -moz-border-radius-bottomright: 8px;
-	           border-top-right-radius: 8px;
-	        border-bottom-right-radius: 8px;
-	    -webkit-border-top-left-radius: 20px;
-	 -webkit-border-bottom-left-radius: 20px;
-	        -moz-border-radius-topleft: 20px;
-	     -moz-border-radius-bottomleft: 20px;
-	            border-top-left-radius: 20px;
-	         border-bottom-left-radius: 20px;
-	background-color: rgb(43,194,83);
-	background-image: -webkit-gradient(
-	  linear,
-	  left bottom,
-	  left top,
-	  color-stop(0, rgb(43,194,83)),
-	  color-stop(1, rgb(84,240,84))
-	 );
-	background-image: -webkit-linear-gradient(
-	  center bottom,
-	  rgb(43,194,83) 37%,
-	  rgb(84,240,84) 69%
-	 );
-	background-image: -moz-linear-gradient(
-	  center bottom,
-	  rgb(43,194,83) 37%,
-	  rgb(84,240,84) 69%
-	 );
-	background-image: -ms-linear-gradient(
-	  center bottom,
-	  rgb(43,194,83) 37%,
-	  rgb(84,240,84) 69%
-	 );
-	background-image: -o-linear-gradient(
-	  center bottom,
-	  rgb(43,194,83) 37%,
-	  rgb(84,240,84) 69%
-	 );
-	-webkit-box-shadow: 
-	  inset 0 2px 9px  rgba(255,255,255,0.3),
-	  inset 0 -2px 6px rgba(0,0,0,0.4);
-	-moz-box-shadow: 
-	  inset 0 2px 9px  rgba(255,255,255,0.3),
-	  inset 0 -2px 6px rgba(0,0,0,0.4);
-	position: relative;
-	overflow: hidden;
-}
-
-			progress {
-
-			/* Turns off styling - not usually needed, but good to know. */
-			appearance: none;
-			-moz-appearance: none;
-			-webkit-appearance: none;
-			/* gets rid of default border in Firefox and Opera. */
-			border: solid #cccccc 5px;
-			border-radius: 100px;
-			padding: 10px;
-			ba
-			/* Dimensions */
-			width: 238px;
-			height: 400px;
-			}
-
-			/* Polyfill */
-progress[role]:after {
-	background-image: none; /* removes default background from polyfill */
-}
 			
+			.meter > span {
+				opacity:0.95;
+				filter:alpha(opacity=95);
+				display: block;
+				z-index: 1;
+				margin: 6.5em 0 0em 0em;
+				height: 71%;
+				   -webkit-border-top-right-radius: 50em;
+				-webkit-border-bottom-right-radius: 50em;
+				       -moz-border-radius-topright: 50em;
+				    -moz-border-radius-bottomright: 50em;
+				           border-top-right-radius: 50em;
+				        border-bottom-right-radius: 50em;
+				    -webkit-border-top-left-radius: 50em;
+				 -webkit-border-bottom-left-radius: 50em;
+				        -moz-border-radius-topleft: 50em;
+				     -moz-border-radius-bottomleft: 50em;
+				            border-top-left-radius: 50em;
+				         border-bottom-left-radius: 50em;
+				background-color: rgb(43,194,83);
+				background-image: -webkit-gradient(
+				  linear,
+				  left bottom,
+				  left top,
+				  color-stop(0, rgb(128,42,42)),
+				  color-stop(1, rgb(128,42,42))
+				 );
+				background-image: -webkit-linear-gradient(
+				  center bottom,
+				  rgb(128,42,42) 37%,
+				  rgb(128,42,42) 69%
+				 );
+				background-image: -moz-linear-gradient(
+				  center bottom,
+				  rgb(128,42,42) 37%,
+				  rgb(128,42,42) 69%
+				 );
+				background-image: -ms-linear-gradient(
+				  center bottom,
+				  rgb(128,42,42) 37%,
+				  rgb(128,42,42) 69%
+				 );
+				background-image: -o-linear-gradient(
+				  center bottom,
+				  rgb(128,42,42) 37%,
+				  rgb(128,42,42) 69%
+				 );
+				-webkit-box-shadow: 
+				  inset 0 2px 9px  rgba(255,255,255,0.3),
+				  inset 0 -2px 6px rgba(0,0,0,0.4);
+				-moz-box-shadow: 
+				  inset 0 2px 9px  rgba(255,255,255,0.3),
+				  inset 0 -2px 6px rgba(0,0,0,0.4);
+				position: relative;
+				overflow: hidden;
+			}
 
 
 			.error{
