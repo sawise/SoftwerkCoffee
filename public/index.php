@@ -3,7 +3,7 @@
    require_once(ROOT_PATH.'/classes/authorization.php');
 	$progressSession = 0; 
 	if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
-		$progressSession = getSession(); 
+		$progressSession = getSession('php_session'); 
 	}
 	
 	$page_title = "Coffee";
@@ -11,57 +11,15 @@
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 	
-	    <?php //TESTING
-	    			/*echo json_encode(array('pheeds' => $pheeds, 'res' => $res));
 
-					$request = new RestRequest1('http://example.com/api/user/1', 'GET');
-					$request->execute();
-
-					echo '<pre>' . print_r($request, true) . '</pre>';*/
-
-						/*$data = RestUtils::processRequest();
-					switch($data->getMethod) {
-							// this is a request for all users, not one in particular
-							case 'get':
-								$user_list = getUserList(); // assume this returns an array
-
-								if($data->getHttpAccept == 'json')
-								{
-									RestUtils::sendResponse(200, json_encode($user_list), 'application/json');
-								}
-								else if ($data->getHttpAccept == 'xml')
-								{
-									// using the XML_SERIALIZER Pear Package
-									$options = array
-									(
-										'indent' => '     ',
-										'addDecl' => false,
-										'rootName' => $fc->getAction(),
-										XML_SERIALIZER_OPTION_RETURN_RESULT => true
-									);
-									$serializer = new XML_Serializer($options);
-
-									RestUtils::sendResponse(200, $serializer->serialize($user_list), 'application/xml');
-								}
-
-								break;
-							// new user create
-							case 'post':
-								$user = new User();
-								$user->setFirstName($data->getData()->first_name);  // just for example, this should be done cleaner
-								// and so on...
-								$user->save();
-
-								// just send the new ID as the body
-								RestUtils::sendResponse(201, $user->getId());
-								break;
-						}*/?>
 <div class="row divbg">
 			<div class="inDiv">Softwerk Coffee</div>
 			
 			<div class="inDiv">
 				<img id="coffeepot" src="img/coffeepot.png">
-			</div>
+			</div><div class="meter">
+	<span style="width: 100%"></span>
+</div>
 			
 			<div class="inDiv">
 				<span id="error" class="error" style="display:none;">ERROR!</span>
@@ -86,6 +44,7 @@
 				
 			</div>
 		
+
 			<?php 		
 				if((isset($_GET['status']) && $_GET['status'] == "on") || ($progressSession > 0 && !isset($_GET['status']))){
 					$total = 28;
@@ -96,8 +55,8 @@
 					}
 					
 					for($i=$progress; $i<=$total; $i++){
-						$percent = intval($i/$total * 100)."%";
-						$percentreverse = intval(100/$total*$i )."%";
+						$percent = intval($i/$total * 100);
+						$percentreverse = intval(100/$total*$i );
 						$value = "";					
 						if($i < 10){
 							$value = "0".$i;
@@ -116,12 +75,13 @@
 
 						if(!$error) {
 								echo '<script language="javascript">
-							document.getElementById("progress").innerHTML="'.$percent.'";
+							document.getElementById("progress").innerHTML="'.$percent.'%";
 							</script>';
 							echo '<script language="javascript">
 							document.getElementById("coffeepot").src="img/coffeepot'.$value.'.png";
 							</script>';
-							saveSession($i);
+							saveSession($i, 'php_session');
+							saveSession($percent, 'php_session1');
 							echo str_repeat(' ',1024*64);
 							flush();
 							sleep(1); // 21<-- 21*28 = ~600sec = 10min 
@@ -135,7 +95,8 @@
 					
 					}
 				} if(isset($_GET['status']) && $_GET['status'] == "off") {
-					saveSession(0);				
+					saveSession(0, 'php_session');	
+					saveSession(0, 'php_session1');			
 				}
 			?>
 </div> 
