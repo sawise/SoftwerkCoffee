@@ -3,6 +3,26 @@
     require_once(ROOT_PATH.'/classes/authorization.php');
 	
 	$page_title = "Settings";
+	
+	/* Create a file to calculate hash of */
+	//file_put_contents('example.txt', 'The quick brown fox jumped over the lazy dog.');
+	$user = hash('sha256', 'user');
+	
+	$file = "example.txt";
+	$fh = fopen($file, 'r');
+	$data = fread($fh, filesize($file));
+	
+
+	//echo hash_file('sha256', 'example.txt');
+	
+	if($data == $user) {
+		echo "true";
+	} else {
+		echo "false";
+	}
+	
+	fclose($fh);
+
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 	<div id="settings-div">
