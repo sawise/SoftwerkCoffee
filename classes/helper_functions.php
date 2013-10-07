@@ -39,5 +39,17 @@
       return $sessiondata;
 	}
 
+	function calculateTime($progressSession){
+		global $timeleft;
+		global $timeelapsed;
+		global $progress;
+		$now = array_sum(explode(' ',Microtime()));
+		$now = str_replace('-', '', $now);
+		$timeleft =  sprintf("%.0f", $now - $progressSession);
+		$timeleft = intval(str_replace('-', '', $timeleft));
+		$timeelapsed = sprintf("%.0f",600-$timeleft);
+		$progress = intval($timeelapsed/600*100);
+	}
+
 	
 ?>

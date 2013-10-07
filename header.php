@@ -94,6 +94,7 @@
 			}
 
 
+
 			.error{
 				background-color: #FF0000;
 				margin-left:auto;
@@ -117,6 +118,7 @@
 				opacity:1;
 				text-align:center;
 				filter:alpha(opacity=1);
+				padding-left: 10em;
 			}
 			.container {
 				margin-top:2em;
