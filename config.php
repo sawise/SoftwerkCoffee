@@ -1,13 +1,19 @@
 <?php
-  session_start();
-  
-  define('ROOT_PATH', dirname(__FILE__));
-  
-  define('USER', 'user');
-  define('PASS', 'pass');
-  define('PASSCRYPT', crypt(PASS, '$5$rounds=5000$notevenclose$'));
-
-
-  date_default_timezone_set('Europe/Stockholm');
-  
-  require_once(ROOT_PATH.'/includes.php');
+	session_start();
+	  
+	define('ROOT_PATH', dirname(__FILE__));
+	
+	$file = ROOT_PATH.'/credentials.txt';
+	$fh = fopen($file, 'r');
+	$values = fgets($fh);
+	$value = explode(':', $values);
+		
+	define('USER', $value[0]);
+	define('PASS', $value[1]);
+	//define('PASSCRYPT', crypt(PASS, '$5$rounds=5000$notevenclose$'));
+	
+	fclose($fh);
+	
+	date_default_timezone_set('Europe/Stockholm');
+	  
+	require_once(ROOT_PATH.'/includes.php');
