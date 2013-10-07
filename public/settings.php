@@ -3,13 +3,14 @@
     require_once(ROOT_PATH.'/classes/authorization.php');
 	
 	$page_title = "Settings";
+	
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 	<div id="settings-div">
  		<a href="index.php">&larr; Back to Coffee</a>
    	</div>
     <section id="settings">
-    
+    	<!--
     	<input type="button" class="btn btn-default" value="Start Timer" onclick="doTimer()" />
    
         <input type="text" id="txt" />
@@ -21,6 +22,6 @@
         	<div id="time">
        		</div>
        	</div>
-   	
+   		-->
     </section>
 <?php require_once(ROOT_PATH.'/footer.php'); ?>
