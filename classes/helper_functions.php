@@ -77,7 +77,6 @@
 		}
 		$script = '<script language="javascript">;
 										var x = '.$progress.'; 
-										
 										setInterval(function() {
 										  if (x <= '.$timeon.') {
 										  	var percent = x/'.$timeon.'*100;
