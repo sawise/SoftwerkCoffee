@@ -27,10 +27,10 @@
 			  }
 
 			.meter { 
-				height: 30em;  
-				width: 25.5em;
-				padding: 10px;
-				z-index: 1;
+				height: 28.3em;  
+				width: 23.2em;
+				padding:1em 0em 0em 1em;
+
 				-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
 				-moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
 				box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
