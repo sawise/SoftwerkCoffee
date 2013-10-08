@@ -132,7 +132,7 @@
 				top:0px;
 				left:0px;
 				z-index:1;
-				width:13em;
+				width:10em;
 				height:1em;
 	  		}
 			.alert {
@@ -238,6 +238,6 @@
     	<div class="container">
         	 <?php if (isset($_SESSION['is_logged_in'])) : ?>
 			 	<div class="well well-small" id="user_info">
-          			<p>Logged in as <a href="settings.php" ><?php echo USER; ?></a> | <a class="logout_link" href="logout.php">Log out</a></p>
+          			<p><a href="settings.php" >Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
       			</div>
       		<?php endif ?>
