@@ -6,6 +6,5 @@
     <string name="action_logout">Log out</string>
     <string name="hello_world">Hello world!</string>
     <string name="elapsed_time_string">Elapsed time: </string>
-    <string name="title_activity_registration">Registration</string>
 
 </resources>

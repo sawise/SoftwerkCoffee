@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="14"
         android:targetSdkVersion="16" />
 
     <application
@@ -26,10 +26,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="se.softwerk.coffee.RegistrationActivity"
-            android:label="@string/title_activity_registration" >
         </activity>
         <activity
             android:name="se.softwerk.coffee.SettingsActivity"

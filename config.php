@@ -3,7 +3,7 @@
 	  
 	define('ROOT_PATH', dirname(__FILE__));
 	
-	$file = ROOT_PATH.'/credentials.txt';
+	$file = ROOT_PATH.'/credentials';
 	$fh = fopen($file, 'r');
 	$values = fgets($fh);
 	$value = explode(':', $values);

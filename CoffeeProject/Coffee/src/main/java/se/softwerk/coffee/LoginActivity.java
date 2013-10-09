@@ -18,6 +18,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class LoginActivity extends Activity {
     /**
      * The default username to populate the username field with.
@@ -74,28 +83,6 @@ public class LoginActivity extends Activity {
                 attemptLogin();
             }
         });
-
-        findViewById(R.id.register_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), RegistrationActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Hides register button if there are users stored in database
-        try{
-            LoginDB db = new LoginDB(this);
-            if(db.getRegDetailsCount() > 0) {
-                findViewById(R.id.register_button).setVisibility(View.GONE);
-            }
-        } catch(Exception err){
-            Log.i("LoginActivity", "Error", err);
-        }
     }
 
     @Override
@@ -103,6 +90,60 @@ public class LoginActivity extends Activity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
+    }
+
+    /**
+     * Reads file containing hashed credentials and converts content to string array
+     */
+    private String[] readFromFile() {
+        String ret = "";
+        try {
+            //InputStream inputStream = openFileInput("config.txt");
+            InputStream inputStream = getResources().openRawResource(R.raw.credentials);
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("main activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("main activity", "Can not read file: " + e.toString());
+        }
+        return new String[]{ret};
+    }
+
+    /**
+     * Hash functions used to hash username and password
+     */
+    private static String convertToHex(byte[] data) {
+        StringBuilder buf = new StringBuilder();
+        for (byte b : data) {
+            int halfbyte = (b >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                buf.append((0 <= halfbyte) && (halfbyte <= 9) ? (char) ('0' + halfbyte) : (char) ('a' + (halfbyte - 10)));
+                halfbyte = b & 0x0F;
+            } while (two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
+
+    private static String SHA256(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(text.getBytes("UTF-8"), 0, text.length());
+        byte[] sha256hash = md.digest();
+        return convertToHex(sha256hash);
     }
 
     /**
@@ -212,15 +253,20 @@ public class LoginActivity extends Activity {
             }
 
             // Check if credentials match
-            try{
-                LoginDB dbUser = new LoginDB(LoginActivity.this);
-                dbUser.open();
-                if(LoginDB.Login(mUsername, mPassword)) {
-                    return true;
+            try {
+                for (String credential : readFromFile()) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(SHA256(mUsername))) {
+                        // Account exists, return true if the password matches.
+                        return pieces[1].equals(SHA256(mPassword));
+                    } else {
+                        return false;
+                    }
                 }
-                dbUser.close();
-            } catch(Exception err){
-                return false;
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
 
             return false;
