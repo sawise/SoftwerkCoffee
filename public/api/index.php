@@ -18,20 +18,20 @@ $app->get('/', function ()  use ($app)  {
 
 //Direct output
 $app->get('/turnOff', function () use ($app) {
-    if(file_exists(ROOT_PATH.'/tmp/php_session1.txt') && file_exists(ROOT_PATH.'/tmp/php_session.txt')){
+    //if(file_exists(ROOT_PATH.'/tmp/php_session1.txt') && file_exists(ROOT_PATH.'/tmp/php_session.txt')){
         saveSession(0, 'php_session');  
         saveSession(0, 'php_session1'); 
-    }
+    //}
     echo "Turn off the Coffee machine";
     //$gpioTurnoff = $gpio->output(17, 0); Turn off pin 17
 });
 
 $app->get('/saveSession/{percent}', function ($percent) use ($app) {
-    if(file_exists(ROOT_PATH.'/tmp/php_session1.txt') && file_exists(ROOT_PATH.'/tmp/php_session.txt')){
+    //if(file_exists(ROOT_PATH.'/tmp/php_session1.txt') && file_exists(ROOT_PATH.'/tmp/php_session.txt')){
         saveSession($percent, 'php_session');  
         saveSession($percent, 'php_session1'); 
-    }
-    echo "Turn off the Coffee machine";
+    //}
+    echo $percent;
     //$gpioTurnoff = $gpio->output(17, 0); Turn off pin 17
 });
 
