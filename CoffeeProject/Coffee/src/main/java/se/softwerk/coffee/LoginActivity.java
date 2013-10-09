@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -48,6 +49,9 @@ public class LoginActivity extends Activity {
     private View mLoginFormView;
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
+
+    // URL reference.
+    private String urlString = "http://192.168.1.90";
 
 
     @Override
@@ -93,29 +97,26 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Reads file containing hashed credentials and converts content to string array
+     * Reads file containing hashed credentials and converts content to string array.
      */
     private String[] readFromFile() {
         String ret = "";
         try {
-            //InputStream inputStream = openFileInput("config.txt");
-            InputStream inputStream = getResources().openRawResource(R.raw.credentials);
-
-            if ( inputStream != null ) {
+            //InputStream inputStream = getResources().openRawResource(R.raw.credentials);
+            URL url = new URL(urlString + "/credentials");
+            InputStream inputStream = url.openStream();
+            if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
                 StringBuilder stringBuilder = new StringBuilder();
-
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
                     stringBuilder.append(receiveString);
                 }
-
                 inputStream.close();
                 ret = stringBuilder.toString();
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             Log.e("main activity", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("main activity", "Can not read file: " + e.toString());
@@ -124,7 +125,7 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Hash functions used to hash username and password
+     * Hash functions used to hash username and password.
      */
     private static String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
@@ -252,7 +253,7 @@ public class LoginActivity extends Activity {
                 return false;
             }
 
-            // Check if credentials match
+            // Check if credentials match.
             try {
                 for (String credential : readFromFile()) {
                     String[] pieces = credential.split(":");
@@ -278,11 +279,11 @@ public class LoginActivity extends Activity {
             showProgress(false);
 
             if (success) {
-                // Go to MainActivity
+                // Go to MainActivity.
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
-                // Kill LoginActivity
+                // Kill LoginActivity.
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password_username));

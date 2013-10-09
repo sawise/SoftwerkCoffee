@@ -1,6 +1,7 @@
 package se.softwerk.coffee;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 //import android.widget.Switch;
@@ -41,7 +44,7 @@ public class MainActivity extends Activity {
         //InputStream is = getResources().openRawResource(R.raw.credentials);
 
         //textView.setText(readFromFile());
-
+        /*
         try {
             //textView.setText(readFromFile());
             //textView2.setText(SHA256(text));
@@ -57,8 +60,9 @@ public class MainActivity extends Activity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        */
     }
-
+    /*
     private static String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
@@ -80,23 +84,20 @@ public class MainActivity extends Activity {
     }
 
     private String readFromFile() {
-
         String ret = "";
-
         try {
             //InputStream inputStream = openFileInput("config.txt");
             InputStream inputStream = getResources().openRawResource(R.raw.credentials);
-
+            //URL url = new URL("http://192.168.1.90/credentials.txt");
+            //InputStream inputStream = url.openStream();
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
                 StringBuilder stringBuilder = new StringBuilder();
-
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
                     stringBuilder.append(receiveString);
                 }
-
                 inputStream.close();
                 ret = stringBuilder.toString();
             }
@@ -106,9 +107,9 @@ public class MainActivity extends Activity {
         } catch (IOException e) {
             Log.e("main activity", "Can not read file: " + e.toString());
         }
-
         return ret;
     }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
