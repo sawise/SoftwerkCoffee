@@ -93,7 +93,7 @@
 										  		document.getElementById("progress").innerHTML="DONE!";
 										  } else if (x == 601) {
 										  		document.getElementById("error").style.display = "block";
-										  }	else return;
+										  }	
 										  x++;
 										}, 1000);
 								</script>';

@@ -43,8 +43,8 @@ $app->get('/turnOn', function () use ($app) {
 
 $app->get('/status', function () use ($app) {
     $progressSession = 0; 
-    if(file_exists(ROOT_PATH.'/tmp/php_session1.txt')){
-        $progressSession = getSession('php_session1'); 
+    if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
+        $progressSession = getSession('php_session'); 
     }
     echo $progressSession;
     //$gpioTurnon = $gpio->output(17, 1); //Turning on pin 17
