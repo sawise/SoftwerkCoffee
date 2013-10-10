@@ -151,18 +151,20 @@
 				width:10%;
 				text-align:center;
 			}
-			#settings {
+			.settings {
 				display:inline-block;
 				padding:5em 0 5em 0;
 				width:80%;
-				height:10em;
-				background-color:white;
+				height:10em;;
 			}
 			#time-block {
 				margin-top:3em;
 			}
 			#time {
 				margin-top:1em;
+			}
+			#remember {
+				color:#F5F5F5;
 			}
 		</style>
         <script type="text/javascript">

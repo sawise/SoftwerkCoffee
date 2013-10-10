@@ -40,7 +40,7 @@
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 
 	<section>
-    	<div class="login-form divbg">
+    	<div class="login-form">
         	<form role="form" method="post" action="login.php">
             	<div class="form-group">
                 <label class="sr-only" for="username"></label>
@@ -63,7 +63,7 @@ echo $_COOKIE['remember_me']; ?>" />
 										echo '';
 									} ?> 
                                     
-                          	 /> Remember me 
+                          	 /> <span id="remember">Remember me</span>
                     	</label>
                     </div>
                 </div>
