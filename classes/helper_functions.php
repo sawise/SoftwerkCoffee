@@ -69,12 +69,11 @@
 				$timeleft = $dateunix - $end;
 				$timeleft = str_replace('-', '', $timeleft);
 				$timeelapsed = $timeon-$timeleft;
-				$progress = intval(($timeelapsed/$timeon)*600);
-				//echo '--------------------------------------------->Time elapsed: '.$timeelapsed.' Time left: '.$timeleft;
-				//echo '<br>Percent:'.$progress;
+				$progress = intval(($timeelapsed/$timeon)*$timeon);
 		}
 		$script = '<script language="javascript">;
 										var x = '.$progress.'; 
+										console.log("'.$session.'<->'.$dateunix.'")
 										setInterval(function() {
 										  if (x <= '.$timeon.') {
 										  	var percent = x/'.$timeon.'*100;
@@ -84,7 +83,6 @@
 										  	var timeleft =  timeend-now;
 										  	var timeelapsed = '.$timeon.'-timeleft;
 										  	//console.log(x+"----"+percent);
-										  	console.log("End: '.$end.' Timeleft: '.$timeleft.' TimeElapsed: '.$timeelapsed.' Progress: "+x)
 										   document.getElementById("progressbar").style.height="+"+percent+"%";
 											document.getElementById("progress").innerHTML="<br>"+percent+"% Timeleft:"+timeleft+"  Time elapsed: "+timeelapsed;
 										  } if (x == 600){
