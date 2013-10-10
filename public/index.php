@@ -24,7 +24,7 @@
 					<div class="progressbg">
 					<img src="img/coffeepot.png" class="imgA1"/>
 						<div class="meter">
-								<span id="progressbar" style="height: 100%;"></span>
+								<span id="progressbar" style="height: 0%;"></span>
 						</div>
 				</div>
 				</div>
