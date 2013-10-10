@@ -51,7 +51,7 @@
 		$progress = intval($timeelapsed/600*100);
 	}
 
-	function progressBar($session, $currentTime){
+	function progressBar($session){
 		$start = 0;
 		$end = 0;
 		$timeleft = 0;
@@ -60,15 +60,13 @@
 		$timeon = 600;
 		$date = new DateTime();
 		$dateunix = $date->format("U");
-
 		if($session <= 0){
 				$start = $dateunix;
 				$end = $start+$timeon;
 				saveSession($end, 'php_session');
-				//saveSession($end, 'php_session1');
 		}else if ($session > 0){
 				$end = $session;
-				$timeleft = $currentTime - $end;
+				$timeleft = $dateunix - $end;
 				$timeleft = str_replace('-', '', $timeleft);
 				$timeelapsed = $timeon-$timeleft;
 				$progress = intval(($timeelapsed/$timeon)*600);
@@ -86,7 +84,7 @@
 										  	var timeleft =  timeend-now;
 										  	var timeelapsed = '.$timeon.'-timeleft;
 										  	console.log(x+"----"+percent);
-										   document.getElementById("progressbar").style.width="+"+percent+"%";
+										   document.getElementById("progressbar").style.height="+"+percent+"%";
 											document.getElementById("progress").innerHTML="<br>"+percent+"% Timeleft:"+timeleft+"  Time elapsed: "+timeelapsed;
 										  } if (x == 600){
 										  		document.getElementById("progressbar").style.width="+"+percent+"%";

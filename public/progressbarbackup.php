@@ -53,3 +53,14 @@
 					saveSession(0, 'php_session1');			
 				}
 			?>
+
+			<div class="row divbg">
+			<div class="inDiv"><a href="#" onClick="run()">Softwerk Coffee</a></div>
+			<div class="inDiv">
+				<div class="progressbg">
+					<img src="img/coffeepot.png" class="imgA1"/>
+						<div class="meter">
+								<span id="progressbar" style="height: 0%;"></span>
+						</div>
+				</div>		
+			</div>

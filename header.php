@@ -22,15 +22,16 @@
 			.imgA1 {
 				padding: 5em;
 				padding: 4em 0 0 1em;
-			    position:absolute;
-			    z-index:2;
+			   position:absolute;
+			   z-index:2;
 			  }
 
 			.meter { 
-				height: 28.3em;  
+				height: 27.3em;  
 				width: 23.2em;
-				padding:1em 0em 0em 1em;
-
+				padding:8em 0em 0em 1em;
+				display: table-cell;
+   vertical-align: bottom;
 				-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
 				-moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
 				box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
@@ -38,23 +39,13 @@
 			
 			.meter > span {
 				opacity:0.95;
+				vertical-align: bottom;
 				filter:alpha(opacity=95);
 				display: block;
 				z-index: 1;
-				margin: 6.5em 0 0em 0em;
-				height: 71%;
-				   -webkit-border-top-right-radius: 50em;
-				-webkit-border-bottom-right-radius: 50em;
-				       -moz-border-radius-topright: 50em;
-				    -moz-border-radius-bottomright: 50em;
-				           border-top-right-radius: 50em;
-				        border-bottom-right-radius: 50em;
-				    -webkit-border-top-left-radius: 50em;
-				 -webkit-border-bottom-left-radius: 50em;
-				        -moz-border-radius-topleft: 50em;
-				     -moz-border-radius-bottomleft: 50em;
-				            border-top-left-radius: 50em;
-				         border-bottom-left-radius: 50em;
+				margin: 10em 0 0em 0em;
+				width: 100%;
+	
 				background-color: rgb(43,194,83);
 				background-image: -webkit-gradient(
 				  linear,
