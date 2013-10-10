@@ -1,115 +1,89 @@
 package se.softwerk.coffee;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-//import android.widget.ProgressBar;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import android.os.Handler;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+import android.os.StrictMode;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-//import android.widget.Switch;
+import java.text.DecimalFormat;
 
-public class MainActivity extends Activity {
-    //private ProgressBar progress;
-    //private Switch onSwitch;
-    private TextView textView;
-    private TextView textView2;
-    private String text = "used";
 
+public class MainActivity extends Activity implements Switch.OnCheckedChangeListener {
+    private TextView statusText;
+    private Webservice webService;
+    private ProgressBar progressBar;
+    private Handler handler = new Handler();
+    private Switch coffeeSwitch;
+    private Switch coffeepowderSwitch;
+    private String url = "http://192.168.1.90"; //"http://46.194.99.157";
+    private long currentProgressInt = 0;
+    private long timeOn = 600;
+    double progress = 0;
+    private int percentInt;
+    boolean check;
+    boolean error = false;
+    Animation anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //progress = (ProgressBar) findViewById(R.id.progressBar);
-        //onSwitch = (Switch) findViewById(R.id.switch1);
-        textView = (TextView) findViewById(R.id.text);
-        textView2 = (TextView) findViewById(R.id.text2);
-
-        //InputStream is = getResources().openRawResource(R.raw.credentials);
-
-        //textView.setText(readFromFile());
-        /*
-        try {
-            //textView.setText(readFromFile());
-            //textView2.setText(SHA256(text));
-
-            if(SHA256(text).toString().equals(readFromFile().toString())) {
-                textView.setText("true");
-            } else {
-                textView.setText("false");
-            }
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (android.os.Build.VERSION.SDK_INT>=9){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
         }
-        */
-    }
-    /*
-    private static String convertToHex(byte[] data) {
-        StringBuilder buf = new StringBuilder();
-        for (byte b : data) {
-            int halfbyte = (b >>> 4) & 0x0F;
-            int two_halfs = 0;
-            do {
-                buf.append((0 <= halfbyte) && (halfbyte <= 9) ? (char) ('0' + halfbyte) : (char) ('a' + (halfbyte - 10)));
-                halfbyte = b & 0x0F;
-            } while (two_halfs++ < 1);
-        }
-        return buf.toString();
-    }
 
-    public static String SHA256(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(text.getBytes("UTF-8"), 0, text.length());
-        byte[] sha256hash = md.digest();
-        return convertToHex(sha256hash);
-    }
+        webService = new Webservice();
 
-    private String readFromFile() {
-        String ret = "";
-        try {
-            //InputStream inputStream = openFileInput("config.txt");
-            InputStream inputStream = getResources().openRawResource(R.raw.credentials);
-            //URL url = new URL("http://192.168.1.90/credentials.txt");
-            //InputStream inputStream = url.openStream();
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
+        Log.i("Progresssession", currentProgressInt+"");
+
+        statusText = (TextView) findViewById(R.id.statusText);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        coffeeSwitch = (Switch) findViewById(R.id.coffeeSwitch);
+        coffeepowderSwitch = (Switch) findViewById(R.id.coffeepowderSwitch);
+
+        currentProgressInt = webService.getSession(url);
+
+        coffeeSwitch.setOnCheckedChangeListener(this);
+        coffeeSwitch.setEnabled(false);
+        coffeepowderSwitch.setOnCheckedChangeListener(this);
+
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+
+        anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(50);
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(5);
+
+        if(currentProgressInt > 0){
+            coffeeSwitch.setChecked(true);
         }
-        catch (FileNotFoundException e) {
-            Log.e("main activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("main activity", "Can not read file: " + e.toString());
-        }
-        return ret;
     }
-    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,6 +109,115 @@ public class MainActivity extends Activity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        if(buttonView == coffeeSwitch){
+
+            if(isChecked){
+                check = true;
+                currentProgressInt = webService.getSession(url);
+                webService.getWebservice(url+"/public/api/turnOn");
+                long epoch = (System.currentTimeMillis()/1000)+timeOn;
+                Log.i("Unix timestamp", epoch+"");
+                if(currentProgressInt <= 0){
+                    webService.saveSession(url, epoch);
+                } else if(currentProgressInt > 0){
+                    calculateProgress(epoch, currentProgressInt);
+                }
+            } else if(!isChecked){
+                check = false;
+                webService.getWebservice(url+"/public/api/turnOff");
+                webService.clearSession(url);
+            }
+
+            new Thread(new Runnable() {
+                int p = (int) progress;
+
+                public void run() {
+                    while (p < timeOn) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        handler.post(new Runnable() {
+                            public void run() {
+                                if(check && !error){
+                                    double percent = roundTwodecimals(((double)p/timeOn)*100);
+                                    percentInt = (int) percent;
+                                    //Log.i("percent", p+"<->"+percentInt);
+                                    progressBar.setProgress(percentInt);
+                                    setStatusText(percent+"%", error);
+                                } else if (!check && !error && percentInt != 100) {
+                                    progressBar.setProgress(0);
+                                    setStatusText("STOPPED!", error);
+                                    p = (int) timeOn;
+                                }  else if(error/*this value only simulates the error message, in future put a another statement*/){
+                                    progressBar.setProgress(50/*should be p*/);
+                                    error = true;
+                                    setStatusText("ERROR!", error);
+                                    p = (int) timeOn;
+                                    error = false;
+                                }if (p == timeOn && !error && check) {
+                                    setStatusText("DONE!", error);
+                                    coffeepowderSwitch.setChecked(false);
+                                    coffeeSwitch.setChecked(false);
+                                    webService.getWebservice(url+"/public/api/turnOff");
+                                }
+                            }
+                        });
+                        p++;
+                    }
+                }
+            }).start();
+        } else if(buttonView == coffeepowderSwitch){
+            if(isChecked){
+                coffeeSwitch.setEnabled(true);
+            } else if(!isChecked){
+                coffeeSwitch.setEnabled(false);
+            }
+        }
+    }
+
+    public void setStatusText(String status, boolean error){
+        statusText.setVisibility(1);
+        statusText.setText(status);
+        if(error){
+            statusText.startAnimation(anim);
+            coffeeSwitch.setChecked(false);
+        } if (!error){
+            statusText.clearAnimation();
+        }
+    }
+
+    public double roundTwodecimals(double d){
+        DecimalFormat twoDForm = new DecimalFormat("#.#");
+        return Double.valueOf(twoDForm.format(d));
+    }
+
+    public void calculateProgress(long currentTime, long currentProgress){
+        if(currentProgress <= 0){
+            long start = currentTime;
+            long end = start-timeOn;
+        } else if (currentProgress > 0){
+            long end = currentProgress;
+            double timeOnD = (double) timeOn;
+            String str = String.valueOf(currentTime-end);
+            double timeLeft = Double.parseDouble(str);
+            double timeElapsed = timeOnD-timeLeft;
+            progress = (timeElapsed/timeOnD)*600;
+            Log.i("currenttime", ""+currentTime);
+            Log.i("timeend", ""+end);
+
+            Log.i("timeleftStr", str);
+            Log.i("timeleft", end+"-"+timeLeft);
+            Log.i("timeelapsed", timeOnD+"-"+timeLeft+"="+timeElapsed);
+            Log.i("calc", "("+timeElapsed+"/"+timeOn+")*"+timeOn);
+            Log.i("calc", progress+"");
         }
     }
 
