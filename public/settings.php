@@ -9,7 +9,7 @@
 	<div id="settings-div">
  		<a href="index.php">&larr; Back to Coffee</a>
    	</div>
-    <section id="settings">
+    <section class="settings divbg">
     	<!--
     	<input type="button" class="btn btn-default" value="Start Timer" onclick="doTimer()" />
    
