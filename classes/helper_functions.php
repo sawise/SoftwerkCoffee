@@ -83,7 +83,8 @@
 										  	var timeend = '.$end.';
 										  	var timeleft =  timeend-now;
 										  	var timeelapsed = '.$timeon.'-timeleft;
-										  	console.log(x+"----"+percent);
+										  	//console.log(x+"----"+percent);
+										  	console.log("End: '.$end.' Timeleft: '.$timeleft.' TimeElapsed: '.$timeelapsed.' Progress: "+x)
 										   document.getElementById("progressbar").style.height="+"+percent+"%";
 											document.getElementById("progress").innerHTML="<br>"+percent+"% Timeleft:"+timeleft+"  Time elapsed: "+timeelapsed;
 										  } if (x == 600){

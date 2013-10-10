@@ -1,5 +1,6 @@
 package com.softwerk.coffee2;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -23,16 +24,21 @@ import org.apache.http.util.EntityUtils;
 
 import android.os.StrictMode;
 
+import java.text.DecimalFormat;
 
-public class MainActivity extends Activity implements Switch.OnCheckedChangeListener, Button.OnClickListener {
+
+public class MainActivity extends Activity implements Switch.OnCheckedChangeListener {
     private TextView statusText;
+    private Webservice webService;
     private ProgressBar progressBar;
     private Handler handler = new Handler();
     private Switch coffeeSwitch;
-    private Button statusButton;
-    private String url = "http://192.168.1.175";
-    private int currentProgressInt = 0;
-    private String currentProgressStr;
+    private Switch coffeepowderSwitch;
+    private String url = "http://46.194.99.157";
+    private long currentProgressInt = 0;
+    private long timeOn = 600;
+    double progress = 0;
+    private int percentInt;
     boolean check;
     boolean error = false;
     Animation anim;
@@ -49,15 +55,20 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
             StrictMode.setThreadPolicy(policy);
         }
 
-        getSession();
+        webService = new Webservice();
+
+        Log.i("Progresssession", currentProgressInt+"");
 
         statusText = (TextView) findViewById(R.id.statusText);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         coffeeSwitch = (Switch) findViewById(R.id.coffeeSwitch);
-        statusButton = (Button) findViewById(R.id.testButton);
+        coffeepowderSwitch = (Switch) findViewById(R.id.coffeepowderSwitch);
+
+        currentProgressInt = webService.getSession(url);
 
         coffeeSwitch.setOnCheckedChangeListener(this);
-        statusButton.setOnClickListener(this);
+        coffeeSwitch.setEnabled(false);
+        coffeepowderSwitch.setOnCheckedChangeListener(this);
 
         progressBar.setProgress(0);
         progressBar.setMax(100);
@@ -82,105 +93,111 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
         if(buttonView == coffeeSwitch){
+
             if(isChecked){
                 check = true;
-                getWebservice(url+"/api/turnOn");
+                currentProgressInt = webService.getSession(url);
+                webService.getWebservice(url+"/api/turnOn");
+                long epoch = (System.currentTimeMillis()/1000)+timeOn;
+                Log.i("Unix timestamp", epoch+"");
+                if(currentProgressInt <= 0){
+                    webService.saveSession(url, epoch);
+                } else if(currentProgressInt > 0){
+                    calculateProgress(epoch, currentProgressInt);
+                }
             } else if(!isChecked){
                 check = false;
-                getWebservice(url+"/api/turnOff");
-                clearSession();
+                webService.getWebservice(url+"/api/turnOff");
+                webService.clearSession(url);
             }
 
             new Thread(new Runnable() {
-                int p = currentProgressInt;
+                int p = (int) progress;
 
                 public void run() {
-                    while (p < 100) {
+                    while (p < timeOn) {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
                         handler.post(new Runnable() {
                             public void run() {
-                            if(check && !error){
-                                progressBar.setProgress(p);
-                                setStatusText(p+"%", error);
-                                saveSession(p);
-                            }
-                            if (!check && !error) {
-                                progressBar.setProgress(0);
-                                setStatusText("STOPPED!", error);
-                                p = 100;
-                            }
-                            if(p == 1000/*this value only simulates the error message, in future put a another statement*/){
-                                progressBar.setProgress(50/*should be p*/);
-                                error = true;
-                                setStatusText("ERROR!", error);
-                                p = 100;
-                                error = false;
-                            }
+                                if(check && !error){
+                                    double percent = roundTwodecimals(((double)p/timeOn)*100);
+                                    percentInt = (int) percent;
+                                    //Log.i("percent", p+"<->"+percentInt);
+                                    progressBar.setProgress(percentInt);
+                                    setStatusText(percent+"%", error);
+                                } else if (!check && !error && percentInt != 100) {
+                                    progressBar.setProgress(0);
+                                    setStatusText("STOPPED!", error);
+                                    p = (int) timeOn;
+                                }  else if(error/*this value only simulates the error message, in future put a another statement*/){
+                                    progressBar.setProgress(50/*should be p*/);
+                                    error = true;
+                                    setStatusText("ERROR!", error);
+                                    p = (int) timeOn;
+                                    error = false;
+                                }if (p == timeOn && !error && check) {
+                                    setStatusText("DONE!", error);
+                                    coffeepowderSwitch.setChecked(false);
+                                    coffeeSwitch.setChecked(false);
+                                    webService.getWebservice(url+"/api/turnOff");
+                                }
                             }
                         });
                         p++;
                     }
                 }
             }).start();
+        } else if(buttonView == coffeepowderSwitch){
+            if(isChecked){
+                coffeeSwitch.setEnabled(true);
+            } else if(!isChecked){
+                coffeeSwitch.setEnabled(false);
+            }
         }
-    }
-
-    public void getSession(){
-        currentProgressStr = getWebservice(url+"/api/status").trim();
-        currentProgressInt = Integer.parseInt(currentProgressStr);
-    }
-
-    public void clearSession(){
-        getWebservice(url+"/api/turnOff");
-
-    }
-
-    public void saveSession(int progress){
-        getWebservice(url+"/api/saveSession/"+progress);
-
-    }
-
-    public String getWebservice(String url){
-        String output = "";
-        try {
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(url);
-            HttpResponse httpResponse = httpClient.execute(httpGet);
-            HttpEntity httpEntity = httpResponse.getEntity();
-            output = EntityUtils.toString(httpEntity);
-            Log.i("output", output);
-        } catch (Exception e){
-            Log.i("Error...", "something went wrong o.O"+e);
-        }
-        return output;
     }
 
     public void setStatusText(String status, boolean error){
         statusText.setVisibility(1);
         statusText.setText(status);
-         if(error){
-            statusText.startAnimation(anim);
-             coffeeSwitch.setChecked(false);
+        if(error){
+           statusText.startAnimation(anim);
+           coffeeSwitch.setChecked(false);
         } if (!error){
             statusText.clearAnimation();
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v == statusButton){
-            getWebservice("http://46.194.227.50/api/turnOff");
-            getWebservice("http://46.194.227.50/api/status");
-            getWebservice("http://46.194.227.50/api/turnOn");
-            statusText.setVisibility(1);
-            statusText.setText('-'+currentProgressStr);
+    public double roundTwodecimals(double d){
+      DecimalFormat twoDForm = new DecimalFormat("#.#");
+      return Double.valueOf(twoDForm.format(d));
+    }
 
+    public void calculateProgress(long currentTime, long currentProgress){
+        if(currentProgress <= 0){
+            long start = currentTime;
+            long end = start-timeOn;
+        } else if (currentProgress > 0){
+            long end = currentProgress;
+            double timeOnD = (double) timeOn;
+            String str = String.valueOf(currentTime-end);
+            double timeLeft = Double.parseDouble(str);
+            double timeElapsed = timeOnD-timeLeft;
+            progress = (timeElapsed/timeOnD)*600;
+            Log.i("currenttime", ""+currentTime);
+            Log.i("timeend", ""+end);
+
+            Log.i("timeleftStr", str);
+            Log.i("timeleft", end+"-"+timeLeft);
+            Log.i("timeelapsed", timeOnD+"-"+timeLeft+"="+timeElapsed);
+            Log.i("calc", "("+timeElapsed+"/"+timeOn+")*"+timeOn);
+            Log.i("calc", progress+"");
         }
     }
+
 }

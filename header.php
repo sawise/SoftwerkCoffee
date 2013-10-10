@@ -84,8 +84,6 @@
 				overflow: hidden;
 			}
 
-
-
 			.error{
 				background-color: #FF0000;
 				margin-left:auto;

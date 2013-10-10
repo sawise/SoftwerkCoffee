@@ -32,30 +32,52 @@
     </FrameLayout>
 
 
-    <Button
-    android:id="@+id/testButton"
-    style="?android:attr/buttonStyleSmall"
-    android:text="See status"
-    android:padding="0dp"
-    android:maxHeight="0dp"
-    android:maxWidth="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/statusText"
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#FF0000"
-        android:textSize="20dp"
-        android:layout_gravity="center"
-        android:visibility="invisible"/>
-
-    <Switch
-        android:id="@+id/coffeeSwitch"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coffeemachine: "
+            android:textSize="15dp"
+            android:layout_gravity="center"/>
+        <Switch
+            android:id="@+id/coffeeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coffeepowder: "
+            android:textSize="15dp"
+            android:layout_gravity="center"/>
+        <Switch
+            android:id="@+id/coffeepowderSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+     </LinearLayout>
 
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF0000"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"/>
 
 </LinearLayout>
