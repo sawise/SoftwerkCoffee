@@ -2,6 +2,8 @@
 
 - Coffeestatus on PHP-page barely readable, change?
 
+- Echo on top of page, remove?
+
 - Make time 00:00:00-format
 
 - Change "Coffeepowder" to "Loaded"
