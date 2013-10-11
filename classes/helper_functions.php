@@ -86,7 +86,7 @@
 										  	var timeelapsed = '.$timeon.'-timeleft;
 										  	//console.log(x+"----"+percent);
 										   document.getElementById("progressbar").style.height="+"+percent+"%";
-											document.getElementById("progress").innerHTML="<br>"+percent+"% Timeleft:"+timeleft+"  Time elapsed: "+timeelapsed;
+											document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+timeleft+" s &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+timeelapsed+" s";
 										  } if (x == 600){
 										  		document.getElementById("progressbar").style.width="+"+percent+"%";
 										  		document.getElementById("progress").innerHTML="DONE!";
