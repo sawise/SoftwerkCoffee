@@ -73,7 +73,9 @@
 		}
 		$script = '<script language="javascript">;
 										var x = '.$progress.'; 
-										console.log("'.$session.'<->'.$dateunix.'")
+										console.log("End: '.$session.'");
+										console.log("Timeleft: '.$dateunix.'-'.$session.'='.$timeleft.'");
+										console.log("Timeelapsed: '.$timeon.'<->'.$timeleft.'");
 										setInterval(function() {
 										  if (x <= '.$timeon.') {
 										  	var percent = x/'.$timeon.'*100;
@@ -88,7 +90,7 @@
 										  } if (x == 600){
 										  		document.getElementById("progressbar").style.width="+"+percent+"%";
 										  		document.getElementById("progress").innerHTML="DONE!";
-										  } else if (x == 601) {
+										  } else if (x == 1000) {
 										  		document.getElementById("error").style.display = "block";
 										  }	
 										  x++;

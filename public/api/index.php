@@ -50,6 +50,13 @@ $app->get('/status', function () use ($app) {
     //$gpioTurnon = $gpio->output(17, 1); //Turning on pin 17
 });
 
+$app->get('/getTime', function () use ($app) {
+    $date = new DateTime();
+    $dateunix = $date->format("U");
+    echo $dateunix;
+    //$gpioTurnon = $gpio->output(17, 1); //Turning on pin 17
+});
+
 $app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
     echo 'This is crazy, but this page was not found!';
