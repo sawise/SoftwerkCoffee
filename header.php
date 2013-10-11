@@ -8,12 +8,8 @@
         <style>
 			body {
 				text-align:center;
-				background: url('img/bg.jpg') no-repeat center center fixed;
-				/*background-repeat:repeat;*/
-				-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+				background: url('img/bg.jpg') fixed;
+				background-repeat:repeat;
 			}
 
 			.progressbg{

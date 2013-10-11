@@ -120,7 +120,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
             if(isChecked){
                 check = true;
                 currentProgressInt = webService.getSession(url);
-                webService.getWebservice(url+"/public/api/turnOn");
+                webService.getWebservice(url+"/api/turnOn");
                 long epoch = (System.currentTimeMillis()/1000)+timeOn;
                 Log.i("Unix timestamp", epoch+"");
                 if(currentProgressInt <= 0){
@@ -130,7 +130,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
                 }
             } else if(!isChecked){
                 check = false;
-                webService.getWebservice(url+"/public/api/turnOff");
+                webService.getWebservice(url+"/api/turnOff");
                 webService.clearSession(url);
             }
 
@@ -166,7 +166,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
                                     setStatusText("DONE!", error);
                                     coffeepowderSwitch.setChecked(false);
                                     coffeeSwitch.setChecked(false);
-                                    webService.getWebservice(url+"/public/api/turnOff");
+                                    webService.getWebservice(url+"/api/turnOff");
                                 }
                             }
                         });
