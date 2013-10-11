@@ -14,17 +14,17 @@ import org.apache.http.util.EntityUtils;
 public class Webservice {
 
     public int getSession(String url){
-        String currentProgressStr = getWebservice(url+"/public/api/status").trim();
+        String currentProgressStr = getWebservice(url+"/api/status").trim();
         int currentProgressInt = Integer.parseInt(currentProgressStr);
         return currentProgressInt;
     }
 
     public void clearSession(String url){
-        getWebservice(url+"/public/api/turnOff");
+        getWebservice(url+"/api/turnOff");
     }
 
     public void saveSession(String url, long progress){
-        getWebservice(url+"/public/api/saveSession/"+progress);
+        getWebservice(url+"/api/saveSession/"+progress);
     }
 
     public String getWebservice(String url){

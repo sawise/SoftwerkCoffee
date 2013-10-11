@@ -51,7 +51,7 @@ public class LoginActivity extends Activity {
     private TextView mLoginStatusMessageView;
 
     // URL reference.
-    private String urlString = "http://192.168.1.90";
+    private String urlString = "http://192.168.1.102";
 
 
     @Override
