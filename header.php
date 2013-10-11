@@ -8,8 +8,12 @@
         <style>
 			body {
 				text-align:center;
-				background: url('img/bg.jpg');
-				background-repeat:repeat;
+				background: url('img/bg.jpg') no-repeat center center fixed;
+				/*background-repeat:repeat;*/
+				-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 			}
 
 			.progressbg{
@@ -102,12 +106,31 @@
 				opacity:0.9;
 				filter:alpha(opacity=90);
 			}
-
+			.index {
+				display:inline-block;
+				width:80%;
+				margin-top:-8em;
+				padding:2em 4em 4em 4em;
+			}
 			.inDiv{
 				opacity:1;
 				text-align:center;
 				filter:alpha(opacity=1);
-				padding-left: 10em;
+				/*padding-left: 10em;*/
+			}
+			.progress-div {
+				display:inline-block;
+				clear:both;		
+			}
+			.switch-div {
+				display:inline-block;
+				clear:both;
+			}
+			#info-div {
+				display:block;
+				clear:both;
+				height:5em;
+				padding-top:1em;
 			}
 			.container {
 				margin-top:2em;
@@ -155,7 +178,7 @@
 				display:inline-block;
 				padding:5em 0 5em 0;
 				width:80%;
-				height:10em;;
+				height:10em;
 			}
 			#time-block {
 				margin-top:3em;
@@ -229,6 +252,10 @@
     	<div class="container">
         	 <?php if (isset($_SESSION['is_logged_in'])) : ?>
 			 	<div class="well well-small" id="user_info">
-          			<p><a href="settings.php" >Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
+          			<?php if ($page_title != "Settings") : ?>
+                    	<p><a href="settings.php">Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
+					<?php else : ?>
+                        <p>Settings | <a class="logout_link" href="logout.php">Log out</a></p>
+					<?php endif ?>
       			</div>
       		<?php endif ?>
