@@ -3,7 +3,7 @@
     $_SESSION['return_to'] = $_SERVER['REQUEST_URI'];
     set_feedback('error', 'You have to log in to reach this page.');
 	if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    header('location: /public/login.php');
+    	header('location: login.php');
 	} else {
 		header('location: login.php');
 	}
