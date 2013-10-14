@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
     private Handler handler = new Handler();
     private Switch coffeeSwitch;
     private Switch coffeepowderSwitch;
-    private String url = "http://192.168.1.90"; //"http://46.194.99.157";
+    private String url = "http://192.168.1.102"; //"http://46.194.99.157";
     private long currentProgressInt = 0;
     private long timeOn = 600;
     double progress = 0;

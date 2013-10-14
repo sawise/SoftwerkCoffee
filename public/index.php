@@ -8,6 +8,9 @@
 	if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
 		$progressSession = getSession('php_session'); 
 		echo $progressSession;
+		echo '<script language="javascript">
+										console.log("currentsession: '.$progressSession.'");
+								</script>';
 	}
 	
 	$page_title = "Coffee";
