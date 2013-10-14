@@ -97,10 +97,12 @@
 			}
 
 			.divbg{
+				
 				background: #FFFFFF;
 				border: 2px, #00FF00;
 				opacity:0.9;
 				filter:alpha(opacity=90);
+				border-radius:5px;
 			}
 			.index {
 				display:inline-block;
@@ -126,13 +128,18 @@
 				display:block;
 				clear:both;
 				height:5em;
-				padding-top:1em;
+				padding-top:2em;
 			}
 			.container {
 				margin-top:2em;
 			}
 			.login-form {
 				display:inline-block;
+				background: rgb(255, 255, 255); /* Fall-back for browsers that don't
+                                    support rgba */
+				background-color:rgba(255, 255 ,255 ,0.4);
+				padding:8px;
+				border-radius:5px;
 			}
 			#user_info {
 				float:left;
@@ -183,7 +190,10 @@
 				margin-top:1em;
 			}
 			#remember {
-				color:#F5F5F5;
+				color:#000;
+			}
+			#progress {
+				font-size:15px;
 			}
 		</style>
         <script type="text/javascript">

@@ -1,0 +1,42 @@
+- Why is the PHP-page displaying "ERROR" when coffee is done?
+
+- Coffeestatus on PHP-page barely readable, change?
+
+- Echo on top of page, remove?
+
+- Make time 00:00:00-format
+
+- Change "Coffeepowder" to "Loaded"
+
+- When coffee is done, coffeemachine should still be "ON" in app
+
+- User should be able to switch off coffeemachine even when it's not loaded (but not switch on, obviously)
+
+- Two tabs in app: Main view and History
+	- Main view contains coffeepot + functions (on, off, time etc)
+	- History contains user history and statistics
+		- Who loaded the coffeemachine and when
+		- Who swiched the coffeemachine ON/OFF
+		- Statistics
+			- How much coffe (litres, cups) has been consumed?
+				- This week
+				- This month
+				- All time
+			- How many pots has been brewed
+				- This week
+				- This month
+				- All time
+		- Split view History / Statistics (?)
+		- History as TableView (?)
+
+- Autoswitch OFF function (switches off coffeemachine at specific time (18:00))
+	- Time should be changeable in Settings
+
+- Compability
+	- Switches for API 14+
+	- ToggleButtons for lower API:s (?)
+
+- Salt hash
+
+- Properly track time in Redmine
+
