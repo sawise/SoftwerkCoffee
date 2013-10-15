@@ -12,6 +12,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -32,12 +33,19 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends Activity implements Switch.OnCheckedChangeListener {
     private TextView statusText;
+    private TextView timeElapsedText;
+    private TextView timeElapsedValuetext;
+    private TextView timeLeftText;
+    private TextView timeleftValuetext;
+    private LinearLayout timeLeftLayout;
+    private LinearLayout timeElapsedLayout;
     private Webservice webService;
     private ProgressBar progressBar;
+
     private Handler handler = new Handler();
     private Switch coffeeSwitch;
     private Switch coffeepowderSwitch;
-    private String url = "http://192.168.1.90"; //"http://46.194.99.157";
+    private String url = "http://192.168.1.175"; //"http://46.194.99.157";
     private long currentProgressInt = 0;
     private long timeOn = 600;
     double progress = 0;
@@ -45,6 +53,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
     boolean check;
     boolean error = false;
     Animation anim;
+    private String[] pieces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +67,22 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
 
         webService = new Webservice();
 
-        Log.i("Progresssession", currentProgressInt+"");
+
+        String userPass = getIntent().getStringExtra(LoginActivity.EXTRA_TEXT);
+        pieces = userPass.split(":");
 
         statusText = (TextView) findViewById(R.id.statusText);
+        timeElapsedText = (TextView) findViewById(R.id.timeElapsedtext);
+        timeElapsedValuetext = (TextView) findViewById(R.id.timeElapsedvalue);
+        timeLeftText = (TextView) findViewById(R.id.timeLefttext);
+        timeleftValuetext = (TextView) findViewById(R.id.timeLeftvalue);
+        timeLeftLayout = (LinearLayout) findViewById(R.id.timeLeftLayout);
+        timeElapsedLayout = (LinearLayout) findViewById(R.id.timeElapsedLayout);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         coffeeSwitch = (Switch) findViewById(R.id.coffeeSwitch);
         coffeepowderSwitch = (Switch) findViewById(R.id.coffeepowderSwitch);
 
-        currentProgressInt = webService.getSession(url);
+        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
 
         coffeeSwitch.setOnCheckedChangeListener(this);
         coffeeSwitch.setEnabled(false);
@@ -119,19 +136,19 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
 
             if(isChecked){
                 check = true;
-                currentProgressInt = webService.getSession(url);
-                webService.getWebservice(url+"/api/turnOn");
+                currentProgressInt = webService.getSession(pieces[0], pieces[1]);;
+                webService.toggleCoffee(pieces[0], pieces[1], "on");
                 long epoch = (System.currentTimeMillis()/1000)+timeOn;
                 Log.i("Unix timestamp", epoch + "");
                 if(currentProgressInt <= 0){
-                    webService.saveSession(url, epoch);
+                    webService.saveSession(pieces[0], pieces[1], epoch);
                 } else if(currentProgressInt > 0){
                     calculateProgress(epoch, currentProgressInt);
                 }
             } else if(!isChecked){
                 check = false;
-                webService.getWebservice(url+"/api/turnOff");
-                webService.clearSession(url);
+                webService.toggleCoffee(pieces[0], pieces[1], "off");
+                webService.clearSession(pieces[0], pieces[1]);
             }
 
             new Thread(new Runnable() {

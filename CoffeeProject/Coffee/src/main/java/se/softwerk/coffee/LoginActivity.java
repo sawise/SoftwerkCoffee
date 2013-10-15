@@ -43,6 +43,10 @@ public class LoginActivity extends Activity {
     private String mUsername;
     private String mPassword;
 
+    //Intent.putextra
+    private String sendUser;
+    private String sendPass;
+
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;
@@ -51,7 +55,7 @@ public class LoginActivity extends Activity {
     private TextView mLoginStatusMessageView;
 
     // URL reference.
-    private String urlString = "http://192.168.1.90";
+    private String urlString = "http://192.168.1.175";
 
     // Salt
     private String salt = "34A75DD4C4DF5E4DDFC68CA975B35";
@@ -262,6 +266,8 @@ public class LoginActivity extends Activity {
                     String[] pieces = credential.split(":");
                     if (pieces[0].equals(SHA256(mUsername + salt))) {
                         // Account exists, return true if the password matches.
+                        sendUser = pieces[0];
+                        sendPass = pieces[1];
                         return pieces[1].equals(SHA256(mPassword + salt));
                     } else {
                         return false;
@@ -284,6 +290,9 @@ public class LoginActivity extends Activity {
             if (success) {
                 // Go to MainActivity.
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                //String[] hash = readFromFile();
+                        i.putExtra(EXTRA_TEXT, sendUser+":"+sendPass);
+
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
                 // Kill LoginActivity.

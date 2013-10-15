@@ -12,19 +12,29 @@ import org.apache.http.util.EntityUtils;
  * Created by sam on 10/9/13.
  */
 public class Webservice {
+    private String url = "http://192.168.1.175/api";
 
-    public int getSession(String url){
-        String currentProgressStr = getWebservice(url+"/api/status").trim();
+    public int getSession(String user, String pass){
+        String currentProgressStr = getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getSession").trim();
+        Log.i("Session", url+"/?user="+user+"&pass="+pass+"&command=getSession");
         int currentProgressInt = Integer.parseInt(currentProgressStr);
         return currentProgressInt;
     }
 
-    public void clearSession(String url){
-        getWebservice(url+"/api/turnOff");
+    public void clearSession(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
     }
 
-    public void saveSession(String url, long progress){
-        getWebservice(url+"/api/saveSession/"+progress);
+    public void saveSession(String user, String pass, long progress){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&saveSession="+progress);
+    }
+
+    public void toggleCoffee(String user, String pass, String toggle){
+        if(toggle.equals("off")){
+            getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
+        } else if(toggle.equals("on")){
+            getWebservice(url+"/?user="+user+"&pass="+pass+"&"+"&command=turnOn");
+        }
     }
 
     public String getWebservice(String url){
