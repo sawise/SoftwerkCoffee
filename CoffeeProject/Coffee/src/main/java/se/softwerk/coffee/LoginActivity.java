@@ -90,14 +90,6 @@ public class LoginActivity extends Activity {
                 attemptLogin();
             }
         });
-
-        try {
-            System.out.println(SHA256("user"+salt));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
