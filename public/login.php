@@ -6,8 +6,8 @@
 	}
 
   	if (isset($_POST) && isset($_POST['username'])) {
-  		$username = hash('sha256', $_POST['username']);
-		$password = hash('sha256', $_POST['password']);
+  		$username = hash('sha256', $_POST['username'].SALT);
+		$password = hash('sha256', $_POST['password'].SALT);
     	//$password = crypt($_POST['password'], '$5$rounds=5000$notevenclose$'); 
 
 		if ($username == USER && $password == PASS /*crypt(PASS, '$5$rounds=5000$notevenclose$')*/) {

@@ -10,6 +10,7 @@
 		
 	define('USER', $value[0]);
 	define('PASS', $value[1]);
+	define('SALT', '34A75DD4C4DF5E4DDFC68CA975B35');
 	//define('PASSCRYPT', crypt(PASS, '$5$rounds=5000$notevenclose$'));
 	
 	fclose($fh);

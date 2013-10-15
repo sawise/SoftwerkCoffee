@@ -37,7 +37,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
     private Handler handler = new Handler();
     private Switch coffeeSwitch;
     private Switch coffeepowderSwitch;
-    private String url = "http://192.168.1.102"; //"http://46.194.99.157";
+    private String url = "http://192.168.1.90"; //"http://46.194.99.157";
     private long currentProgressInt = 0;
     private long timeOn = 600;
     double progress = 0;
@@ -122,7 +122,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
                 currentProgressInt = webService.getSession(url);
                 webService.getWebservice(url+"/api/turnOn");
                 long epoch = (System.currentTimeMillis()/1000)+timeOn;
-                Log.i("Unix timestamp", epoch+"");
+                Log.i("Unix timestamp", epoch + "");
                 if(currentProgressInt <= 0){
                     webService.saveSession(url, epoch);
                 } else if(currentProgressInt > 0){
