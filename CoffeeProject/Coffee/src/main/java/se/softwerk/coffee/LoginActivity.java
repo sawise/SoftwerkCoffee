@@ -51,7 +51,10 @@ public class LoginActivity extends Activity {
     private TextView mLoginStatusMessageView;
 
     // URL reference.
-    private String urlString = "http://192.168.1.102";
+    private String urlString = "http://192.168.1.90";
+
+    // Salt
+    private String salt = "34A75DD4C4DF5E4DDFC68CA975B35";
 
 
     @Override
@@ -87,6 +90,14 @@ public class LoginActivity extends Activity {
                 attemptLogin();
             }
         });
+
+        try {
+            System.out.println(SHA256("user"+salt));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -257,9 +268,9 @@ public class LoginActivity extends Activity {
             try {
                 for (String credential : readFromFile()) {
                     String[] pieces = credential.split(":");
-                    if (pieces[0].equals(SHA256(mUsername))) {
+                    if (pieces[0].equals(SHA256(mUsername + salt))) {
                         // Account exists, return true if the password matches.
-                        return pieces[1].equals(SHA256(mPassword));
+                        return pieces[1].equals(SHA256(mPassword + salt));
                     } else {
                         return false;
                     }

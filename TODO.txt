@@ -1,4 +1,4 @@
-- Why is the PHP-page displaying "ERROR" when coffee is done?
+(- Why is the PHP-page displaying "ERROR" when coffee is done?)
 
 - Coffeestatus on PHP-page barely readable, change?
 
@@ -36,7 +36,7 @@
 	- Switches for API 14+
 	- ToggleButtons for lower API:s (?)
 
-- Salt hash
+(- Salt hash)
 
 - Properly track time in Redmine
 

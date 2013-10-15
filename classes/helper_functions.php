@@ -72,30 +72,34 @@
 				$progress = intval(($timeelapsed/$timeon)*$timeon);
 		}
 		$script = '<script language="javascript">;
-										var x = '.$progress.'; 
-										console.log("End: '.$session.'");
-										console.log("Timeleft: '.$dateunix.'-'.$session.'='.$timeleft.'");
-										console.log("Timeelapsed: '.$timeon.'<->'.$timeleft.'");
-										setInterval(function() {
-										  if (x <= '.$timeon.') {
-										  	var percent = x/'.$timeon.'*100;
-										  	percent = percent.toFixed(2);
-										  	var now = Math.round(new Date().getTime()/1000.0);
-										  	var timeend = '.$end.';
-										  	var timeleft =  timeend-now;
-										  	var timeelapsed = '.$timeon.'-timeleft;
-										  	//console.log(x+"----"+percent);
-										   document.getElementById("progressbar").style.height="+"+percent+"%";
-											document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+timeleft+" s &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+timeelapsed+" s";
-										  } if (x == 600){
-										  		document.getElementById("progressbar").style.width="+"+percent+"%";
-										  		document.getElementById("progress").innerHTML="DONE!";
-										  } else if (x == 1000) {
-										  		document.getElementById("error").style.display = "block";
-										  }	
-										  x++;
-										}, 1000);
-								</script>';
+						var x = '.$progress.'; 
+						console.log("End: '.$session.'");
+						console.log("Timeleft: '.$dateunix.'-'.$session.'='.$timeleft.'");
+						console.log("Timeelapsed: '.$timeon.'<->'.$timeleft.'");
+						setInterval( function() {
+							if (x <= '.$timeon.') {
+								var percent = x/'.$timeon.'*100;
+								percent = percent.toFixed(2);
+								var now = Math.round(new Date().getTime()/1000.0);
+								var timeend = '.$end.';
+								var timeleft =  timeend-now;
+								var timeelapsed = '.$timeon.'-timeleft;
+								//console.log(x+"----"+percent);
+								document.getElementById("progressbar").style.height="+"+percent+"%";
+								document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+timeleft+" s &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+timeelapsed+" s";
+								
+							} if (x >= 600){
+								document.getElementById("progressbar").style.width="+"+percent+"%";
+								document.getElementById("progress").innerHTML="DONE!";
+							} 
+							/*
+							else if (x == 1000) {
+								document.getElementById("error").style.display = "block";
+							}
+							*/	
+							x++;
+						}, 1000);
+					</script>';
 		return $script;
 	}
 
