@@ -1,5 +1,4 @@
 <?php
-echo phpinfo();
 
 Class Ssh2_crontab_manager {
 
@@ -145,12 +144,12 @@ $crontab = new Ssh2_crontab_manager('localhost', '22', 'sam', 'Jonsson91');
 //crontab->append_cronjob('30 8 * * 6 home/path/to/command/the_command.sh >/dev/null 2>&1');
 
 //Remove job
-$cron_regex = array(  
-  '/0 0 1 \* \*/',  
- '/home\/path\/to\/command\/the_command\.sh\/'  
-);  
+//7$cron_regex = array(  
+//  '/0 0 1 \* \*/',  
+// '/home\/path\/to\/command\/the_command\.sh\/'  
+//);  
   
-$crontab->remove_cronjob($cron_regex);  
+//$crontab->remove_cronjob($cron_regex);  
 
 ?>
 
