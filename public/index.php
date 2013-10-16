@@ -64,15 +64,15 @@
 		</div>
 		
 		<?php 		
-			if((isset($_GET['status']) && $_GET['status'] == "on") || ($progressSession > 0 && !isset($_GET['status']))){
-				echo  progressBar($progressSession);
-				$crontab->exec("sudo python /home/pi/coffee-on.py");
-
-
-			} if(isset($_GET['status']) && $_GET['status'] == "off") {
-				saveSession(0, 'php_session');	
-				saveSession('', 'coffeestatus');
-			}
+			  if((isset($_GET['status']) && $_GET['status'] == "on") || ($progressSession > 0 && !isset($_GET['status']))){
+               echo  progressBar($progressSession);
+              $crontab->exec("sudo python /home/pi/coffee-on.py");
+                
+                } if(isset($_GET['status']) && $_GET['status'] == "off") {
+                 	$crontab->exec("sudo python /home/pi/coffee-off.py");
+                    saveSession(0, 'php_session');  
+	                 saveSession('', 'coffeestatus');
+                 }
 		?>
 	</section> 
 
