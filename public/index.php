@@ -5,6 +5,7 @@
    $browser = $_SERVER['HTTP_USER_AGENT'];
    //print_r($browser);
 	$progressSession = 0; 
+	$coffeestatus = 0;
 	if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
 		$progressSession = getSession('php_session'); 
 		echo $progressSession;
@@ -12,7 +13,14 @@
 										console.log("currentsession: '.$progressSession.'");
 								</script>';
 	}
-	
+	if(file_exists(ROOT_PATH.'/tmp/coffeestatus.txt')){
+		$coffeestatus = getSession('coffeestatus'); 
+		echo $coffeestatus;
+		echo '<script language="javascript">
+										console.log("currentsession: '.$progressSession.'");
+								</script>';
+	}
+	$crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
 	$page_title = "Coffee";
 	$error = false;
 	$timestart = 0;
@@ -58,8 +66,12 @@
 		<?php 		
 			if((isset($_GET['status']) && $_GET['status'] == "on") || ($progressSession > 0 && !isset($_GET['status']))){
 				echo  progressBar($progressSession);
+				$crontab->exec("sudo python /home/pi/coffee-on.py");
+
+
 			} if(isset($_GET['status']) && $_GET['status'] == "off") {
 				saveSession(0, 'php_session');	
+				saveSession('', 'coffeestatus');
 			}
 		?>
 	</section> 
