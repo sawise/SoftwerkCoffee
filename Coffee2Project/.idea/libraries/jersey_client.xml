@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="jersey-client">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Coffee2/libs/jersey-client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Coffee2/libs/jersey-common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Coffee2/libs/jersey-container-servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Coffee2/libs/jersey-container-servlet-core.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
