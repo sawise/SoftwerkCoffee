@@ -7,7 +7,7 @@ Class Ssh2_crontab_manager {
 	private $handle;
 	private $cron_file;
 
-	function __construct($host="localhost", $port="21", $username="sam", $password="c7fVNcZv")
+	function __construct($host, $portl, $username, $password)
 	{		
 		$path_length	 = strrpos(__FILE__, "/");
 		$this->path 	 = substr(__FILE__, 0, $path_length) . '/';		
@@ -136,20 +136,6 @@ Class Ssh2_crontab_manager {
 	}
 	
 }
-echo "success";
-$crontab = new Ssh2_crontab_manager('localhost', '22', 'sam', 'Jonsson91');   
-
-
-//Add job
-//crontab->append_cronjob('30 8 * * 6 home/path/to/command/the_command.sh >/dev/null 2>&1');
-
-//Remove job
-//7$cron_regex = array(  
-//  '/0 0 1 \* \*/',  
-// '/home\/path\/to\/command\/the_command\.sh\/'  
-//);  
-  
-//$crontab->remove_cronjob($cron_regex);  
 
 ?>
 
