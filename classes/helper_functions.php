@@ -64,17 +64,21 @@
 				$start = $dateunix;
 				$end = $start+$timeon;
 				saveSession($end, 'php_session');
-		}else if ($session > 0){
+		}else if ($session > $dateunix){
 				$end = $session;
 				$timeleft = $dateunix - $end;
 				$timeleft = str_replace('-', '', $timeleft);
 				$timeelapsed = $timeon-$timeleft;
 				$progress = intval(($timeelapsed/$timeon)*$timeon);
+		} else if ($session < $dateunix){
+				$progress = $timeon;
 		}
+
 		$script = '<script language="javascript">;
 						var x = '.$progress.'; 
 						console.log("End: '.$session.'");
 						console.log("Timeleft: '.$dateunix.'-'.$session.'='.$timeleft.'");
+						console.log("Time in dateunix:"+Math.round(new Date().getTime()/1000.0));
 						console.log("Timeelapsed: '.$timeon.'<->'.$timeleft.'");
 						setInterval( function() {
 							if (x <= '.$timeon.') {
@@ -92,11 +96,10 @@
 								document.getElementById("progressbar").style.width="+"+percent+"%";
 								document.getElementById("progress").innerHTML="DONE!";
 							} 
-							/*
-							else if (x == 1000) {
-								document.getElementById("error").style.display = "block";
-							}
-							*/	
+								//Put errorstatement here
+								//document.getElementById("error").style.display = "block";
+							
+
 							x++;
 						}, 1000);
 					</script>';

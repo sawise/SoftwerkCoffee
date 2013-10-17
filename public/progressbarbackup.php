@@ -1,3 +1,13 @@
+//
+<label class="checkbox toggle ios" style="width:100px"  onclick="">
+					<?php if(!isset($_GET['status']) && $progressSession == 0 || (isset($_GET['status']) && $_GET['status'] == "off")) : ?>
+						<input id="coffeeSwitch" type="checkbox" onClick="location.href='index.php?status=on'">
+					<?php endif ?>
+
+					<?php if(isset($_GET['status']) && $_GET['status'] == "on" || $progressSession > 0 && !isset($_GET['status'])) : ?>
+						<input id="coffeeSwitch" type="checkbox" onClick="location.href='index.php?status=off'" checked>
+					<?php endif ?>
+
 	<?php 		
 				if((isset($_GET['status']) && $_GET['status'] == "on") || ($progressSession > 0 && !isset($_GET['status']))){
 					//$total = 28;

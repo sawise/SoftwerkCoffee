@@ -7,10 +7,10 @@ Class Ssh2_crontab_manager {
 	private $handle;
 	private $cron_file;
 
-	function __construct($host, $portl, $username, $password)
+	function __construct($host, $port, $username, $password)
 	{		
-		$path_length	 = strrpos(__FILE__, "/");
-		$this->path 	 = substr(__FILE__, 0, $path_length) . '/';		
+		//$path_length	 = strrpos(__FILE__, "/");
+		$this->path 	 = "/var/tmp/";//substr(__FILE__, 0, $path_length) . '/';		
 		$this->handle	 = 'crontab.txt';
 		$this->cron_file = "{$this->path}{$this->handle}";
 		

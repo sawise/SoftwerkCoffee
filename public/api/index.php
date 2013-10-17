@@ -5,6 +5,7 @@
  //TESTING
   
         if (isset($_GET['user']) && isset($_GET['pass']) && $_GET['user'] == USER && $_GET['pass'] == PASS){
+            //$crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
             $crontab = new Ssh2_crontab_manager('localhost', '22', 'sam', 'Jonsson91');
 
                 if(!isset($_GET['command'])){
@@ -12,12 +13,19 @@
                 }
 
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
-                    $crontab->append_cronjob('0 18 * * * curl http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff');  
-                    echo "Toggle autoswitch";
-                }
-                  if(isset($_GET['command']) && $_GET['command'] == "untoggleautoswitch"){
-                    $crontab->remove_crontab();
-                    echo "Untoggle autoswitch";
+                    $autoswitch = getSession('autoswitch'); 
+                    echo $autoswitch.'<br>';
+                    echo strlen($autoswitch);
+                    if(strlen($autoswitch) <= 0){
+                        $croncommand =  '0 18 * * * curl http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff';
+                        $coffeepowderStatus = saveSession( $croncommand, 'autoswitch'); 
+                        $crontab->append_cronjob($croncommand);
+                        echo "Toggle autoswitch";
+                    } else {
+                        $crontab->remove_crontab();
+                        saveSession('', 'autoswitch'); 
+                        echo "Untoggle autoswitch";
+                    }
                 }
 
                 if(isset($_GET['command']) && $_GET['command'] == "turnOff"){
@@ -47,6 +55,16 @@
                     $date = new DateTime();
                     $dateunix = $date->format("U");
                     echo $dateunix;
+                }
+                 if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
+                     $coffeepowderStatus = getSession('coffeepowderstatus'); 
+                    if($coffeepowderStatus <= 0){
+                        $coffeepowderStatus = saveSession( "1", 'coffeepowderstatus'); 
+                        echo "Coffee is loaded";
+                    } else {
+                        saveSession('', 'coffeepowderstatus'); 
+                    echo "Coffee is not loaded";
+                    }
                 }
 
         } else{

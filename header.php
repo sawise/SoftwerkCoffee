@@ -5,6 +5,7 @@
 		<title><?php echo $page_title; ?></title>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/toggle-switch.css" rel="stylesheet">
+         <script src="js/loading.js"></script> 
         <style>
 			body {
 				text-align:center;
