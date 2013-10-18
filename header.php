@@ -3,9 +3,24 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title><?php echo $page_title; ?></title>
+		<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js'></script>-->
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js?ver=1.7.0'></script>
+<script>
+ jQuery('body').hide();
+		/*jQuery(window).load(function(){
+			jQuery('#loaderImagee').show();
+			jQuery('#loaderImagee').fadeOut(1000);
+		});*/
+		jQuery(window).ready(function() {
+	   jQuery('body').fadeIn(3000);
+	    console.log("loading...");
+	});
+		
+</script>
+
+	<img id="loaderImagee" class="loaderImagee" src="img/ajax-loading.gif">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/toggle-switch.css" rel="stylesheet">
-         <script src="js/loading.js"></script> 
         <style>
 			body {
 				text-align:center;
@@ -26,6 +41,16 @@
 			   position:absolute;
 			   z-index:2;
 			  }
+
+			  .loaderImagee {
+			  	position: fixed;
+				left: 50%;
+				top: 50%;
+		
+			   display: none;
+			   z-index: 3;
+			  }
+
 
 			.meter { 
 				height: 27.3em;  
@@ -90,6 +115,7 @@
 				margin-left:auto;
 				margin-right:auto;
 				text-align: center;
+				z-index: 1;
 				padding-top: 0.5em;
 				width:8em;
 				height:2em;
@@ -254,7 +280,7 @@
 	</head>
     <header>
     </header>
-	<body>
+	<body id="body">
     	<div class="alert-div"><?php echo get_feedback(); ?></div>
     	<div class="container">
         	 <?php if (isset($_SESSION['is_logged_in'])) : ?>

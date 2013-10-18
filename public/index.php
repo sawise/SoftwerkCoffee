@@ -1,6 +1,11 @@
+
+
 <?php
 	require_once('../config.php');
    require_once(ROOT_PATH.'/classes/authorization.php');
+  
+   		
+   
  
    $url = 'http://localhost/api/?user='.USER.'&pass='.PASS.'&command=';
 
@@ -22,13 +27,11 @@
 		$coffeepowderStatus = getSession('coffeepowderstatus'); 
 		echo $coffeepowderStatus;
 	}
-	if(file_exists(ROOT_PATH.'/tmp/coffeepowderstatus.txt')){
+	if(file_exists(ROOT_PATH.'/tmp/autoswitch.txt')){
 		$autoswitch = getSession('autoswitch'); 
+		echo strlen($autoswitch);
 	}
   
-
-	//$crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
-	$crontab = new Ssh2_crontab_manager('localhost', '22', 'sam', 'Jonsson91');
 	$page_title = "Coffee";
 	$error = false;
 	$timestart = 0;
@@ -36,28 +39,28 @@
 	$timeleft = 0;
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
-	
-	<section class="index divbg">
+
+
+	<section id="mainDiv" class="index divbg">
 		<!--<div class="inDiv"><a href="#" onClick="run()">Softwerk Coffee</a></div>-->
 		<div class="progress-div inDiv">
 			<div class="progressbg">
 				<img src="img/coffeepot.png" class="imgA1"/>
-				
 				<div class="meter">
 					<span id="progressbar" style="height: 0%;"></span>
-				</div><div id="loaderImagee" style="display:none; "><img src="img/pacmanloader.gif"></div>
+				</div>
 			</div>
 		</div>
 		<div class="inDiv">
+
         	<div id="info-div">
+
 				<span id="error" class="error" style="display:none;">ERROR!</span>
 				<span id="progress"></span>
             </div>
 			<div class="switch-div">
 				<label class="checkbox toggle ios" style="width:100px"  onclick="">
 						<input id="coffeeSwitch" type="checkbox">
-		
-
 					<span>
 						Coffeestatus
 						<span>Off</span>
@@ -91,17 +94,7 @@
           	</div>
 		</div>
 		
-		<?php 		
-			  /*if((isset($_GET['status']) && $_GET['status'] == "on") || ($progressSession > 0 && !isset($_GET['status']))){
-               echo  progressBar($progressSession);
-              $crontab->exec("sudo python /home/pi/coffee-on.py");
-              saveSession('1', 'coffeepowderStatus');
-                
-                } if(isset($_GET['status']) && $_GET['status'] == "off") {
-                 	$crontab->exec("sudo python /home/pi/coffee-off.py");
-                    saveSession('0', 'php_session');  
-                 }*/
-		?>
+
 	</section> 
 
 <script>
@@ -117,7 +110,7 @@
 	} else {
 		echo "document.getElementById('coffeepowderSwitch').checked = false;";
 	}
-	if(strlen($autoswitch) <= 0){
+	if(strlen($autoswitch) > 0){
 		echo "document.getElementById('autoSwitch').checked = true;";
 	} else {
 		echo "document.getElementById('autoSwitch').checked = false;";
@@ -127,20 +120,9 @@
 
 document.getElementById('coffeeSwitch').addEventListener('change', coffeeSwitch, false);
 function coffeeSwitch(){
-	xmlHttp = new XMLHttpRequest();
-	var session = 0;
-	xmlHttp.open( "GET", "<?php echo $url ?>getSession", false );
-	xmlHttp.send( null );
-	xmlHttp.onreadystatechange=function()
-	  {
-	  if (xmlHttp.readyState !=4)
-	    {
-	    document.getElementById("loaderImagee").style.display="block";
-	    } else {
-	    		document.getElementById("loaderImagee").style.display="none";
-	    }
-	  } 
-	session = xmlHttp.responseText;
+	togglePHP("turnOn", 0);	
+	var session = togglePHP("getSession", 0);
+	console.log(session);
 		var start = 0;
 		var end = 0;
 		var timeleft = 0;
@@ -151,8 +133,7 @@ function coffeeSwitch(){
 		if(session <= 0){
 				start =  dateunix;
 				end =  start+timeon;
-				xmlHttp.open( "GET", "<?php echo $url ?>saveSession&percent="+end, false );
-				xmlHttp.send( null );
+				 togglePHP("saveSession", end);
 		}else if (session > dateunix){
 				 end =  session;
 				 timeleft =  end-dateunix;
@@ -161,9 +142,9 @@ function coffeeSwitch(){
 		} else if ( session <  dateunix){
 				 progress =  timeon;
 		}
-		
 			
 			var x = progress; 
+
 			setInterval( function() {
 				if (x <= timeon) {
 					var percent = x/timeon*100;
@@ -176,14 +157,10 @@ function coffeeSwitch(){
 						document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+timeleft+" s &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+timeelapsed+" s";
 					} else if(document.getElementById('coffeeSwitch').checked == false){
 						console.log("Coffee is off");
-							xmlHttp.open( "GET", "<?php echo $url ?>turnOff", false );
-							xmlHttp.send( null );
-							while(xmlHttp.readyState!=4){
-								 document.getElementById("loaderImagee").style.display="block";
-							}				
-						  document.getElementById("progressbar").style.height="0%";
-							document.getElementById("progress").innerHTML="STOPPED!";
-							x = timeon;
+						togglePHP("turnOff", 0);	
+						document.getElementById("progressbar").style.height="0%";
+						document.getElementById("progress").innerHTML="STOPPED!";
+						x = timeon;
 				}	else if (x >= timeon && document.getElementById('coffeeSwitch').checked != false){
 					document.getElementById("progressbar").style.height="100%";
 					document.getElementById("progress").innerHTML="DONE!";
@@ -192,27 +169,42 @@ function coffeeSwitch(){
 					//document.getElementById("error").style.display = "block";
 				x++;
 			}}, 1000);
-			console.log("Coffee is on");
 	}
 
 document.getElementById('coffeepowderSwitch').addEventListener('change', coffeepowderSwitch, false);
 function coffeepowderSwitch(){
-	xmlHttp = new XMLHttpRequest();
-		xmlHttp.open( "GET", "<?php echo $url ?>toggleCoffeepowder", false );
-		xmlHttp.send( null );
-		console.log(xmlHttp.responseText);
+	togglePHP("toggleCoffeepowder", 0);
 
 }
 document.getElementById('autoSwitch').addEventListener('change', coffeePowder, false);
 
 function coffeePowder(){
-	xmlHttp = new XMLHttpRequest();
-		xmlHttp.open( "GET", "<?php echo $url ?>toggleautoswitch", false );
-		xmlHttp.send( null );
-	   console.log(xmlHttp.responseText);
+	togglePHP("toggleautoswitch", 0);
+
 	}
+
+	        function togglePHP(command, session){
+                xmlHttp = new XMLHttpRequest();
+                  xmlHttp.onreadystatechange=function(){
+	                  if (xmlHttp.readyState!=4){
+								jQuery('#loaderImagee').show();
+	                  } else {
+	                     jQuery('#loaderImagee').fadeOut(1000);
+	                   }
+	                }
+                if(session > 0){
+                        xmlHttp.open( "GET", "<?php echo $url ?>"+command+"&percent="+session, false );
+                } else {
+                        xmlHttp.open( "GET", "<?php echo $url ?>"+command, false );
+                }
+
+                xmlHttp.send();
+                console.log(xmlHttp.responseText);
+                return xmlHttp.responseText;
+        }
+
 </script>
     
 
 
-<?php require_once(ROOT_PATH.'/footer.php'); ?>
+<?php $end = "end"; require_once(ROOT_PATH.'/footer.php'); ?>

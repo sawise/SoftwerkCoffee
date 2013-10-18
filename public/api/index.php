@@ -14,11 +14,11 @@
 
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitch = getSession('autoswitch'); 
-                    echo $autoswitch.'<br>';
-                    echo strlen($autoswitch);
+                    //echo $autoswitch.'<br>';
+                    //echo strlen($autoswitch);
                     if(strlen($autoswitch) <= 0){
-                        $croncommand =  '0 18 * * * curl http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff';
-                        $coffeepowderStatus = saveSession( $croncommand, 'autoswitch'); 
+                        $croncommand =  '0 18 * * 1-5 curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
+                        $coffeepowderStatus = saveSession($croncommand, 'autoswitch'); 
                         $crontab->append_cronjob($croncommand);
                         echo "Toggle autoswitch";
                     } else {
@@ -63,7 +63,7 @@
                         echo "Coffee is loaded";
                     } else {
                         saveSession('', 'coffeepowderstatus'); 
-                    echo "Coffee is not loaded";
+                        echo "Coffee is not loaded";
                     }
                 }
 
