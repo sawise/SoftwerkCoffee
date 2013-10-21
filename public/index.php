@@ -148,13 +148,18 @@ function coffeeSwitch(){
 			setInterval( function() {
 				if (x <= timeon) {
 					var percent = x/timeon*100;
-					percent = percent.toFixed(2);
+					percent = percent.toFixed(1);
 					var now = Math.round(new Date().getTime()/1000.0);
 					var timeleft =  end-now;
 					var timeelapsed = timeon-timeleft;
+					var minutesLeft = parseInt( timeleft / 60 ) % 60;
+					var secondsLeft = secondswithTwochar(timeleft % 60);
+					var minutesElapsed = parseInt( timeelapsed / 60 ) % 60;
+					var secondsElapsed =  secondswithTwochar(timeelapsed % 60);
+					console.log(secondsElapsed);
 					if(document.getElementById('coffeeSwitch').checked && x != timeon){
 						document.getElementById("progressbar").style.height="+"+percent+"%";
-						document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+timeleft+" s &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+timeelapsed+" s";
+						document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+minutesLeft+":"+secondsLeft+" &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+minutesElapsed+":"+secondsElapsed;
 					} else if(document.getElementById('coffeeSwitch').checked == false){
 						console.log("Coffee is off");
 						togglePHP("turnOff", 0);	
@@ -201,6 +206,15 @@ function coffeePowder(){
                 xmlHttp.send();
                 console.log(xmlHttp.responseText);
                 return xmlHttp.responseText;
+        }
+
+        function secondswithTwochar(value){
+        	if(value < 10){
+        		value = "0"+value;
+        		return value;
+        	} else {
+        		return value;
+        	}
         }
 
 </script>

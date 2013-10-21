@@ -6,14 +6,15 @@
 		<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js'></script>-->
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js?ver=1.7.0'></script>
 <script>
- jQuery('body').hide();
-		/*jQuery(window).load(function(){
-			jQuery('#loaderImagee').show();
-			jQuery('#loaderImagee').fadeOut(1000);
-		});*/
+ //jQuery('body').hide();
 		jQuery(window).ready(function() {
-	   jQuery('body').fadeIn(3000);
-	    console.log("loading...");
+			$("div.container").hide();
+			 //jQuery('#loaderImagee').show();
+	   		//jQuery('body').fadeIn(1000);
+	   		//jQuery('#loaderImagee').fadeOut(5000);
+	   		jQuery( "div.container" ).fadeIn(3000);
+			
+	    console.log("body fading in...");
 	});
 		
 </script>
@@ -282,7 +283,7 @@
     </header>
 	<body id="body">
     	<div class="alert-div"><?php echo get_feedback(); ?></div>
-    	<div class="container">
+    	<div id="container" class="container">
         	 <?php if (isset($_SESSION['is_logged_in'])) : ?>
 			 	<div class="well well-small" id="user_info">
           			<?php if ($page_title != "Settings") : ?>

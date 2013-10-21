@@ -6,7 +6,7 @@
   
         if (isset($_GET['user']) && isset($_GET['pass']) && $_GET['user'] == USER && $_GET['pass'] == PASS){
             //$crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
-            $crontab = new Ssh2_crontab_manager('localhost', '22', 'sam', 'Jonsson91');
+            $crontab = new Ssh2_crontab_manager('localhost', '22', 'sam', '94ipRLNA1q43cth7');
 
                 if(!isset($_GET['command'])){
                     echo "This is the webservice-page";
