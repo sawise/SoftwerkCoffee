@@ -6,14 +6,11 @@
 		<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js'></script>-->
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js?ver=1.7.0'></script>
 <script>
- //jQuery('body').hide();
+ $('body').hide();
+
 		jQuery(window).ready(function() {
-			$("div.container").hide();
-			 //jQuery('#loaderImagee').show();
-	   		//jQuery('body').fadeIn(1000);
-	   		//jQuery('#loaderImagee').fadeOut(5000);
-	   		jQuery( "div.container" ).fadeIn(3000);
-			
+	   		jQuery('body').fadeIn(3000);
+	   		var loading = true;
 	    console.log("body fading in...");
 	});
 		
