@@ -3,14 +3,12 @@
 <?php
 	require_once('../config.php');
    require_once(ROOT_PATH.'/classes/authorization.php');
-  
-   		
-   
- 
-   $url = 'http://localhost/api/?user='.USER.'&pass='.PASS.'&command=';
+
+   $url = 'api/?user='.USER.'&pass='.PASS.'&command=';
 
 	$progressSession = 0; 
 	$coffeepowderStatus = 0;
+	$coffeeStatus = 0;
 	$autoswitch = 0;
 	if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
 		$progressSession = getSession('php_session'); 
@@ -20,8 +18,8 @@
 								</script>';
 	}
 	if(file_exists(ROOT_PATH.'/tmp/coffeestatus.txt')){
-		$coffeestatus = getSession('coffeestatus'); 
-		echo $coffeestatus;
+		$coffeeStatus = getSession('coffeestatus'); 
+		echo $coffeeStatus;
 	}
 		if(file_exists(ROOT_PATH.'/tmp/coffeepowderstatus.txt')){
 		$coffeepowderStatus = getSession('coffeepowderstatus'); 
@@ -99,12 +97,14 @@
 
 <script>
 	<?php 
-	if ($progressSession > 0){
-		echo "document.getElementById('coffeeSwitch').checked = true;";
-		echo "coffeeSwitch();";
-	} else {
-		echo "document.getElementById('coffeeSwitch').checked = false;";
-	}
+	 if ($progressSession > 0 && strpos($coffeeStatus,'ON')){
+    	echo "document.getElementById('coffeeSwitch').checked = true;";
+    	echo "coffeeSwitch();";
+    	echo 'console.log("'.$coffeeStatus.'");';
+    } else {
+       echo "document.getElementById('coffeeSwitch').checked = false;";
+       echo 'togglePHP("turnOff", 0);';
+    }
 	if ($coffeepowderStatus > 0){
 		echo "document.getElementById('coffeepowderSwitch').checked = true;";
 	} else {
@@ -119,8 +119,7 @@
 
 
 document.getElementById('coffeeSwitch').addEventListener('change', coffeeSwitch, false);
-function coffeeSwitch(){
-	togglePHP("turnOn", 0);	
+function coffeeSwitch(){	
 	var session = togglePHP("getSession", 0);
 	console.log(session);
 		var start = 0;
@@ -131,6 +130,7 @@ function coffeeSwitch(){
 		var timeon = 600;
 		var dateunix = Math.round(new Date().getTime()/1000.0);
 		if(session <= 0){
+			togglePHP("turnOn", 0);	
 				start =  dateunix;
 				end =  start+timeon;
 				 togglePHP("saveSession", end);
@@ -142,7 +142,6 @@ function coffeeSwitch(){
 		} else if ( session <  dateunix){
 				 progress =  timeon;
 		}
-			
 			var x = progress; 
 
 			setInterval( function() {

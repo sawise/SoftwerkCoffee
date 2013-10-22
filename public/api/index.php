@@ -15,8 +15,6 @@
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitchTime = getSession('autoswitchtime'); 
                     $autoswitch = getSession('autoswitch'); 
-                    //echo $autoswitch.'<br>';
-                    //echo strlen($autoswitch);
                     if(strlen($autoswitch) <= 0){
                         $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
                         $coffeepowderStatus = saveSession($croncommand, 'autoswitch'); 
