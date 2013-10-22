@@ -15,11 +15,13 @@
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitchTime = getSession('autoswitchtime'); 
                     $autoswitch = getSession('autoswitch'); 
-                    if(strlen($autoswitch) <= 0){
-                        $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
-                        $coffeepowderStatus = saveSession($croncommand, 'autoswitch'); 
-                        $crontab->append_cronjob($croncommand);
-                        echo "Toggle autoswitch";
+                   if(strlen($autoswitch) <= 0){
+                      $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
+                      $croncommand = preg_replace('/\s+/', ' ', $croncommand);
+                      $coffeepowderStatus = saveSession($croncommand, 'autoswitch'); 
+                      $crontab->append_cronjob($croncommand);
+                      echo "Toggle autoswitch";
+
                     } else {
                         $crontab->remove_crontab();
                         saveSession('', 'autoswitch'); 
