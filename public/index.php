@@ -159,16 +159,21 @@ function coffeeSwitch(){
 					var minutesElapsed = parseInt( timeelapsed / 60 ) % 60;
 					var secondsElapsed =  secondswithTwochar(timeelapsed % 60);
 					console.log(secondsElapsed);
-					if(document.getElementById('coffeeSwitch').checked && x != timeon){
-						document.getElementById('progress').style.display='';
-						document.getElementById("progressbar").style.height="+"+percent+"%";
-						document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
-					} else if(document.getElementById('coffeeSwitch').checked == false){
-						console.log("Coffee is off");
-						togglePHP("turnOff", 0);	
-						document.getElementById("progressbar").style.height="0%";
-						document.getElementById("progress").innerHTML="STOPPED!";
-						x = timeon;
+ 					if(document.getElementById('coffeeSwitch').checked && x != timeon){
+                        document.getElementById('progress').style.display='';
+                        document.getElementById("progressbar").style.height="+"+percent+"%";
+                       document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+$
+                } else if(document.getElementById('coffeeSwitch').checked == false){
+                        console.log("Coffee is off");
+                        togglePHP("turnOff", 0);        
+                        document.getElementById("progressbar").style.height="0%";
+                        document.getElementById("progress").innerHTML="STOPPED!";
+                        if(document.getElementById("coffeepowderSwitch").checked == false){
+                                document.getElementById("coffeeSwitch").disabled = true;
+                                document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
+                        }
+                        x = timeon;
+
 				}	else if (x >= timeon && document.getElementById('coffeeSwitch').checked != false){
 					document.getElementById("progressbar").style.height="100%";
 					document.getElementById("progress").innerHTML="DONE!";
@@ -181,16 +186,16 @@ function coffeeSwitch(){
 
 document.getElementById('coffeepowderSwitch').addEventListener('change', coffeepowderSwitch, false);
 function coffeepowderSwitch(){
-	togglePHP("toggleCoffeepowder", 0);
-	if(document.getElementById('coffeepowderSwitch').checked){
-		document.getElementById('coffeeSwitch').disabled = false;
-		document.getElementById('CoffeeswitchDiv').className = "checkbox toggle ios";
-	} else {
-		document.getElementById('coffeeSwitch').disabled = true;
-		document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
-	}
-
+        togglePHP("toggleCoffeepowder", 0);
+        if(document.getElementById('coffeepowderSwitch').checked){
+                document.getElementById('coffeeSwitch').disabled = false;
+                document.getElementById('CoffeeswitchDiv').className = "checkbox toggle ios";
+        } else if(document.getElementById('coffeepowderSwitch').checked == false && document.getElementById('coffeeSwitch').checked == false)$
+                document.getElementById('coffeeSwitch').disabled = true;
+                document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
+        }
 }
+
 document.getElementById('autoSwitch').addEventListener('change', coffeePowder, false);
 
 function coffeePowder(){
