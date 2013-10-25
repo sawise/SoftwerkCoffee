@@ -100,6 +100,7 @@
 	 if ($progressSession > 0 && strpos($coffeeStatus,'ON')){
     	echo "document.getElementById('coffeeSwitch').checked = true; coffeeSwitch();";
     } else {
+    	//Sam was here
        echo "document.getElementById('coffeeSwitch').checked = false;
        				togglePHP('turnOff', 0);
        				document.getElementById('progress').style.display=\"none\";";
