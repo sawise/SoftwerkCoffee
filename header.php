@@ -60,6 +60,7 @@
 				-moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
 				box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
 			}
+
 			
 			.meter > span {
 				opacity:0.95;
@@ -108,6 +109,7 @@
 				overflow: hidden;
 			}
 
+
 			.error{
 				background-color: #FF0000;
 				margin-left:auto;
@@ -119,6 +121,11 @@
 				height:2em;
 				font:bold 2em;
 				color:#FFFFFF;
+			}
+
+			pre{
+				background: #FFFFFF;
+				border: 0;
 			}
 
 			.divbg{

@@ -6,8 +6,6 @@
   
         if (isset($_GET['user']) && isset($_GET['pass']) && $_GET['user'] == USER && $_GET['pass'] == PASS){
             $crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
-
-
                 if(!isset($_GET['command'])){
                     echo "This is the webservice-page";
                 }
@@ -18,10 +16,9 @@
                    if(strlen($autoswitch) <= 0){
                       $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
                       $croncommand = preg_replace('/\s+/', ' ', $croncommand);
-                      $coffeepowderStatus = saveSession($croncommand, 'autoswitch'); 
                       $crontab->append_cronjob($croncommand);
+                       $crontab->exec('crontab -l > /var/tmp/autoswitch.txt');
                       echo "Toggle autoswitch";
-
                     } else {
                         $crontab->remove_crontab();
                         saveSession('', 'autoswitch'); 
@@ -66,6 +63,7 @@
                     $dateunix = $date->format("U");
                     echo $dateunix;
                 }
+                
                  if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
                      $coffeepowderStatus = getSession('coffeepowderstatus'); 
                     if($coffeepowderStatus <= 0){

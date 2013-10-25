@@ -87,6 +87,7 @@ Class Ssh2_crontab_manager {
 		
 		$install_cron = "crontab {$this->cron_file}";
 
+
 		$this->write_to_file()->exec($append_cronfile, $install_cron)->remove_file();
 		
 		return $this;		

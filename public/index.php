@@ -8,7 +8,7 @@
 
 	$progressSession = 0; 
 	$coffeepowderStatus = 0;
-	$coffeeStatus = 0;
+	$coffeeStatus = "Coffee is OFF";
 	$autoswitch = 0;
 	if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
 		$progressSession = getSession('php_session'); 
@@ -54,10 +54,10 @@
         	<div id="info-div">
 
 				<span id="error" class="error" style="display:none;">ERROR!</span>
-				<span id="progress"></span>
+				<pre id="progress"></pre>
             </div>
 			<div class="switch-div">
-				<label class="checkbox toggle ios" style="width:100px"  onclick="">
+				<label id="CoffeeswitchDiv" class="checkbox toggle ios" style="width:100px"  onclick="">
 						<input id="coffeeSwitch" type="checkbox">
 					<span>
 						Coffeestatus
@@ -98,17 +98,20 @@
 <script>
 	<?php 
 	 if ($progressSession > 0 && strpos($coffeeStatus,'ON')){
-    	echo "document.getElementById('coffeeSwitch').checked = true;";
-    	echo "coffeeSwitch();";
-    	echo 'console.log("'.$coffeeStatus.'");';
+    	echo "document.getElementById('coffeeSwitch').checked = true; coffeeSwitch();";
     } else {
-       echo "document.getElementById('coffeeSwitch').checked = false;";
-       echo 'togglePHP("turnOff", 0);';
+       echo "document.getElementById('coffeeSwitch').checked = false;
+       				togglePHP('turnOff', 0);
+       				document.getElementById('progress').style.display=\"none\";";
     }
 	if ($coffeepowderStatus > 0){
 		echo "document.getElementById('coffeepowderSwitch').checked = true;";
 	} else {
 		echo "document.getElementById('coffeepowderSwitch').checked = false;";
+		if($progressSession <= 0){
+		echo "document.getElementById('coffeeSwitch').disabled = true;
+		document.getElementById('CoffeeswitchDiv').className = \"checkbox toggle iosdisabled\";";
+		}
 	}
 	if(strlen($autoswitch) > 0){
 		echo "document.getElementById('autoSwitch').checked = true;";
@@ -157,8 +160,9 @@ function coffeeSwitch(){
 					var secondsElapsed =  secondswithTwochar(timeelapsed % 60);
 					console.log(secondsElapsed);
 					if(document.getElementById('coffeeSwitch').checked && x != timeon){
+						document.getElementById('progress').style.display='';
 						document.getElementById("progressbar").style.height="+"+percent+"%";
-						document.getElementById("progress").innerHTML="<br>"+percent+"% &nbsp;&nbsp;|&nbsp;&nbsp; Time left: "+minutesLeft+":"+secondsLeft+" &nbsp;&nbsp;|&nbsp;&nbsp; Time elapsed: "+minutesElapsed+":"+secondsElapsed;
+						document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
 					} else if(document.getElementById('coffeeSwitch').checked == false){
 						console.log("Coffee is off");
 						togglePHP("turnOff", 0);	
@@ -178,6 +182,13 @@ function coffeeSwitch(){
 document.getElementById('coffeepowderSwitch').addEventListener('change', coffeepowderSwitch, false);
 function coffeepowderSwitch(){
 	togglePHP("toggleCoffeepowder", 0);
+	if(document.getElementById('coffeepowderSwitch').checked){
+		document.getElementById('coffeeSwitch').disabled = false;
+		document.getElementById('CoffeeswitchDiv').className = "checkbox toggle ios";
+	} else {
+		document.getElementById('coffeeSwitch').disabled = true;
+		document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
+	}
 
 }
 document.getElementById('autoSwitch').addEventListener('change', coffeePowder, false);

@@ -1,4 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +19,7 @@
     <FrameLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
-        <ProgressBar
+        <com.softwerk.coffee2.VerticalProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:progressDrawable="@drawable/coffeeprogress"
@@ -77,8 +81,59 @@
             android:text=""
             android:textColor="#FF0000"
             android:textSize="20dp"
-            android:layout_gravity="center"
-            android:visibility="invisible"/>
+            android:layout_gravity="center"/>
 
-</LinearLayout>
-<!-- From: file:/home/sam/AndroidStudioProjects/Coffee2Project/Coffee2/src/main/res/layout/softwerkcoffee.xml -->
+    <LinearLayout
+        android:id="@+id/timeLeftLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/timeLefttext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time left: "
+            android:textColor="#000000"
+            android:textSize="20dp"
+            />
+        <TextView
+            android:id="@+id/timeLeftvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF0000"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timeElapsedLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:visibility="invisible">
+        <TextView
+            android:id="@+id/timeElapsedtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time elapsed: "
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/timeElapsedvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF0000"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    </LinearLayout>
+</ScrollView><!-- From: file:/home/sam/AndroidStudioProjects/Coffee2Project/Coffee2/src/main/res/layout/softwerkcoffee.xml -->
