@@ -7,6 +7,12 @@
 	$fh = fopen($file, 'r');
 	$values = fgets($fh);
 	$value = explode(':', $values);
+	
+	
+  	define('DB_USER', 'root');
+  	define('DB_PASS', '');
+  	define('DB_NAME', 'softwerkcoffee');
+  	define('DB_HOST', 'localhost');
 		
 	define('USER', $value[0]);
 	define('PASS', $value[1]);
