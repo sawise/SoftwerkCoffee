@@ -21,12 +21,32 @@ public class Webservice {
         return currentProgressInt;
     }
 
+    public String getAutoswitchStatus(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=autoswitchStatus");
+    }
+
+    public String toggleAutoswitch(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleautoswitch");
+    }
+
     public void clearSession(String user, String pass){
         getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
     }
 
+    public String getTime(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getTime");
+    }
+
+    public String toggleCoffeepowder(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    }
+
+    public String getCoffeepowder(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getCoffeepowderstatus");
+    }
+
     public void saveSession(String user, String pass, long progress){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&saveSession="+progress);
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=saveSession&percent="+progress);
     }
 
     public void toggleCoffee(String user, String pass, String toggle){
