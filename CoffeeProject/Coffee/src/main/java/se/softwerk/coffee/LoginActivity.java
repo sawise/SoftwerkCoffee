@@ -55,7 +55,7 @@ public class LoginActivity extends Activity {
     private TextView mLoginStatusMessageView;
 
     // URL reference.
-    private String urlString = "http://192.168.1.175";
+    private String urlString = "http://dev.softwerk.se:81";
 
     // Salt
     private String salt = "34A75DD4C4DF5E4DDFC68CA975B35";
@@ -64,7 +64,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
@@ -94,6 +93,8 @@ public class LoginActivity extends Activity {
                 attemptLogin();
             }
         });
+
+        Log.i("LoginActivity", "Version: " +  android.os.Build.VERSION.SDK_INT);
     }
 
     @Override
@@ -290,8 +291,8 @@ public class LoginActivity extends Activity {
             if (success) {
                 // Go to MainActivity.
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                //String[] hash = readFromFile();
-                        i.putExtra(EXTRA_TEXT, sendUser+":"+sendPass);
+                // String[] hash = readFromFile();
+                i.putExtra(EXTRA_TEXT, sendUser+":"+sendPass);
 
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();

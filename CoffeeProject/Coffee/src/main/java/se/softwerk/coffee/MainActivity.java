@@ -1,104 +1,76 @@
 package se.softwerk.coffee;
 
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Switch;
+import android.view.ViewGroup;
 import android.widget.TextView;
-
-import android.os.Handler;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import android.os.StrictMode;
 import android.widget.Toast;
+import java.util.Locale;
 
-import java.text.DecimalFormat;
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
+     * will keep every loaded fragment in memory. If this becomes too memory
+     * intensive, it may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    SectionsPagerAdapter mSectionsPagerAdapter;
 
-
-public class MainActivity extends Activity implements Switch.OnCheckedChangeListener {
-    private TextView statusText;
-    private TextView timeElapsedText;
-    private TextView timeElapsedValuetext;
-    private TextView timeLeftText;
-    private TextView timeleftValuetext;
-    private LinearLayout timeLeftLayout;
-    private LinearLayout timeElapsedLayout;
-    private Webservice webService;
-    private ProgressBar progressBar;
-
-    private Handler handler = new Handler();
-    private Switch coffeeSwitch;
-    private Switch coffeepowderSwitch;
-    private String url = "http://192.168.1.175"; //"http://46.194.99.157";
-    private long currentProgressInt = 0;
-    private long timeOn = 600;
-    double progress = 0;
-    private int percentInt;
-    boolean check;
-    boolean error = false;
-    Animation anim;
-    private String[] pieces;
+    /**
+     * The {@link android.support.v4.view.ViewPager} that will host the section contents.
+     */
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (android.os.Build.VERSION.SDK_INT>=9){
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        // Set up the action bar.
+        final ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        webService = new Webservice();
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the app.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        String userPass = getIntent().getStringExtra(LoginActivity.EXTRA_TEXT);
-        pieces = userPass.split(":");
+        // When swiping between different sections, select the corresponding
+        // tab. We can also use ActionBar.Tab#select() to do this if we have
+        // a reference to the Tab.
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
 
-        statusText = (TextView) findViewById(R.id.statusText);
-        timeElapsedText = (TextView) findViewById(R.id.timeElapsedtext);
-        timeElapsedValuetext = (TextView) findViewById(R.id.timeElapsedvalue);
-        timeLeftText = (TextView) findViewById(R.id.timeLefttext);
-        timeleftValuetext = (TextView) findViewById(R.id.timeLeftvalue);
-        timeLeftLayout = (LinearLayout) findViewById(R.id.timeLeftLayout);
-        timeElapsedLayout = (LinearLayout) findViewById(R.id.timeElapsedLayout);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        coffeeSwitch = (Switch) findViewById(R.id.coffeeSwitch);
-        coffeepowderSwitch = (Switch) findViewById(R.id.coffeepowderSwitch);
-
-        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
-
-        coffeeSwitch.setOnCheckedChangeListener(this);
-        coffeeSwitch.setEnabled(false);
-        coffeepowderSwitch.setOnCheckedChangeListener(this);
-
-        progressBar.setProgress(0);
-        progressBar.setMax(100);
-
-        anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(50);
-        anim.setStartOffset(20);
-        anim.setRepeatMode(Animation.REVERSE);
-        anim.setRepeatCount(5);
-
-        if(currentProgressInt > 0){
-            coffeeSwitch.setChecked(true);
+        // For each of the sections in the app, add a tab to the action bar.
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            // Create a tab with text corresponding to the page title defined by
+            // the adapter. Also specify this Activity object, which implements
+            // the TabListener interface, as the callback (listener) for when
+            // this tab is selected.
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(mSectionsPagerAdapter.getPageTitle(i))
+                            .setTabListener(this));
         }
     }
 
@@ -130,111 +102,113 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        // When the given tab is selected, switch to the corresponding page in
+        // the ViewPager.
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
 
-        if(buttonView == coffeeSwitch){
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
 
-            if(isChecked){
-                check = true;
-                currentProgressInt = webService.getSession(pieces[0], pieces[1]);;
-                webService.toggleCoffee(pieces[0], pieces[1], "on");
-                long epoch = (System.currentTimeMillis()/1000)+timeOn;
-                Log.i("Unix timestamp", epoch + "");
-                if(currentProgressInt <= 0){
-                    webService.saveSession(pieces[0], pieces[1], epoch);
-                } else if(currentProgressInt > 0){
-                    calculateProgress(epoch, currentProgressInt);
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    /**
+     * A {@link android.support.v4.app.FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a DummySectionFragment (defined as a static inner class
+            // below) with the page number as its lone argument.
+
+            /*
+            Fragment fragment = new DummySectionFragment();
+            Bundle args = new Bundle();
+            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+            fragment.setArguments(args);
+            return fragment;
+            */
+
+            // Check API (for switch compability).
+            if (android.os.Build.VERSION.SDK_INT >=14) {
+                switch (position) {
+                    case 0:
+                        return new CoffeeActivity();
+                    case 1:
+                        return new HistoryActivity();
+                    case 2:
+                        return new StatisticsActivity();
+                    default:
+                        return new CoffeeActivity();
                 }
-            } else if(!isChecked){
-                check = false;
-                webService.toggleCoffee(pieces[0], pieces[1], "off");
-                webService.clearSession(pieces[0], pieces[1]);
-            }
-
-            new Thread(new Runnable() {
-                int p = (int) progress;
-
-                public void run() {
-                    while (p < timeOn) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        handler.post(new Runnable() {
-                            public void run() {
-                                if(check && !error){
-                                    double percent = roundTwodecimals(((double)p/timeOn)*100);
-                                    percentInt = (int) percent;
-                                    //Log.i("percent", p+"<->"+percentInt);
-                                    progressBar.setProgress(percentInt);
-                                    setStatusText(percent+"%", error);
-                                } else if (!check && !error && percentInt != 100) {
-                                    progressBar.setProgress(0);
-                                    setStatusText("STOPPED!", error);
-                                    p = (int) timeOn;
-                                }  else if(error/*this value only simulates the error message, in future put a another statement*/){
-                                    progressBar.setProgress(50/*should be p*/);
-                                    error = true;
-                                    setStatusText("ERROR!", error);
-                                    p = (int) timeOn;
-                                    error = false;
-                                }if (p == timeOn && !error && check) {
-                                    setStatusText("DONE!", error);
-                                    coffeepowderSwitch.setChecked(false);
-                                    coffeeSwitch.setChecked(false);
-                                    webService.getWebservice(url+"/api/turnOff");
-                                }
-                            }
-                        });
-                        p++;
-                    }
+            } else {
+                switch (position) {
+                    case 0:
+                        return new CoffeeActivity2();
+                    case 1:
+                        return new HistoryActivity();
+                    case 2:
+                        return new StatisticsActivity();
+                    default:
+                        return new CoffeeActivity();
                 }
-            }).start();
-        } else if(buttonView == coffeepowderSwitch){
-            if(isChecked){
-                coffeeSwitch.setEnabled(true);
-            } else if(!isChecked){
-                coffeeSwitch.setEnabled(false);
             }
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            Locale l = Locale.getDefault();
+            switch (position) {
+                case 0:
+                    return "Coffee".toUpperCase(l);
+                case 1:
+                    return "History".toUpperCase(l);
+                case 2:
+                    return "Statistics".toUpperCase(l);
+            }
+            return null;
         }
     }
 
-    public void setStatusText(String status, boolean error){
-        statusText.setVisibility(1);
-        statusText.setText(status);
-        if(error){
-            statusText.startAnimation(anim);
-            coffeeSwitch.setChecked(false);
-        } if (!error){
-            statusText.clearAnimation();
+    /**
+     * A dummy fragment representing a section of the app, but that simply
+     * displays dummy text.
+     */
+
+    public static class DummySectionFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        public static final String ARG_SECTION_NUMBER = "section_number";
+
+        public DummySectionFragment() {
         }
-    }
 
-    public double roundTwodecimals(double d){
-        DecimalFormat twoDForm = new DecimalFormat("#.#");
-        return Double.valueOf(twoDForm.format(d));
-    }
-
-    public void calculateProgress(long currentTime, long currentProgress){
-        if(currentProgress <= 0){
-            long start = currentTime;
-            long end = start-timeOn;
-        } else if (currentProgress > 0){
-            long end = currentProgress;
-            double timeOnD = (double) timeOn;
-            String str = String.valueOf(currentTime-end);
-            double timeLeft = Double.parseDouble(str);
-            double timeElapsed = timeOnD-timeLeft;
-            progress = (timeElapsed/timeOnD)*600;
-            Log.i("currenttime", ""+currentTime);
-            Log.i("timeend", ""+end);
-
-            Log.i("timeleftStr", str);
-            Log.i("timeleft", end+"-"+timeLeft);
-            Log.i("timeelapsed", timeOnD+"-"+timeLeft+"="+timeElapsed);
-            Log.i("calc", "("+timeElapsed+"/"+timeOn+")*"+timeOn);
-            Log.i("calc", progress+"");
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
+            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
+            dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
         }
     }
 
