@@ -17,16 +17,13 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class array {
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_settings.xml 
-         */
         public static final int pref_example_list_titles=0x7f060000;
         public static final int pref_example_list_values=0x7f060001;
         public static final int pref_sync_frequency_titles=0x7f060002;
         public static final int pref_sync_frequency_values=0x7f060003;
     }
     public static final class attr {
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int actionBarDivider=0x7f010000;
@@ -738,14 +735,7 @@ containing a value of this type.
         public static final int windowSplitActionBar=0x7f010052;
     }
     public static final class bool {
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-land/values.xml 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-large/values.xml 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w480dp/values.xml 
-         */
         public static final int abc_action_bar_embed_tabs_pre_jb=0x7f070000;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-xlarge/values.xml 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w720dp/values.xml 
-         */
         public static final int abc_action_bar_expanded_action_views_exclusive=0x7f070001;
         public static final int abc_config_actionMenuItemAllCaps=0x7f070002;
         public static final int abc_config_allowActionMenuItemTextWithIcon=0x7f070003;
@@ -759,9 +749,6 @@ containing a value of this type.
         public static final int abc_search_url_text_selected=0x7f080002;
     }
     public static final class dimen {
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w600dp/values.xml 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-sw600dp/values.xml 
-         */
         public static final int abc_action_bar_default_height=0x7f0a0000;
         public static final int abc_action_bar_icon_vertical_padding=0x7f0a0001;
         public static final int abc_action_bar_stacked_max_height=0x7f0a0002;
@@ -778,9 +765,6 @@ containing a value of this type.
         public static final int abc_panel_menu_list_width=0x7f0a000d;
         public static final int abc_search_view_preferred_width=0x7f0a000e;
         public static final int abc_search_view_text_min_width=0x7f0a000f;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/dimens.xml 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values-sw720dp-land/dimens.xml 
-         */
         public static final int activity_horizontal_margin=0x7f0a0010;
         public static final int activity_vertical_margin=0x7f0a0011;
     }
@@ -879,8 +863,6 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action_bar=0x7f09001a;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml 
-         */
         public static final int action_bar_activity_content=0x7f090014;
         public static final int action_bar_container=0x7f090019;
         public static final int action_bar_overlay_layout=0x7f09001d;
@@ -888,19 +870,21 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f090021;
         public static final int action_bar_title=0x7f090020;
         public static final int action_context_bar=0x7f09001b;
-        public static final int action_logout=0x7f090054;
+        public static final int action_logout=0x7f09005c;
         public static final int action_menu_divider=0x7f090015;
         public static final int action_menu_presenter=0x7f090016;
         public static final int action_mode_bar=0x7f09002f;
         public static final int action_mode_bar_stub=0x7f09002e;
         public static final int action_mode_close_button=0x7f090022;
-        public static final int action_settings=0x7f090053;
+        public static final int action_settings=0x7f09005b;
         public static final int activity_chooser_view_content=0x7f090023;
         public static final int always=0x7f09000f;
         public static final int beginning=0x7f09000a;
         public static final int checkbox=0x7f09002b;
-        public static final int coffeeSwitch=0x7f09004a;
-        public static final int coffeepowderSwitch=0x7f09004b;
+        public static final int coffeeSwitch=0x7f090043;
+        public static final int coffeeToggle=0x7f09004c;
+        public static final int coffeepowderSwitch=0x7f090044;
+        public static final int coffeepowderToggle=0x7f09004d;
         public static final int collapseActionView=0x7f090011;
         public static final int default_activity_button=0x7f090026;
         public static final int dialog=0x7f090012;
@@ -910,6 +894,7 @@ containing a value of this type.
         public static final int end=0x7f09000c;
         public static final int expand_activities_button=0x7f090024;
         public static final int expanded_menu=0x7f09002a;
+        public static final int historyList=0x7f09004e;
         public static final int home=0x7f090017;
         public static final int homeAsUp=0x7f090005;
         public static final int icon=0x7f090028;
@@ -918,16 +903,18 @@ containing a value of this type.
         public static final int left_icon=0x7f090031;
         public static final int listMode=0x7f090001;
         public static final int list_item=0x7f090027;
-        public static final int login=0x7f090047;
-        public static final int login_form=0x7f090044;
-        public static final int login_status=0x7f090042;
-        public static final int login_status_message=0x7f090043;
+        public static final int login=0x7f090054;
+        public static final int login_form=0x7f090051;
+        public static final int login_status=0x7f09004f;
+        public static final int login_status_message=0x7f090050;
         public static final int middle=0x7f09000b;
+        public static final int monthText=0x7f090058;
         public static final int never=0x7f09000d;
         public static final int none=0x7f090009;
         public static final int normal=0x7f090000;
-        public static final int password=0x7f090046;
-        public static final int progressBar=0x7f090049;
+        public static final int pager=0x7f090056;
+        public static final int password=0x7f090053;
+        public static final int progressBar=0x7f090042;
         public static final int progress_circular=0x7f090034;
         public static final int progress_horizontal=0x7f090035;
         public static final int radio=0x7f09002d;
@@ -943,33 +930,33 @@ containing a value of this type.
         public static final int search_plate=0x7f09003c;
         public static final int search_src_text=0x7f09003d;
         public static final int search_voice_btn=0x7f090041;
+        public static final int section_label=0x7f09005a;
         public static final int shortcut=0x7f09002c;
         public static final int showCustom=0x7f090007;
         public static final int showHome=0x7f090004;
         public static final int showTitle=0x7f090006;
-        public static final int sign_in_button=0x7f090048;
+        public static final int sign_in_button=0x7f090055;
         public static final int split_action_bar=0x7f09001c;
-        public static final int statusText=0x7f09004c;
+        public static final int statusText=0x7f090045;
         public static final int submit_area=0x7f09003f;
         public static final int tabMode=0x7f090002;
-        public static final int timeElapsedLayout=0x7f090050;
-        public static final int timeElapsedtext=0x7f090051;
-        public static final int timeElapsedvalue=0x7f090052;
-        public static final int timeLeftLayout=0x7f09004d;
-        public static final int timeLefttext=0x7f09004e;
-        public static final int timeLeftvalue=0x7f09004f;
+        public static final int timeElapsedLayout=0x7f090049;
+        public static final int timeElapsedtext=0x7f09004a;
+        public static final int timeElapsedvalue=0x7f09004b;
+        public static final int timeLeftLayout=0x7f090046;
+        public static final int timeLefttext=0x7f090047;
+        public static final int timeLeftvalue=0x7f090048;
         public static final int title=0x7f090029;
         public static final int title_container=0x7f090030;
         public static final int top_action_bar=0x7f09001e;
+        public static final int totalText=0x7f090059;
         public static final int up=0x7f09001f;
         public static final int useLogo=0x7f090003;
-        public static final int username=0x7f090045;
+        public static final int username=0x7f090052;
+        public static final int weekText=0x7f090057;
         public static final int withText=0x7f090010;
     }
     public static final class integer {
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w360dp/values.xml 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-w500dp/values.xml 
-         */
         public static final int abc_max_action_buttons=0x7f0b0000;
     }
     public static final class layout {
@@ -997,9 +984,15 @@ containing a value of this type.
         public static final int abc_screen=0x7f030015;
         public static final int abc_search_dropdown_item_icons_2line=0x7f030016;
         public static final int abc_search_view=0x7f030017;
-        public static final int activity_login=0x7f030018;
-        public static final int activity_main=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
+        public static final int activity_coffee=0x7f030018;
+        public static final int activity_coffee2=0x7f030019;
+        public static final int activity_history=0x7f03001a;
+        public static final int activity_login=0x7f03001b;
+        public static final int activity_main=0x7f03001c;
+        public static final int activity_statistics=0x7f03001d;
+        public static final int custom_list_item=0x7f03001e;
+        public static final int fragment_main_dummy=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
     }
     public static final class menu {
         public static final int login=0x7f0e0000;
@@ -1019,34 +1012,18 @@ containing a value of this type.
         public static final int abc_searchview_description_voice=0x7f0c000a;
         public static final int abc_shareactionprovider_share_with=0x7f0c000b;
         public static final int abc_shareactionprovider_share_with_application=0x7f0c000c;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_login.xml 
-         */
         public static final int action_forgot_password=0x7f0c000d;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings.xml 
-         */
         public static final int action_logout=0x7f0c000e;
         public static final int action_settings=0x7f0c000f;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_login.xml 
-         */
         public static final int action_sign_in_short=0x7f0c0010;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings.xml 
-         */
         public static final int app_name=0x7f0c0011;
         public static final int elapsed_time_string=0x7f0c0012;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_login.xml 
-         */
         public static final int error_field_required=0x7f0c0013;
         public static final int error_incorrect_password_username=0x7f0c0014;
         public static final int error_invalid_password=0x7f0c0015;
         public static final int error_invalid_username=0x7f0c0016;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings.xml 
-         */
         public static final int hello_world=0x7f0c0017;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_login.xml 
-         */
         public static final int login_progress_signing_in=0x7f0c0018;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_settings.xml 
-         */
         public static final int pref_default_display_name=0x7f0c0019;
         public static final int pref_description_social_recommendations=0x7f0c001a;
         public static final int pref_header_data_sync=0x7f0c001b;
@@ -1061,40 +1038,27 @@ containing a value of this type.
         public static final int pref_title_sync_frequency=0x7f0c0024;
         public static final int pref_title_system_sync_settings=0x7f0c0025;
         public static final int pref_title_vibrate=0x7f0c0026;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_login.xml 
-         */
         public static final int prompt_password=0x7f0c0027;
         public static final int prompt_username=0x7f0c0028;
         public static final int title_activity_login=0x7f0c0029;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/strings_activity_settings.xml 
-         */
         public static final int title_activity_settings=0x7f0c002a;
     }
     public static final class style {
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/styles.xml 
-
+        /** 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values-v11/styles.xml 
  API 11 theme customizations can go here. 
- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values-v14/styles.xml 
  API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f0d0000;
         /**  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0d0001;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values-large/styles.xml 
-         */
         public static final int LoginFormContainer=0x7f0d0002;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml 
-         */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0d0003;
         public static final int TextAppearance_AppCompat_Base_SearchResult=0x7f0d0004;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-v14/values.xml 
-         */
         public static final int TextAppearance_AppCompat_Base_SearchResult_Subtitle=0x7f0d0005;
         public static final int TextAppearance_AppCompat_Base_SearchResult_Title=0x7f0d0006;
         public static final int TextAppearance_AppCompat_Base_Widget_PopupMenu_Large=0x7f0d0007;
@@ -1141,18 +1105,12 @@ containing a value of this type.
         public static final int Theme_AppCompat_CompactMenu_Dialog=0x7f0d0030;
         public static final int Theme_AppCompat_Light=0x7f0d0031;
         public static final int Theme_AppCompat_Light_DarkActionBar=0x7f0d0032;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-v11/values.xml 
-         */
         public static final int Theme_Base=0x7f0d0033;
         public static final int Theme_Base_AppCompat=0x7f0d0034;
         public static final int Theme_Base_AppCompat_Light=0x7f0d0035;
         public static final int Theme_Base_AppCompat_Light_DarkActionBar=0x7f0d0036;
         public static final int Theme_Base_Light=0x7f0d0037;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/styles.xml 
-         */
         public static final int Widget=0x7f0d0038;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values/values.xml 
-         */
         public static final int Widget_AppCompat_ActionBar=0x7f0d0039;
         public static final int Widget_AppCompat_ActionBar_Solid=0x7f0d003a;
         public static final int Widget_AppCompat_ActionBar_TabBar=0x7f0d003b;
@@ -1227,8 +1185,6 @@ containing a value of this type.
         public static final int Widget_AppCompat_ProgressBar=0x7f0d0080;
         public static final int Widget_AppCompat_ProgressBar_Horizontal=0x7f0d0081;
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0d0082;
-        /**  From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/src/main/res/values/styles.xml 
-         */
         public static final int Widget_ProgressBar=0x7f0d0083;
         public static final int Widget_ProgressBar_Vertical=0x7f0d0084;
     }

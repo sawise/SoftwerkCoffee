@@ -12,7 +12,7 @@ import org.apache.http.util.EntityUtils;
  * Created by sam on 10/9/13.
  */
 public class Webservice {
-    private String url = "http://192.168.1.175/api";
+    private String url = "http://dev.softwerk.se:81/api";
 
     public int getSession(String user, String pass){
         String currentProgressStr = getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getSession").trim();
