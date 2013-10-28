@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Lukas/AndroidStudioProjects/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-land/values.xml -->
+    <!-- From: file:/home/sam/git/SoftwerkCoffee/CoffeeProject/Coffee/build/exploded-bundles/ComAndroidSupportAppcompatV71800.aar/res/values-land/values.xml -->
     <eat-comment />
 
     <bool name="abc_action_bar_embed_tabs_pre_jb">true</bool>

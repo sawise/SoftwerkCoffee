@@ -77,6 +77,24 @@
                 android:textOff="NO"
                 android:textOn="YES"/>
         </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="6dp">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Autoswitch: "
+                android:textSize="15dp"
+                android:layout_gravity="center"/>
+            <Switch
+                android:id="@+id/autoSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/statusText"
@@ -86,8 +104,9 @@
             android:textColor="#FF0000"
             android:textSize="20dp"
             android:layout_gravity="center"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:paddingTop="10dp"/>
+
         <LinearLayout
             android:id="@+id/timeLeftLayout"
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -95,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/timeLefttext"
@@ -112,7 +131,6 @@
                 android:text=""
                 android:textColor="#FF0000"
                 android:textSize="20dp"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible">
+            android:visibility="gone">
             <TextView
                 android:id="@+id/timeElapsedtext"
                 android:layout_width="wrap_content"
