@@ -7,12 +7,7 @@
   if(isset($_GET['autoswitchTime'])){
     saveSession($_GET['autoswitchTime'], 'autoswitchtime'); 
   }
-    $autoswitchTime = getSession('autoswitchtime'); 
-	
-	$db = new Db();
-	$users = $db->getUsers();
-	$users = implode(':', $username);
-	echo $username[0];
+    $autoswitchTime = getSession('autoswitchtime');
 	
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
