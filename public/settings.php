@@ -9,6 +9,11 @@
   }
     $autoswitchTime = getSession('autoswitchtime'); 
 	
+	$db = new Db();
+	$users = $db->getUsers();
+	$users = implode(':', $username);
+	echo $username[0];
+	
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 	<div id="settings-div">
