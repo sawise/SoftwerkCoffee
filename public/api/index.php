@@ -10,7 +10,7 @@
                     echo "This is the webservice-page";
                 }
 
-                   if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
+                  /* if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitchTime = getSession('autoswitchtime'); 
                     $autoswitch = getSession('autoswitch'); 
                    if(strlen($autoswitch) <= 0){
@@ -24,7 +24,19 @@
                         saveSession('', 'autoswitch'); 
                         echo "Untoggle autoswitch";
                     }
-                }
+                }*/
+                   if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
+                        $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
+                      $croncommand = preg_replace('/\s+/', ' ', $croncommand);
+                      $crontab->append_cronjob($croncommand);
+                       $crontab->exec('crontab -l > /var/tmp/autoswitch.txt');
+                   }
+
+                   if(isset($_GET['command']) && $_GET['command'] == "untoggleautoswitch"){
+                    $crontab->remove_crontab();
+                        saveSession('', 'autoswitch'); 
+                        echo "Untoggle autoswitch";
+                   }
 
                 if(isset($_GET['command']) && $_GET['command'] == "autoswitchStatus"){
                     $autoswitch = getSession('autoswitch'); 
@@ -63,8 +75,17 @@
                     $dateunix = $date->format("U");
                     echo $dateunix;
                 }
+
+                if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
+                        $coffeepowderStatus = saveSession( "1", 'coffeepowderstatus'); 
+                        echo "Coffee is loaded";                    
+                }
+                  if(isset($_GET['command']) && $_GET['command'] == "untoggleCoffeepowder"){
+                        saveSession('', 'coffeepowderstatus'); 
+                        echo "Coffee is not loaded";
+                }
                 
-                 if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
+                 /*if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
                      $coffeepowderStatus = getSession('coffeepowderstatus'); 
                     if($coffeepowderStatus <= 0){
                         $coffeepowderStatus = saveSession( "1", 'coffeepowderstatus'); 
@@ -73,7 +94,7 @@
                         saveSession('', 'coffeepowderstatus'); 
                         echo "Coffee is not loaded";
                     }
-                }
+                }*/
                      if(isset($_GET['command']) && $_GET['command'] == "getCoffeepowderstatus"){
                      $coffeepowderStatus = getSession('coffeepowderstatus'); 
                     if($coffeepowderStatus <= 0){

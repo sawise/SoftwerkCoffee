@@ -53,6 +53,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     private long timeOn = 600;
     private long timeLeft = 0;
     private long timeElapsed = 0;
+    private long end = 0;
     double progress = 0;
     private int percentInt;
     boolean check;
@@ -103,6 +104,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         coffeepowderStatus = webService.getCoffeepowder(pieces[0], pieces[1]);
         autoswitchStatus = webService.getAutoswitchStatus(pieces[0], pieces[1]);
         Log.i("Statuses", coffeepowderStatus+"<->"+autoswitchStatus);
+
         if(currentProgressInt > 0){
             coffeeSwitch.setChecked(true);
             coffeeSwitch.setEnabled(true);
@@ -130,7 +132,8 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                 long epoch = System.currentTimeMillis()/1000;
                 currentTime = epoch;
                 long epochEnd = epoch+timeOn;
-                Log.i("progresss", currentProgressInt+"<->"+epoch);
+
+                Log.i("progresss before", currentProgressInt+"<->"+currentTime);
                 if(currentProgressInt <= 0){
                     webService.toggleCoffee(pieces[0], pieces[1], "on");
                     currentProgressInt = webService.getSession(pieces[0], pieces[1]);
@@ -141,9 +144,12 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                 check = false;
                 webService.toggleCoffee(pieces[0], pieces[1], "off");
                 setStatusText("STOPPED!", error);
+                progress = 0;
             }
+            Log.i("progresss after", currentProgressInt+"<->"+currentTime);
 
-            if(currentTime < currentProgressInt){
+            Log.i("progresss", progress+"");
+            if(currentTime < currentProgressInt ){
                 new Thread(new Runnable() {
                     int p = (int) progress;
 
@@ -156,32 +162,32 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                             }
                             handler.post(new Runnable() {
                                 public void run() {
+                                if(check && !error && !(p >= timeOn)){
                                     long epoch = System.currentTimeMillis()/1000;
-                                    if(check && !error && !(p >= timeOn)){
-                                        calculateProgress(epoch, currentProgressInt);
-                                        double percent = roundTwodecimals(((double)p/timeOn)*100);
-                                        Log.i("current progress", currentProgressInt+"");
-                                        percentInt = (int) percent;
-                                        progressBar.setProgress(percentInt);
-                                        setText(percent, timeLeft, timeElapsed);
-                                    } else if (!check && !error && percentInt != 100) {
-                                        progressBar.setProgress(0);
-                                        setVisable(View.GONE);
-                                        setStatusText("STOPPED!", error);
-                                        p = (int) timeOn;
-                                        if(!coffeepowderSwitch.isChecked() && !coffeeSwitch.isChecked()){
-                                            coffeeSwitch.setEnabled(false);
-                                        }
-                                    }  else if(error/*this value only simulates the error message, in future put a another statement*/){
-                                        progressBar.setProgress(50/*should be p*/);
-                                        error = true;
-                                        setStatusText("ERROR!", error);
-                                        p = (int) timeOn;
-                                        error = false;
-                                    }if (p == timeOn && !error && check || epoch > currentProgressInt) {
-                                        setVisable(View.GONE);
-                                        setStatusText("DONE!", error);
+                                    calculateProgress(epoch, currentProgressInt);
+                                    double percent = roundTwodecimals(((double)p/timeOn)*100);
+                                    Log.i("current progress", currentProgressInt+"");
+                                    percentInt = (int) percent;
+                                    progressBar.setProgress(percentInt);
+                                    setText(percent, timeLeft, timeElapsed);
+                                } else if (!check && !error && percentInt != 100) {
+                                    progressBar.setProgress(0);
+                                    setVisable(View.GONE);
+                                    setStatusText("STOPPED!", error);
+                                    p = (int) timeOn;
+                                    if(!coffeepowderSwitch.isChecked() && !coffeeSwitch.isChecked()){
+                                        coffeeSwitch.setEnabled(false);
                                     }
+                                }  else if(error/*this value only simulates the error message, in future put a another statement*/){
+                                    progressBar.setProgress(50/*should be p*/);
+                                    error = true;
+                                    setStatusText("ERROR!", error);
+                                    p = (int) timeOn;
+                                    error = false;
+                                }if (p == timeOn && !error && check) {
+                                    setVisable(View.GONE);
+                                    setStatusText("DONE!", error);
+                                }
                                 }
                             });
                             p++;
@@ -199,11 +205,11 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                 if(toggle.contains("is loaded")){
                     coffeeSwitch.setEnabled(true);
                     coffeepowderSwitch.setChecked(true);
-                    Log.i("Coffeepowder", "yes");
+                    Log.i("Toggle coffeepowder", "yes");
                 } else if(toggle.contains("is not loaded")){
                     coffeeSwitch.setEnabled(false);
                     coffeepowderSwitch.setChecked(false);
-                    Log.i("Coffeepowder", "no");
+                    Log.i("Toggle coffeepowder", "no");
                 }
             }
         } else if(buttonView == autoSwitch){
@@ -211,11 +217,13 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                 String toggle = webService.toggleAutoswitch(pieces[0], pieces[1]);
                 if(toggle.contains("Toggle")){
                     autoSwitch.setChecked(true);
-                    Log.i("autoswitch", "yes");
+                    Log.i("Toggle autoswitch", "yes");
                 } else if(toggle.contains("Untoggle")){
                     autoSwitch.setChecked(false);
-                    Log.i("autoswitch", "no");
+                    Log.i("Toggle autoswitch", "no");
                 }
+            } else{
+                autoswitchStatus = "is off";
             }
     }
     }
@@ -238,7 +246,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     }
 
     public void setText(double percent, long timeLeft, long timeElapsed){
-
+        setVisable(View.VISIBLE);
         String percentStr = Double.toString(percent)+"%";
         String minutesLeftStr = timeWithTwochar((timeLeft/60) % 60);
         String secondsLeftStr = timeWithTwochar(timeLeft % 60);
@@ -248,8 +256,6 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         statusText.setText(percentStr);
         timeleftValuetext.setText(minutesLeftStr+":"+secondsLeftStr);
         timeElapsedValuetext.setText(minutesElapsedStr+":"+secondsElapsedStr);
-
-
     }
 
     public double roundTwodecimals(double d){
@@ -259,7 +265,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
 
     public void calculateProgress(long currentTime, long session){
         if(session <= 0){
-            long end = currentTime-timeOn;
+            end = currentTime-timeOn;
             timeLeft = end-currentTime;
             timeElapsed = timeOn-timeLeft;
         } else if (session > 0){
