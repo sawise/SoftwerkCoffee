@@ -6,7 +6,7 @@
 	}
 	
 	$db = new Db();
-	
+		
   	if (isset($_POST) && isset($_POST['username'])) {
 		$username = $_POST['username'];
 		$password = hash('sha256', $_POST['password'].SALT);
@@ -22,6 +22,7 @@
 			
 					if ($db_password->password == $password) {
 						$_SESSION['is_logged_in'] = true;
+						$_SESSION['user_username'] = $db_username->username;
 						
 						if (isset($_SESSION['return_to'])) {
 							$return_to = $_SESSION['return_to'];
