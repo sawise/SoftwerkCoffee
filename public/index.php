@@ -1,10 +1,10 @@
-
-
 <?php
 	require_once('../config.php');
-   require_once(ROOT_PATH.'/classes/authorization.php');
+   	require_once(ROOT_PATH.'/classes/authorization.php');
+	
+	//$username = $_SESSION['user_username'];
 
-   $url = 'api/?user='.USER.'&pass='.PASS.'&command=';
+   	$url = 'api/?user='.USER.'&pass='.PASS.'&command=';
 
 	$progressSession = 0; 
 	$coffeepowderStatus = 0;
@@ -35,6 +35,7 @@
 	$timestart = 0;
 	$timeend = 0;
 	$timeleft = 0;
+		
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 

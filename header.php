@@ -180,7 +180,7 @@
 				left:0px;
 				z-index:1;
 				width:10em;
-				height:1em;
+				height:3em;
 	  		}
 			.alert {
 				display:inline-block;
@@ -201,7 +201,7 @@
 			#settings-div {
 				float:left;
 				position:fixed;
-				top:4em;
+				top:5em;
 				left:1em;
 			}
 			#txt {
@@ -226,6 +226,9 @@
 			}
 			#progress {
 				font-size:15px;
+			}
+			#username-span {
+				font-style:italic;
 			}
 		</style>
         <script type="text/javascript">
@@ -288,12 +291,13 @@
 	<body id="body">
     	<div class="alert-div"><?php echo get_feedback(); ?></div>
     	<div id="container" class="container">
-        	 <?php if (isset($_SESSION['is_logged_in'])) : ?>
+        	 <?php if (isset($_SESSION['is_logged_in']) && isset($_SESSION['user_username'])) : ?>
+             	<?php $username = $_SESSION['user_username']; ?>
 			 	<div class="well well-small" id="user_info">
           			<?php if ($page_title != "Settings") : ?>
-                    	<p><a href="settings.php">Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
+                    	<p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> <a href="settings.php">Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
 					<?php else : ?>
-                        <p>Settings | <a class="logout_link" href="logout.php">Log out</a></p>
+                        <p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> Settings | <a class="logout_link" href="logout.php">Log out</a></p>
 					<?php endif ?>
       			</div>
       		<?php endif ?>
