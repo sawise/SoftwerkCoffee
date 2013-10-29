@@ -40,8 +40,11 @@ public class Webservice {
         return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getTime");
     }
 
-    public String toggleCoffeepowder(String user, String pass){
-        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    public void toggleCoffeepowder(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    }
+    public void untoggleCoffeepowder(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleCoffeepowder");
     }
 
     public String getCoffeepowder(String user, String pass){

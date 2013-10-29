@@ -106,19 +106,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Webservice.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Webservice.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="5" selection-start="1224" selection-end="1224" vertical-scroll-proportion="0.73913044" vertical-offset="0" max-vertical-offset="1309">
+            <state line="45" column="18" selection-start="1681" selection-end="1681" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1360">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CoffeeActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CoffeeActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="218" column="68" selection-start="9509" selection-end="9509" vertical-scroll-proportion="-22.16" vertical-offset="2710" max-vertical-offset="4726">
+            <state line="214" column="5" selection-start="9113" selection-end="9113" vertical-scroll-proportion="0.94380164" vertical-offset="2625" max-vertical-offset="4420">
               <folding />
             </state>
           </provider>
@@ -557,16 +557,16 @@
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/MainActivity.java" />
         <option value="$PROJECT_DIR$/local.properties" />
         <option value="$PROJECT_DIR$/Coffee/src/main/res/layout/activity_coffee.xml" />
-        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1430" />
-    <option name="y" value="24" />
+    <option name="y" value="-8" />
     <option name="width" value="1537" />
-    <option name="height" value="1177" />
+    <option name="height" value="1209" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -949,7 +949,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1430" y="24" width="1537" height="1177" extended-state="7" />
+    <frame x="1430" y="-8" width="1537" height="1209" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -963,7 +963,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33017975" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3902439" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37842953" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1083,16 +1083,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java">
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="218" column="68" selection-start="9509" selection-end="9509" vertical-scroll-proportion="-22.16" vertical-offset="2710" max-vertical-offset="4726">
+        <state line="45" column="18" selection-start="1681" selection-end="1681" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1360">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="5" selection-start="1224" selection-end="1224" vertical-scroll-proportion="0.73913044" vertical-offset="0" max-vertical-offset="1309">
+        <state line="214" column="5" selection-start="9113" selection-end="9113" vertical-scroll-proportion="0.94380164" vertical-offset="2625" max-vertical-offset="4420">
           <folding />
         </state>
       </provider>

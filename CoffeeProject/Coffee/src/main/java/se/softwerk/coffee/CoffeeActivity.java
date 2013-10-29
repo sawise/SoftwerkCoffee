@@ -200,36 +200,18 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                 setStatusText("Go get your coffee! =)", error);
             }
         } else if(buttonView == coffeepowderSwitch){
-            if(!coffeepowderStatus.contains("is loaded")){
-                String toggle = webService.toggleCoffeepowder(pieces[0], pieces[1]);
-                if(toggle.contains("is loaded")){
-                    coffeeSwitch.setEnabled(true);
-                    coffeepowderSwitch.setChecked(true);
-                    Log.i("Toggle coffeepowder", "yes");
-                } else if(toggle.contains("is not loaded")){
-                    coffeeSwitch.setEnabled(false);
-                    coffeepowderSwitch.setChecked(false);
-                    Log.i("Toggle coffeepowder", "no");
-                }
+            if(isChecked){
+                webService.toggleCoffeepowder(pieces[0], pieces[1]);
+            } else{
+                webService.untoggleCoffeepowder(pieces[0], pieces[1]);
             }
+
         } else if(buttonView == autoSwitch){
             if(isChecked){
                 webService.toggleAutoswitch(pieces[0], pieces[1]);
             } else{
                 webService.untoggleAutoswitch(pieces[0], pieces[1]);
             }
-            /*if(!autoswitchStatus.contains("is on")){
-                //String toggle = webService.toggleAutoswitch(pieces[0], pieces[1]);
-                if(toggle.contains("Toggle")){
-                    autoSwitch.setChecked(true);
-                    Log.i("Toggle autoswitch", "yes");
-                } else if(toggle.contains("Untoggle")){
-                    autoSwitch.setChecked(false);
-                    Log.i("Toggle autoswitch", "no");
-                }
-            /*} else{
-                autoswitchStatus = "is off";
-            }*/
     }
     }
 
