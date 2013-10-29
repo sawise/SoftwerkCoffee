@@ -3,16 +3,20 @@
 	  
 	define('ROOT_PATH', dirname(__FILE__));
 	
-	$file = ROOT_PATH.'/public/credentials';
-	$fh = fopen($file, 'r');
-	$values = fgets($fh);
+	$file2 = ROOT_PATH.'/public/credentials';
+	$fh2 = fopen($file2, 'r');
+	$values = fgets($fh2);
 	$value = explode(':', $values);
 	
+	$file = ROOT_PATH.'/dbcredentials';
+	$fh = fopen($file, 'r');
+	$dbvalues = fgets($fh);
+	$dbvalue = explode(':', $dbvalues);
 	
-  	define('DB_USER', 'root');
-  	define('DB_PASS', '');
-  	define('DB_NAME', 'softwerkcoffee');
-  	define('DB_HOST', 'localhost');
+  	define('DB_USER', $dbvalue[0]);
+  	define('DB_PASS', $dbvalue[1]);
+  	define('DB_NAME', $dbvalue[2]);
+  	define('DB_HOST', $dbvalue[3]);
 		
 	define('USER', $value[0]);
 	define('PASS', $value[1]);
@@ -20,6 +24,7 @@
 	//define('PASSCRYPT', crypt(PASS, '$5$rounds=5000$notevenclose$'));
 	
 	fclose($fh);
+	fclose($fh2);
 	
 	date_default_timezone_set('Europe/Stockholm');
 	  

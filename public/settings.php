@@ -4,9 +4,9 @@
 	
 	$page_title = "Settings";
 
-  if(isset($_GET['autoswitchTime'])){
-    saveSession($_GET['autoswitchTime'], 'autoswitchtime'); 
-  }
+	if(isset($_GET['autoswitchTime'])){
+		saveSession($_GET['autoswitchTime'], 'autoswitchtime'); 
+	}
     $autoswitchTime = getSession('autoswitchtime');
 	
 ?>
