@@ -162,7 +162,7 @@ function coffeeSwitch(){
  					if(document.getElementById('coffeeSwitch').checked && x != timeon){
                         document.getElementById('progress').style.display='';
                         document.getElementById("progressbar").style.height="+"+percent+"%";
-                       document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+$
+                       document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
                 } else if(document.getElementById('coffeeSwitch').checked == false){
                         console.log("Coffee is off");
                         togglePHP("turnOff", 0);        
