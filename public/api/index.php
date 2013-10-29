@@ -29,17 +29,15 @@
                         $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
                       $croncommand = preg_replace('/\s+/', ' ', $croncommand);
                       $crontab->append_cronjob($croncommand);
-                       $crontab->exec('crontab -l > /var/tmp/autoswitch.txt');
                    }
 
                    if(isset($_GET['command']) && $_GET['command'] == "untoggleautoswitch"){
                     $crontab->remove_crontab();
-                        saveSession('', 'autoswitch'); 
-                        echo "Untoggle autoswitch";
+                     echo "Untoggle autoswitch";
                    }
 
                 if(isset($_GET['command']) && $_GET['command'] == "autoswitchStatus"){
-                    $autoswitch = getSession('autoswitch'); 
+                    $autoswitch = getSession('crontab'); 
                     if(strlen($autoswitch) <= 0){
                         echo "Autoswitch is on";
                     } else {
@@ -78,13 +76,13 @@
 
                 if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
                         $coffeepowderStatus = saveSession( "1", 'coffeepowderstatus'); 
-                        echo "Coffee is loaded";                    
+                        echo "Coffee loaded";                    
                 }
                   if(isset($_GET['command']) && $_GET['command'] == "untoggleCoffeepowder"){
                         saveSession('', 'coffeepowderstatus'); 
-                        echo "Coffee is not loaded";
+                        echo "Coffee unloaded";
                 }
-                
+
                  /*if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
                      $coffeepowderStatus = getSession('coffeepowderstatus'); 
                     if($coffeepowderStatus <= 0){

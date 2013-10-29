@@ -213,8 +213,13 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                 }
             }
         } else if(buttonView == autoSwitch){
-            if(!autoswitchStatus.contains("is on")){
-                String toggle = webService.toggleAutoswitch(pieces[0], pieces[1]);
+            if(isChecked){
+                webService.toggleAutoswitch(pieces[0], pieces[1]);
+            } else{
+                webService.untoggleAutoswitch(pieces[0], pieces[1]);
+            }
+            /*if(!autoswitchStatus.contains("is on")){
+                //String toggle = webService.toggleAutoswitch(pieces[0], pieces[1]);
                 if(toggle.contains("Toggle")){
                     autoSwitch.setChecked(true);
                     Log.i("Toggle autoswitch", "yes");
@@ -222,9 +227,9 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                     autoSwitch.setChecked(false);
                     Log.i("Toggle autoswitch", "no");
                 }
-            } else{
+            /*} else{
                 autoswitchStatus = "is off";
-            }
+            }*/
     }
     }
 

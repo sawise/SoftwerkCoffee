@@ -25,8 +25,8 @@
 		$coffeepowderStatus = getSession('coffeepowderstatus'); 
 		echo $coffeepowderStatus;
 	}
-	if(file_exists(ROOT_PATH.'/tmp/autoswitch.txt')){
-		$autoswitch = getSession('autoswitch'); 
+	if(file_exists(ROOT_PATH.'/tmp/crontab.txt')){
+		$autoswitch = getSession('crontab'); 
 		echo strlen($autoswitch);
 	}
   
@@ -195,9 +195,13 @@ function coffeepowderSwitch(){
         }
 }
 
-document.getElementById('autoSwitch').addEventListener('change', coffeePowder, false);
-function coffeePowder(){
-	togglePHP("toggleautoswitch", 0);
+document.getElementById('autoSwitch').addEventListener('change', autoSwitch, false);
+function autoSwitch(){
+	 if(document.getElementById('autoSwitch').checked){
+	 	togglePHP("toggleautoswitch", 0);
+	 } else {
+	 	togglePHP("untoggleautoswitch", 0);
+	 }
 
 }
        function togglePHP(command, session){
