@@ -25,8 +25,8 @@
 		$coffeepowderStatus = getSession('coffeepowderstatus'); 
 		echo $coffeepowderStatus;
 	}
-	if(file_exists(ROOT_PATH.'/tmp/autoswitch.txt')){
-		$autoswitch = getSession('autoswitch'); 
+	if(file_exists(ROOT_PATH.'/tmp/crontab.txt')){
+		$autoswitch = getSession('crontab'); 
 		echo strlen($autoswitch);
 	}
   
@@ -138,7 +138,6 @@ function coffeeSwitch(){
 			togglePHP("turnOn", 0);	
 				start =  dateunix;
 				end =  start+timeon;
-				 togglePHP("saveSession", end);
 		}else if (session > dateunix){
 				 end =  session;
 				 timeleft =  end-dateunix;
@@ -160,11 +159,11 @@ function coffeeSwitch(){
 					var secondsLeft = secondswithTwochar(timeleft % 60);
 					var minutesElapsed = parseInt( timeelapsed / 60 ) % 60;
 					var secondsElapsed =  secondswithTwochar(timeelapsed % 60);
-					console.log(secondsElapsed);
+					console.log(now);
  					if(document.getElementById('coffeeSwitch').checked && x != timeon){
                         document.getElementById('progress').style.display='';
                         document.getElementById("progressbar").style.height="+"+percent+"%";
-                       document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+$
+                       document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
                 } else if(document.getElementById('coffeeSwitch').checked == false){
                         console.log("Coffee is off");
                         togglePHP("turnOff", 0);        
@@ -175,7 +174,6 @@ function coffeeSwitch(){
                                 document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
                         }
                         x = timeon;
-
 				}	else if (x >= timeon && document.getElementById('coffeeSwitch').checked != false){
 					document.getElementById("progressbar").style.height="100%";
 					document.getElementById("progress").innerHTML="DONE!";
@@ -198,14 +196,16 @@ function coffeepowderSwitch(){
         }
 }
 
-document.getElementById('autoSwitch').addEventListener('change', coffeePowder, false);
+document.getElementById('autoSwitch').addEventListener('change', autoSwitch, false);
+function autoSwitch(){
+	 if(document.getElementById('autoSwitch').checked){
+	 	togglePHP("toggleautoswitch", 0);
+	 } else {
+	 	togglePHP("untoggleautoswitch", 0);
+	 }
 
-function coffeePowder(){
-	togglePHP("toggleautoswitch", 0);
-
-	}
-
-	        function togglePHP(command, session){
+}
+       function togglePHP(command, session){
                 xmlHttp = new XMLHttpRequest();
                   xmlHttp.onreadystatechange=function(){
 	                  if (xmlHttp.readyState!=4){
@@ -238,4 +238,4 @@ function coffeePowder(){
     
 
 
-<?php $end = "end"; require_once(ROOT_PATH.'/footer.php'); ?>
+<?php require_once(ROOT_PATH.'/footer.php'); ?>

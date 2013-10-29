@@ -25,8 +25,11 @@ public class Webservice {
         return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=autoswitchStatus");
     }
 
-    public String toggleAutoswitch(String user, String pass){
-        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleautoswitch");
+    public void toggleAutoswitch(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleautoswitch");
+    }
+    public void untoggleAutoswitch(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleautoswitch");
     }
 
     public void clearSession(String user, String pass){
@@ -37,8 +40,11 @@ public class Webservice {
         return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getTime");
     }
 
-    public String toggleCoffeepowder(String user, String pass){
-        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    public void toggleCoffeepowder(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    }
+    public void untoggleCoffeepowder(String user, String pass){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleCoffeepowder");
     }
 
     public String getCoffeepowder(String user, String pass){
