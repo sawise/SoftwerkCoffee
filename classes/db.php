@@ -15,7 +15,7 @@
 		
 		public function getUsers() {
     		$sth = $this->dbh->query($this->users_sql);
-      		$sth->setFetchMode(PDO::FETCH_CLASS, 'users');
+      		$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
 
       		$objects = array();
 
@@ -26,6 +26,90 @@
       		return $objects;
     	}
 		
+		public function getUsername($username) {
+			$sql = $this->users_sql." WHERE username = :username";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindParam(':username', $username, PDO::PARAM_INT);
+			$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+			$sth->execute();
+
+			$objects = array();
+
+			while($obj = $sth->fetch()) {
+				$objects[] = $obj;
+			}
+			if (count($objects) > 0) {
+				return $objects[0];
+			} else {
+				return null;
+			}
+		}
+		
+		public function getPassword($password) {
+			$sql = $this->users_sql." WHERE password = :password";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindParam(':password', $password, PDO::PARAM_INT);
+			$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+			$sth->execute();
+
+			$objects = array();
+
+			while($obj = $sth->fetch()) {
+				$objects[] = $obj;
+			}
+			if (count($objects) > 0) {
+				return $objects[0];
+			} else {
+				return null;
+			}
+		}
+		
+		public function getUser($id) {
+			$sql = $this->users_sql." WHERE id = :id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindParam(':id', $id, PDO::PARAM_INT);
+			$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+			$sth->execute();
+
+			$objects = array();
+
+			while($obj = $sth->fetch()) {
+				$objects[] = $obj;
+			}
+			if (count($objects) > 0) {
+				return $objects[0];
+			} else {
+				return null;
+			}
+		}
+		
+		/*
+		public function getUsername($username) {
+    		$sth = $this->dbh->query($this->sql_username." FROM users WHERE username = '$username'");
+      		$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+
+      		$objects = array();
+			
+      		while($obj = $sth->fetch()) {
+        		$objects[] = $obj;
+      		}
+			
+			return $objects;
+    	}
+		
+		public function getPassword($password) {
+    		$sth = $this->dbh->query("SELECT password FROM users WHERE password = '$password'");
+      		$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+
+      		$objects = array();
+			
+      		while($obj = $sth->fetch()) {
+        		$objects[] = $obj;
+      		}
+			
+			return $objects;
+    	}
+		*/
 		
 		
 		public function query($sql, $class_name) {

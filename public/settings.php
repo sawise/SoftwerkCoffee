@@ -7,7 +7,7 @@
   if(isset($_GET['autoswitchTime'])){
     saveSession($_GET['autoswitchTime'], 'autoswitchtime'); 
   }
-    $autoswitchTime = getSession('autoswitchtime'); 
+    $autoswitchTime = getSession('autoswitchtime');
 	
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>

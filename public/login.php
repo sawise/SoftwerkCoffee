@@ -4,38 +4,57 @@
 	if (!(isset($_COOKIE['remember_me']))) {	//if username cookie isn't set
 		$_COOKIE['remember_me'] = "";			//changes value of username-input to null
 	}
-
+	
+	$db = new Db();
+	
   	if (isset($_POST) && isset($_POST['username'])) {
-  		$username = hash('sha256', $_POST['username'].SALT);
+		$username = $_POST['username'];
 		$password = hash('sha256', $_POST['password'].SALT);
-    	//$password = crypt($_POST['password'], '$5$rounds=5000$notevenclose$'); 
-
-		if ($username == USER && $password == PASS /*crypt(PASS, '$5$rounds=5000$notevenclose$')*/) {
-			$_SESSION['is_logged_in'] = true;
+		
+		$db_username = $db->getUsername($username);
+		$db_password = $db->getPassword($password);
+		
+		if (count($db_username) > 0) {
 			
-			if (isset($_SESSION['return_to'])) {
-				$return_to = $_SESSION['return_to'];
-				$_SESSION['return_to'] = null;
-				header('location: '.$return_to);
-			} else {
-				$year = time() + 31536000;
-				if($_POST['remember']) {										//if "Remember me"-checkbox is checked
-					setcookie('remember_me', $_POST['username'], $year);	//sets one-year cookie for username
-				} elseif(!$_POST['remember']) {									//if "Remember me"-checkbox isn't checked
-					if(isset($_COOKIE['remember_me'])) {
-						$past = time() - 100;
-						setcookie(remember_me, gone, $past);	//removes username-cookie
-					} 	
+			if ($db_username->username == $username) {
+			
+				if (count($db_password) > 0) {
+			
+					if ($db_password->password == $password) {
+						$_SESSION['is_logged_in'] = true;
+						
+						if (isset($_SESSION['return_to'])) {
+							$return_to = $_SESSION['return_to'];
+							$_SESSION['return_to'] = null;
+							header('location: '.$return_to);
+						} else {
+							$year = time() + 31536000;
+			
+							if($_POST['remember']) {									//if "Remember me"-checkbox is checked
+								setcookie('remember_me', $_POST['username'], $year);	//sets one-year cookie for username
+							} elseif(!$_POST['remember']) {								//if "Remember me"-checkbox isn't checked
+								if(isset($_COOKIE['remember_me'])) {
+									$past = time() - 100;
+									setcookie(remember_me, gone, $past);	//removes username-cookie
+								} 	
+							}
+							header('location: index.php');
+						} 
+					} else {
+						set_feedback("error", "Wrong username or password.");
+					}
+				} else {
+						set_feedback("error", "Wrong username or password.");
 				}
-				header('location: index.php');
-			} 
-    	} else {
-			set_feedback("error", "Wrong username or password.");
+			} else {
+					set_feedback("error", "Wrong username or password.");
+			}
+		} else {
+				set_feedback("error", "Wrong username or password.");
 		}
   	}
 
   	$page_title = "Log in";
-	
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 
