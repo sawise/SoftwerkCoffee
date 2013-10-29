@@ -870,16 +870,18 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f090021;
         public static final int action_bar_title=0x7f090020;
         public static final int action_context_bar=0x7f09001b;
-        public static final int action_logout=0x7f09005d;
+        public static final int action_logout=0x7f09005f;
         public static final int action_menu_divider=0x7f090015;
         public static final int action_menu_presenter=0x7f090016;
         public static final int action_mode_bar=0x7f09002f;
         public static final int action_mode_bar_stub=0x7f09002e;
         public static final int action_mode_close_button=0x7f090022;
-        public static final int action_settings=0x7f09005c;
+        public static final int action_settings=0x7f09005e;
         public static final int activity_chooser_view_content=0x7f090023;
         public static final int always=0x7f09000f;
         public static final int autoSwitch=0x7f090045;
+        public static final int autoSwitchToggle=0x7f09004f;
+        public static final int autoswitchSettings=0x7f09005d;
         public static final int beginning=0x7f09000a;
         public static final int checkbox=0x7f09002b;
         public static final int coffeeSwitch=0x7f090043;
@@ -895,7 +897,7 @@ containing a value of this type.
         public static final int end=0x7f09000c;
         public static final int expand_activities_button=0x7f090024;
         public static final int expanded_menu=0x7f09002a;
-        public static final int historyList=0x7f09004f;
+        public static final int historyList=0x7f090050;
         public static final int home=0x7f090017;
         public static final int homeAsUp=0x7f090005;
         public static final int icon=0x7f090028;
@@ -904,17 +906,17 @@ containing a value of this type.
         public static final int left_icon=0x7f090031;
         public static final int listMode=0x7f090001;
         public static final int list_item=0x7f090027;
-        public static final int login=0x7f090055;
-        public static final int login_form=0x7f090052;
-        public static final int login_status=0x7f090050;
-        public static final int login_status_message=0x7f090051;
+        public static final int login=0x7f090056;
+        public static final int login_form=0x7f090053;
+        public static final int login_status=0x7f090051;
+        public static final int login_status_message=0x7f090052;
         public static final int middle=0x7f09000b;
-        public static final int monthText=0x7f090059;
+        public static final int monthText=0x7f09005a;
         public static final int never=0x7f09000d;
         public static final int none=0x7f090009;
         public static final int normal=0x7f090000;
-        public static final int pager=0x7f090057;
-        public static final int password=0x7f090054;
+        public static final int pager=0x7f090058;
+        public static final int password=0x7f090055;
         public static final int progressBar=0x7f090042;
         public static final int progress_circular=0x7f090034;
         public static final int progress_horizontal=0x7f090035;
@@ -931,12 +933,12 @@ containing a value of this type.
         public static final int search_plate=0x7f09003c;
         public static final int search_src_text=0x7f09003d;
         public static final int search_voice_btn=0x7f090041;
-        public static final int section_label=0x7f09005b;
+        public static final int section_label=0x7f09005c;
         public static final int shortcut=0x7f09002c;
         public static final int showCustom=0x7f090007;
         public static final int showHome=0x7f090004;
         public static final int showTitle=0x7f090006;
-        public static final int sign_in_button=0x7f090056;
+        public static final int sign_in_button=0x7f090057;
         public static final int split_action_bar=0x7f09001c;
         public static final int statusText=0x7f090046;
         public static final int submit_area=0x7f09003f;
@@ -950,11 +952,11 @@ containing a value of this type.
         public static final int title=0x7f090029;
         public static final int title_container=0x7f090030;
         public static final int top_action_bar=0x7f09001e;
-        public static final int totalText=0x7f09005a;
+        public static final int totalText=0x7f09005b;
         public static final int up=0x7f09001f;
         public static final int useLogo=0x7f090003;
-        public static final int username=0x7f090053;
-        public static final int weekText=0x7f090058;
+        public static final int username=0x7f090054;
+        public static final int weekText=0x7f090059;
         public static final int withText=0x7f090010;
     }
     public static final class integer {
@@ -1190,10 +1192,11 @@ containing a value of this type.
         public static final int Widget_ProgressBar_Vertical=0x7f0d0084;
     }
     public static final class xml {
-        public static final int pref_data_sync=0x7f050000;
-        public static final int pref_general=0x7f050001;
-        public static final int pref_headers=0x7f050002;
-        public static final int pref_notification=0x7f050003;
+        public static final int pref=0x7f050000;
+        public static final int pref_data_sync=0x7f050001;
+        public static final int pref_general=0x7f050002;
+        public static final int pref_headers=0x7f050003;
+        public static final int pref_notification=0x7f050004;
     }
     public static final class styleable {
         /** Attributes that can be used with a ActionBar.

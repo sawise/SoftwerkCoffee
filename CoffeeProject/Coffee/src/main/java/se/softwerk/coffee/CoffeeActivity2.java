@@ -38,9 +38,16 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
     private Handler handler = new Handler();
     private ToggleButton coffeeToggle;
     private ToggleButton coffeepowderToggle;
+    private ToggleButton autoswitchToggle;
     private String url = "http://dev.softwerk.se:81"; //"http://46.194.99.157";
+    private String coffeepowderStatus;
+    private String autoswitchStatus;
     private long currentProgressInt = 0;
+    private long currentTime = 0;
     private long timeOn = 600;
+    private long timeLeft = 0;
+    private long timeElapsed = 0;
+    private long end = 0;
     double progress = 0;
     private int percentInt;
     boolean check;
@@ -72,12 +79,14 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         coffeeToggle = (ToggleButton) rootView.findViewById(R.id.coffeeToggle);
         coffeepowderToggle = (ToggleButton) rootView.findViewById(R.id.coffeepowderToggle);
+        autoswitchToggle = (ToggleButton) rootView.findViewById(R.id.autoSwitchToggle);
 
         currentProgressInt = webService.getSession(pieces[0], pieces[1]);
 
         coffeeToggle.setOnCheckedChangeListener(this);
         coffeeToggle.setEnabled(false);
         coffeepowderToggle.setOnCheckedChangeListener(this);
+        autoswitchToggle.setOnCheckedChangeListener(this);
 
         progressBar.setProgress(0);
         progressBar.setMax(100);
@@ -92,6 +101,26 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
             coffeeToggle.setChecked(true);
         }
 
+        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+        coffeepowderStatus = webService.getCoffeepowder(pieces[0], pieces[1]);
+        autoswitchStatus = webService.getAutoswitchStatus(pieces[0], pieces[1]);
+        Log.i("Statuses", coffeepowderStatus+"<->"+autoswitchStatus);
+
+        if(currentProgressInt > 0){
+            coffeeToggle.setChecked(true);
+            coffeeToggle.setEnabled(true);
+        }
+        if(coffeepowderStatus.contains("is loaded")){
+            coffeepowderToggle.setChecked(true);
+            coffeeToggle.setEnabled(true);
+            Log.i("coffeepowder session", "yeees");
+        }
+        if(autoswitchStatus.contains("is on")){
+            autoswitchToggle.setChecked(true);
+            Log.i("autoswitch session", "yeees");
+        }
+
+
         return rootView;
     }
 
@@ -99,75 +128,94 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if(buttonView == coffeeToggle){
+                if(isChecked){
+                    check = true;
+                    currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+                    long epoch = System.currentTimeMillis()/1000;
+                    currentTime = epoch;
+                    long epochEnd = epoch+timeOn;
 
-            if(isChecked){
-                check = true;
-                currentProgressInt = webService.getSession(pieces[0], pieces[1]);;
-                webService.toggleCoffee(pieces[0], pieces[1], "on");
-                long epoch = (System.currentTimeMillis()/1000)+timeOn;
-                Log.i("Unix timestamp", epoch + "");
-                if(currentProgressInt <= 0){
-                    webService.saveSession(pieces[0], pieces[1], epoch);
-                } else if(currentProgressInt > 0){
-                    calculateProgress(epoch, currentProgressInt);
-                }
-            } else if(!isChecked){
-                check = false;
-                webService.toggleCoffee(pieces[0], pieces[1], "off");
-                webService.clearSession(pieces[0], pieces[1]);
-            }
-
-            new Thread(new Runnable() {
-                int p = (int) progress;
-
-                public void run() {
-                    while (p < timeOn) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        handler.post(new Runnable() {
-                            public void run() {
-                                if(check && !error){
-                                    double percent = roundTwodecimals(((double)p/timeOn)*100);
-                                    percentInt = (int) percent;
-                                    //Log.i("percent", p+"<->"+percentInt);
-                                    progressBar.setProgress(percentInt);
-                                    setStatusText(percent+"%", error);
-                                } else if (!check && !error && percentInt != 100) {
-                                    progressBar.setProgress(0);
-                                    setStatusText("STOPPED!", error);
-                                    p = (int) timeOn;
-                                }  else if(error/*this value only simulates the error message, in future put a another statement*/){
-                                    progressBar.setProgress(50/*should be p*/);
-                                    error = true;
-                                    setStatusText("ERROR!", error);
-                                    p = (int) timeOn;
-                                    error = false;
-                                }if (p == timeOn && !error && check) {
-                                    setStatusText("DONE!", error);
-                                    coffeepowderToggle.setChecked(false);
-                                    coffeeToggle.setChecked(false);
-                                    webService.getWebservice(url+"/api/turnOff");
-                                }
-                            }
-                        });
-                        p++;
+                    Log.i("progresss before", currentProgressInt+"<->"+currentTime);
+                    if(currentProgressInt <= 0){
+                        webService.toggleCoffee(pieces[0], pieces[1], "on");
+                        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+                    } else {
+                        calculateProgress(epoch, currentProgressInt);
                     }
+                } else if(!isChecked){
+                    check = false;
+                    webService.toggleCoffee(pieces[0], pieces[1], "off");
+                    setStatusText("STOPPED!", error);
+                    progress = 0;
                 }
-            }).start();
+
+            if(currentTime < currentProgressInt ){
+                new Thread(new Runnable() {
+                    int p = (int) progress;
+
+                    public void run() {
+                        while (p < timeOn) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    if(check && !error && !(p >= timeOn)){
+                                        long epoch = System.currentTimeMillis()/1000;
+                                        calculateProgress(epoch, currentProgressInt);
+                                        double percent = roundTwodecimals(((double)p/timeOn)*100);
+                                        Log.i("current progress", currentProgressInt+"");
+                                        percentInt = (int) percent;
+                                        progressBar.setProgress(percentInt);
+                                        setText(percent, timeLeft, timeElapsed);
+                                    } else if (!check && !error && percentInt != 100) {
+                                        progressBar.setProgress(0);
+                                        setVisable(View.GONE);
+                                        setStatusText("STOPPED!", error);
+                                        p = (int) timeOn;
+                                        if(!coffeepowderToggle.isChecked() && !coffeeToggle.isChecked()){
+                                            coffeeToggle.setEnabled(false);
+                                        }
+                                    }  else if(error/*this value only simulates the error message, in future put a another statement*/){
+                                        progressBar.setProgress(50/*should be p*/);
+                                        error = true;
+                                        setStatusText("ERROR!", error);
+                                        p = (int) timeOn;
+                                        error = false;
+                                    }if (p == timeOn && !error && check) {
+                                        setVisable(View.GONE);
+                                        setStatusText("DONE!", error);
+                                    }
+                                }
+                            });
+                            p++;
+                        }
+                    }
+                }).start();
+            } else {
+                progressBar.setProgress(100);
+                setVisable(View.GONE);
+                setStatusText("Go get your coffee! =)", error);
+            }
         } else if(buttonView == coffeepowderToggle){
             if(isChecked){
-                coffeeToggle.setEnabled(true);
-            } else if(!isChecked){
-                coffeeToggle.setEnabled(false);
+                webService.toggleCoffeepowder(pieces[0], pieces[1]);
+            } else{
+                webService.untoggleCoffeepowder(pieces[0], pieces[1]);
             }
+        }   else if(buttonView == autoswitchToggle){
+        if(isChecked){
+            webService.toggleAutoswitch(pieces[0], pieces[1]);
+        } else{
+            webService.untoggleAutoswitch(pieces[0], pieces[1]);
         }
+    }
     }
 
     public void setStatusText(String status, boolean error){
-        statusText.setVisibility(1);
+        statusText.setVisibility(View.VISIBLE);
         statusText.setText(status);
         if(error){
             statusText.startAnimation(anim);
@@ -177,31 +225,53 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
         }
     }
 
+    public void setVisable(int i){
+        statusText.setVisibility(i);
+        timeElapsedLayout.setVisibility(i);
+        timeLeftLayout.setVisibility(i);
+    }
+
+    public void setText(double percent, long timeLeft, long timeElapsed){
+        setVisable(View.VISIBLE);
+        String percentStr = Double.toString(percent)+"%";
+        String minutesLeftStr = timeWithTwochar((timeLeft/60) % 60);
+        String secondsLeftStr = timeWithTwochar(timeLeft % 60);
+        String minutesElapsedStr = timeWithTwochar((timeElapsed/60) % 60);
+        String secondsElapsedStr = timeWithTwochar(timeElapsed % 60);
+
+        statusText.setText(percentStr);
+        timeleftValuetext.setText(minutesLeftStr+":"+secondsLeftStr);
+        timeElapsedValuetext.setText(minutesElapsedStr+":"+secondsElapsedStr);
+    }
+
     public double roundTwodecimals(double d){
         DecimalFormat twoDForm = new DecimalFormat("#.#");
         return Double.valueOf(twoDForm.format(d));
     }
 
-    public void calculateProgress(long currentTime, long currentProgress){
-        if(currentProgress <= 0){
-            long start = currentTime;
-            long end = start-timeOn;
-        } else if (currentProgress > 0){
-            long end = currentProgress;
-            double timeOnD = (double) timeOn;
-            String str = String.valueOf(currentTime-end);
-            double timeLeft = Double.parseDouble(str);
-            double timeElapsed = timeOnD-timeLeft;
-            progress = (timeElapsed/timeOnD)*600;
-            Log.i("currenttime", ""+currentTime);
-            Log.i("timeend", ""+end);
-
-            Log.i("timeleftStr", str);
-            Log.i("timeleft", end+"-"+timeLeft);
-            Log.i("timeelapsed", timeOnD+"-"+timeLeft+"="+timeElapsed);
-            Log.i("calc", "("+timeElapsed+"/"+timeOn+")*"+timeOn);
-            Log.i("calc", progress+"");
+    public void calculateProgress(long currentTime, long session){
+        if(session <= 0){
+            end = currentTime-timeOn;
+            timeLeft = end-currentTime;
+            timeElapsed = timeOn-timeLeft;
+        } else if (session > 0){
+            String timeLeftStr = String.valueOf(session-currentTime);
+            timeLeft = Long.parseLong(timeLeftStr);
+            timeElapsed = timeOn-timeLeft;
+            progress = (int) timeElapsed;
+            /*Log.i("currenttime", ""+currentTime);
+            Log.i("timeend", ""+session);
+            Log.i("timeleft", currentTime+"-"+session+"="+timeLeft);
+            Log.i("timeelapsed", ""+timeElapsed);
+            Log.i("progress", progress+"");*/
         }
-    }
 
+    }
+    public String timeWithTwochar(long value){
+        String valueStr = Long.toString(value);
+        if(value < 10){
+            valueStr = "0"+value;
+        }
+        return valueStr;
+    }
 }

@@ -25,6 +25,8 @@ import org.apache.http.util.EntityUtils;
 import android.os.StrictMode;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  * Created by Lukas on 2013-10-23.
