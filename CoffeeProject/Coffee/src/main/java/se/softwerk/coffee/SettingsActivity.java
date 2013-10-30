@@ -33,16 +33,21 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     EditTextPreference autoswitch;
+    Webservice webService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.registerOnSharedPreferenceChangeListener(this);
+
+        webService = new Webservice();
+
+        autoswitch = (EditTextPreference) findPreference("autoswitch");
+        autoswitch.setText("s");
+
         autoswitch.setOnPreferenceChangeListener(this);
 
     }
@@ -56,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
-        Log.i("something", key);
+        Log.i(key, newValue.toString());
         return false;
     }
 
@@ -67,9 +72,6 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         return false;
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.i("prefchanges", sharedPreferences.getString(key, "0"));
-    }
+
 }
 

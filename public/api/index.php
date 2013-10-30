@@ -25,6 +25,12 @@
                         echo "Untoggle autoswitch";
                     }
                 }*/
+
+                if(isset($_GET['command']) && $_GET['command'] == "getAutoswitchtime"){
+                    $autoswitchTime = getSession('autoswitchtime'); 
+                    echo $autoswitchTime;
+                   }
+
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitchTime = getSession('autoswitchtime'); 
                         $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
