@@ -57,13 +57,10 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
         webService = new Webservice();
         autoswitchTime = webService.getAutoswitchTime(pieces[0], pieces[1]);
-
-        Log.i("substring", autoswitchTime);
-
         autoswitch = (EditTextPreference) findPreference("autoswitch");
-
-        autoswitch.setText(autoswitchTime);
-
+        autoswitchTime = autoswitchTime.replace("\n", "");
+            autoswitch.setText(autoswitchTime);
+            autoswitch.setSummary(autoswitchTime);
         autoswitch.setOnPreferenceChangeListener(this);
 
     }
@@ -74,9 +71,8 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if(preference.getKey().equals("autoswitch")){
             String time = newValue.toString();
-            Log.i("time before", time);
             autoswitch.setText(time);
-            Log.i("time after", time);
+            autoswitch.setSummary(time);
             webService.saveAutoswitchTime(pieces[0], pieces[1], time);
 
         }

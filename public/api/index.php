@@ -28,8 +28,16 @@
 
                 if(isset($_GET['command']) && $_GET['command'] == "getAutoswitchtime"){
                     $autoswitchTime = getSession('autoswitchtime'); 
+                     echo $autoswitchTime.'<br>';
+                    $autoswitchTime = preg_replace('/\s+/', ' ', $autoswitchTime);
                     echo $autoswitchTime;
                    }
+
+                     if(isset($_GET['command']) && isset($_GET['time']) && $_GET['command'] == "saveAutoswitchtime"){
+                    $time = $_GET['time'];
+                    saveSession($time, 'autoswitchtime');  
+                    echo $time;
+                }
 
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitchTime = getSession('autoswitchtime'); 

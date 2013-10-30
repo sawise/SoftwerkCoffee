@@ -28,6 +28,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
+    DatabaseHandler db;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
@@ -38,6 +39,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DatabaseHandler(this.getApplicationContext());
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -86,6 +88,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_logout:
+                db.deleteAll();
                 Intent i = new Intent(this, LoginActivity.class);
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Logout successful!", Toast.LENGTH_SHORT).show();
@@ -94,7 +97,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 return true;
             case R.id.action_settings:
                 Intent i2 = new Intent(this, SettingsActivity.class);
-                i2.putExtra("EXTRA_TEXT", "heej");
                 startActivity(i2);
                 return true;
             default:
