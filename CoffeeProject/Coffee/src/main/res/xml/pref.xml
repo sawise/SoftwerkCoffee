@@ -4,7 +4,7 @@
 
 
     <EditTextPreference android:id="@+id/autoswitchSettings" android:title="Autoswitch settings" android:key="autoswitch"
-        android:inputType="text" android:summary="Autoswitch with crontab" android:persistent="true" android:defaultValue="0 18 * * * 1-5"></EditTextPreference>
+        android:inputType="text" android:summary="Autoswitch with crontab" android:persistent="true" android:defaultValue="N/A"></EditTextPreference>
 
 
 </PreferenceScreen>

@@ -14,11 +14,22 @@ import org.apache.http.util.EntityUtils;
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
 
+
     public int getSession(String user, String pass){
         String currentProgressStr = getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getSession").trim();
         Log.i("Session", url+"/?user="+user+"&pass="+pass+"&command=getSession");
         int currentProgressInt = Integer.parseInt(currentProgressStr);
         return currentProgressInt;
+    }
+
+    public String getAutoswitchTime(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getAutoswitchtime");
+    }
+    public void saveAutoswitchTime(String user, String pass, String time){
+        if(time.contains(" ")){
+            time = time.replace(" ", "%20");
+        }
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=saveAutoswitchtime&time="+time);
     }
 
     public String getAutoswitchStatus(String user, String pass){

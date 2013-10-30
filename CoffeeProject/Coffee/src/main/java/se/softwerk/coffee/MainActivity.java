@@ -94,6 +94,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 return true;
             case R.id.action_settings:
                 Intent i2 = new Intent(this, SettingsActivity.class);
+                i2.putExtra("EXTRA_TEXT", "heej");
                 startActivity(i2);
                 return true;
             default:

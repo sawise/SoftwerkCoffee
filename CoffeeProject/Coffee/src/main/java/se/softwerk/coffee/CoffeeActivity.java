@@ -26,6 +26,7 @@ import android.os.StrictMode;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -62,6 +63,8 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     boolean error = false;
     Animation anim;
     private String[] pieces;
+    private String[] piecess;
+    private DatabaseHandler db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,9 +75,20 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             StrictMode.setThreadPolicy(policy);
         }
 
+        db = new DatabaseHandler(this.getActivity());
         webService = new Webservice();
-        String userPass = getActivity().getIntent().getStringExtra(LoginActivity.EXTRA_TEXT);
-        pieces = userPass.split(":");
+        /*String userPass = getActivity().getIntent().getStringExtra(LoginActivity.EXTRA_TEXT);
+        pieces = userPass.split(":");*/
+        String test = "";
+        List<User> cl = db.getAllContacts();
+        for (User s : cl) {
+            test += s;
+            Log.i("s", ""+s);
+        }
+        test = test.replaceAll(" ","");
+        pieces = test.split(",");
+        Log.i("stest", test);
+        Log.i("stest", pieces[0]+"<->"+pieces[1]);
 
         statusText = (TextView) rootView.findViewById(R.id.statusText);
         timeElapsedText = (TextView) rootView.findViewById(R.id.timeElapsedtext);

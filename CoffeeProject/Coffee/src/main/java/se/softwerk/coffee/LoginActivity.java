@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.database.*;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -23,10 +24,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class LoginActivity extends Activity {
     /**
@@ -46,6 +49,7 @@ public class LoginActivity extends Activity {
     //Intent.putextra
     private String sendUser;
     private String sendPass;
+    private String[] pieces;
 
     // UI references.
     private EditText mUsernameView;
@@ -53,6 +57,8 @@ public class LoginActivity extends Activity {
     private View mLoginFormView;
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
+
+    private DatabaseHandler db;
 
     // URL reference.
     private String urlString = "http://dev.softwerk.se:81";
@@ -65,6 +71,22 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        db = new DatabaseHandler(this.getApplicationContext());
+        String test = "";
+        List<User> cl = db.getAllContacts();
+        for (User s : cl) {
+            test += s;
+            Log.i("s", ""+s);
+        }
+        test = test.replaceAll(" ","");
+        pieces = test.split(",");
+        if(!cl.isEmpty()){
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         // Set up the login form.
         mUsername = getIntent().getStringExtra(EXTRA_TEXT);
@@ -291,8 +313,9 @@ public class LoginActivity extends Activity {
             if (success) {
                 // Go to MainActivity.
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                // String[] hash = readFromFile();
-                i.putExtra(EXTRA_TEXT, sendUser+":"+sendPass);
+
+                /*User u = new User(db.getUserCount(), sendUser, sendPass);
+                db.addUser(u);*/
 
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();

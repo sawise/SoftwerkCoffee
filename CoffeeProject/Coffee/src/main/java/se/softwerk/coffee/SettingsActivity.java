@@ -37,31 +37,49 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
     EditTextPreference autoswitch;
     Webservice webService;
+    String autoswitchTime;
+    String[] pieces;
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref);
+        db = new DatabaseHandler(this.getApplicationContext());
+        String test = "";
+        List<User> cl = db.getAllContacts();
+        for (User s : cl) {
+            test += s;
+            Log.i("s", ""+s);
+        }
+        test = test.replaceAll(" ","");
+        pieces = test.split(",");
 
         webService = new Webservice();
+        autoswitchTime = webService.getAutoswitchTime(pieces[0], pieces[1]);
+
+        Log.i("substring", autoswitchTime);
 
         autoswitch = (EditTextPreference) findPreference("autoswitch");
-        autoswitch.setText("s");
+
+        autoswitch.setText(autoswitchTime);
 
         autoswitch.setOnPreferenceChangeListener(this);
 
     }
 
-    public void changeSettings(){
-        SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String value = sp.getString("autoswitch", "0 18 * * * 1-5");
 
-    }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        String key = preference.getKey();
-        Log.i(key, newValue.toString());
+        if(preference.getKey().equals("autoswitch")){
+            String time = newValue.toString();
+            Log.i("time before", time);
+            autoswitch.setText(time);
+            Log.i("time after", time);
+            webService.saveAutoswitchTime(pieces[0], pieces[1], time);
+
+        }
         return false;
     }
 
