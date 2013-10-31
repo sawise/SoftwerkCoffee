@@ -66,6 +66,8 @@ public class LoginActivity extends Activity {
     // Salt
     private String salt = "34A75DD4C4DF5E4DDFC68CA975B35";
 
+    private Webservice webService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,8 +285,25 @@ public class LoginActivity extends Activity {
                 return false;
             }
 
+
             // Check if credentials match.
             try {
+                // Creates new instance of Webservice class
+                webService = new Webservice();
+                if (webService.loginScript(mUsername, SHA256(mPassword + salt)).contains("true")) {
+                    sendUser = SHA256(mUsername + salt);
+                    sendPass = SHA256(mPassword + salt);
+                    // Account exists, return true
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Check if credentials match.
+           /* try {
                 for (String credential : readFromFile()) {
                     String[] pieces = credential.split(":");
                     if (pieces[0].equals(SHA256(mUsername + salt))) {
@@ -300,7 +319,7 @@ public class LoginActivity extends Activity {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             return false;
         }

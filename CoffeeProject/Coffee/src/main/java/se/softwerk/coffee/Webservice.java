@@ -13,7 +13,14 @@ import org.apache.http.util.EntityUtils;
  */
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
+    private String loginUrl = "http://192.168.1.90/login/login.php";
 
+
+    public String loginScript(String username, String password) {
+        String loginScriptString = getWebservice(loginUrl+"?username="+username+"&password="+password);
+        Log.i("login", loginUrl+"?username="+username+"&password="+password);
+        return loginScriptString;
+    }
 
     public int getSession(String user, String pass){
         String currentProgressStr = getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getSession").trim();

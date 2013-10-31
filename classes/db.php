@@ -12,6 +12,10 @@
     	}
 		
 		private $users_sql = "SELECT * FROM users";
+		private $actions_sql = "SELECT * FROM actions";
+		private $history_sql = "SELECT history.id, history.date_time, users.id AS u_user_id, users.username AS username,
+		 actions.id AS a_action_id, actions.actionname AS actionname FROM history LEFT JOIN actions ON actions.id = history.action_id
+		 LEFT JOIN users ON users.id = history.user_idORDER BY history.id ASC ";
 		
 		public function getUsers() {
     		$sth = $this->dbh->query($this->users_sql);
@@ -66,6 +70,25 @@
 		
 		public function getUser($id) {
 			$sql = $this->users_sql." WHERE id = :id";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindParam(':id', $id, PDO::PARAM_INT);
+			$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+			$sth->execute();
+
+			$objects = array();
+
+			while($obj = $sth->fetch()) {
+				$objects[] = $obj;
+			}
+			if (count($objects) > 0) {
+				return $objects[0];
+			} else {
+				return null;
+			}
+		}
+
+		public function getHistory() {
+			$sql = $this->history_sql;
 			$sth = $this->dbh->prepare($sql);
 			$sth->bindParam(':id', $id, PDO::PARAM_INT);
 			$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');

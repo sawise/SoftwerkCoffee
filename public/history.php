@@ -1,9 +1,10 @@
 <?php
 	require_once('../config.php');
    //	require_once(ROOT_PATH.'/classes/authorization.php');
-	
+	$db = new Db();
+	$history = $db->getHistory();
 ?>
-<?php //require_once(ROOT_PATH.'/header.php'); ?>
+<?php require_once(ROOT_PATH.'/header.php'); ?>
 
 
 	<section id="mainDiv" class="index divbg">

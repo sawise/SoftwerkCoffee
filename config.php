@@ -3,7 +3,7 @@
 	  
 	define('ROOT_PATH', dirname(__FILE__));
 	
-	$file2 = ROOT_PATH.'/public/credentials';
+	$file2 = ROOT_PATH.'/credentials';
 	$fh2 = fopen($file2, 'r');
 	$values = fgets($fh2);
 	$value = explode(':', $values);
