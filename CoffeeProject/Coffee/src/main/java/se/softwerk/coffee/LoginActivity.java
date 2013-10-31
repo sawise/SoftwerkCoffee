@@ -75,6 +75,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         db = new DatabaseHandler(this.getApplicationContext());
+        //db.deleteAll();
         if(!db.getAllContacts().isEmpty()){
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
@@ -285,11 +286,8 @@ public class LoginActivity extends Activity {
                 if (webService.loginScript(mUsername, SHA256(mPassword + salt)).contains("true")) {
                     String userId = webService.loginScript(mUsername, SHA256(mPassword + salt));
                     String[] pieces = userId.split(":");
-                    sendUser = SHA256(mUsername + salt);
-                    sendPass = SHA256(mPassword + salt);
-
                     int idInt = Integer.parseInt(pieces[1]);
-                    User u = new User(idInt, sendUser, sendPass);
+                    User u = new User(idInt, mUsername, SHA256(mPassword + salt));
                     db.addUser(u);
                     // Account exists, return true
                     return true;

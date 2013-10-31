@@ -63,7 +63,10 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     boolean error = false;
     Animation anim;
     private String[] pieces;
-    private String[] piecess;
+    private String histories;
+    private String[] historiesArray;
+    private String[] lastHistoryArray;
+    private String lastHistory;
     private DatabaseHandler db;
 
     @Override
@@ -75,10 +78,9 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             StrictMode.setThreadPolicy(policy);
         }
 
+
         db = new DatabaseHandler(this.getActivity());
         webService = new Webservice();
-        /*String userPass = getActivity().getIntent().getStringExtra(LoginActivity.EXTRA_TEXT);
-        pieces = userPass.split(":");*/
         String test = "";
         List<User> cl = db.getAllContacts();
         for (User s : cl) {
@@ -88,6 +90,12 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         test = test.replaceAll(" ","");
         pieces = test.split(",");
         Log.i("test", test);
+
+        histories = webService.getlatestHistory(pieces[1], pieces[2]);
+        historiesArray = histories.split("::");
+        lastHistoryArray = historiesArray[0].split(";;");
+
+        Log.i("Last history", lastHistoryArray[0]);
 
 
         statusText = (TextView) rootView.findViewById(R.id.statusText);
@@ -119,6 +127,8 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         currentProgressInt = webService.getSession(pieces[1], pieces[2]);
         coffeepowderStatus = webService.getCoffeepowder(pieces[1], pieces[2]);
         autoswitchStatus = webService.getAutoswitchStatus(pieces[1], pieces[2]);
+
+
         Log.i("Statuses", coffeepowderStatus+"<->"+autoswitchStatus);
 
         if(currentProgressInt > 0){
@@ -213,7 +223,9 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             } else {
                 progressBar.setProgress(100);
                 setVisable(View.GONE);
-                setStatusText("Go get your coffee! =)", error);
+                String statusText = "The coffee machine was turned on by "+lastHistoryArray[1]+" "+lastHistoryArray[0];
+                statusText = statusText.replaceAll("\n", "");
+                setStatusText(statusText, error);
             }
         } else if(buttonView == coffeepowderSwitch){
             if(isChecked){
@@ -284,6 +296,12 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         }
 
     }
+
+    public String noEnter(String str){
+        String st = str.replaceAll("\\s+","");
+        return st;
+    }
+
     public String timeWithTwochar(long value){
         String valueStr = Long.toString(value);
         if(value < 10){

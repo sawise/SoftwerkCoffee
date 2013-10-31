@@ -88,6 +88,25 @@
 			}
 		}
 
+		public function getastHistory() {
+			$sql = $this->history_sql." WHERE a_action_id = 1";
+			$sth = $this->dbh->prepare($sql);
+			$sth->bindParam(':id', $id, PDO::PARAM_INT);
+			$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
+			$sth->execute();
+
+			$objects = array();
+
+			while($obj = $sth->fetch()) {
+				$objects[] = $obj;
+			}
+			if (count($objects) > 0) {
+				return $objects[0];
+			} else {
+				return null;
+			}
+		}
+
 		public function getHistory() {
 			$sql = $this->history_sql;
 			$sth = $this->dbh->prepare($sql);

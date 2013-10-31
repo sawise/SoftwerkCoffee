@@ -111,10 +111,10 @@
             android:id="@+id/timeLeftLayout"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="200dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/timeLefttext"
@@ -139,10 +139,10 @@
             android:id="@+id/timeElapsedLayout"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="200dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="visible">
+            android:visibility="gone">
             <TextView
                 android:id="@+id/timeElapsedtext"
                 android:layout_width="150dp"

@@ -30,6 +30,9 @@
       </layout>
     </layouts>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Last" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f381a971-028c-4547-bf5f-efa4d471fbbd" name="Default" comment="" />
     <ignored path="CoffeeProject.iws" />
@@ -97,11 +100,11 @@
       <file leaf-file-name="CoffeeActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="4" selection-start="1970" selection-end="1994" vertical-scroll-proportion="-5.673077" vertical-offset="793" max-vertical-offset="5134">
+            <state line="220" column="21" selection-start="9100" selection-end="9100" vertical-scroll-proportion="-43.52" vertical-offset="2652" max-vertical-offset="5440">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6839#8811#0" expanded="true" />
-                <element signature="e#8780#8781#0" expanded="true" />
+                <element signature="e#7045#9017#0" expanded="true" />
+                <element signature="e#8986#8987#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,7 +113,7 @@
       <file leaf-file-name="CoffeeActivity2.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="86" column="39" selection-start="3486" selection-end="3486" vertical-scroll-proportion="-12.211538" vertical-offset="827" max-vertical-offset="4811">
+            <state line="68" column="56" selection-start="2328" selection-end="2328" vertical-scroll-proportion="0.0" vertical-offset="2293" max-vertical-offset="4828">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6434#8510#0" expanded="true" />
@@ -120,10 +123,36 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="activity_coffee.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Coffee/src/main/res/layout/activity_coffee.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="97" column="0" selection-start="4021" selection-end="4021" vertical-scroll-proportion="-20.653847" vertical-offset="1112" max-vertical-offset="2890">
+              <folding>
+                <element signature="e#446#481#0" expanded="true" />
+                <element signature="e#511#546#0" expanded="true" />
+                <element signature="e#574#607#0" expanded="true" />
+                <element signature="e#638#671#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StatisticsActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/StatisticsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="45" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="32" max-vertical-offset="663">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="63" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="3468">
+            <state line="42" column="0" selection-start="1549" selection-end="1549" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3485">
               <folding />
             </state>
           </provider>
@@ -132,21 +161,21 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="298" column="35" selection-start="10874" selection-end="10874" vertical-scroll-proportion="-15.56" vertical-offset="3980" max-vertical-offset="5355">
+            <state line="68" column="34" selection-start="1946" selection-end="1946" vertical-scroll-proportion="-4.68" vertical-offset="546" max-vertical-offset="5321">
               <folding>
-                <element signature="e#6714#6754#0" expanded="true" />
-                <element signature="e#6952#6992#0" expanded="true" />
-                <element signature="e#7430#7464#0" expanded="true" />
-                <element signature="e#12326#12379#0" expanded="true" />
+                <element signature="e#6740#6780#0" expanded="true" />
+                <element signature="e#6978#7018#0" expanded="true" />
+                <element signature="e#7456#7490#0" expanded="true" />
+                <element signature="e#12254#12307#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistoryActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="HistoryActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/HistoryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="39" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.6497623" vertical-offset="253" max-vertical-offset="1275">
+            <state line="55" column="47" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0" vertical-offset="610" max-vertical-offset="1275">
               <folding />
             </state>
           </provider>
@@ -164,52 +193,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/DatabaseHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="23" selection-start="3032" selection-end="3039" vertical-scroll-proportion="0.0" vertical-offset="1122" max-vertical-offset="2431">
-              <folding>
-                <element signature="e#2582#2588#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="19" selection-start="1033" selection-end="1033" vertical-scroll-proportion="-8.192307" vertical-offset="577" max-vertical-offset="1156">
-              <folding>
-                <element signature="e#519#520#0" expanded="true" />
-                <element signature="e#550#551#0" expanded="true" />
-                <element signature="e#603#604#0" expanded="true" />
-                <element signature="e#632#633#0" expanded="true" />
-                <element signature="e#663#664#0" expanded="true" />
-                <element signature="e#696#697#0" expanded="true" />
-                <element signature="e#756#757#0" expanded="true" />
-                <element signature="e#789#790#0" expanded="true" />
-                <element signature="e#840#841#0" expanded="true" />
-                <element signature="e#873#874#0" expanded="true" />
-                <element signature="e#933#934#0" expanded="true" />
-                <element signature="e#966#967#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SettingsActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/SettingsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="25" selection-start="1742" selection-end="1742" vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="1649">
+            <state line="60" column="39" selection-start="2293" selection-end="2312" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1326">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Webservice.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Webservice.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="45" selection-start="637" selection-end="637" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="1802">
+            <state line="22" column="34" selection-start="791" selection-end="791" vertical-scroll-proportion="0.2746114" vertical-offset="215" max-vertical-offset="1989">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -579,22 +575,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Coffee/src/main/res/layout/activity_coffee2.xml" />
-        <option value="$PROJECT_DIR$/Coffee/src/main/res/layout/settings.xml" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Settingsbackyp" />
         <option value="$PROJECT_DIR$/Coffee/src/main/res/values/hash.xml" />
         <option value="$PROJECT_DIR$/Coffee/src/main/res/raw/hash.xml" />
         <option value="$PROJECT_DIR$/Coffee/src/main/res/xml/pref.xml" />
         <option value="$PROJECT_DIR$/Coffee/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/MainActivity.java" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/SettingsActivity.java" />
-        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/LoginActivity.java" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/DatabaseHandler.java" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/User.java" />
-        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity2.java" />
-        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/MainActivity.java" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/LoginActivity.java" />
         <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/HistoryActivity.java" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/res/layout/activity_coffee.xml" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/StatisticsActivity.java" />
+        <option value="$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java" />
       </list>
     </option>
   </component>
@@ -1075,6 +1071,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27505043" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32923368" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1094,7 +1091,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27505043" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1140,18 +1136,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Settingsbackyp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="254" column="0" selection-start="10732" selection-end="10732" vertical-scroll-proportion="0.0" vertical-offset="3739" max-vertical-offset="4437" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/res/xml/pref_data_sync.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Coffee/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="4" selection-start="207" selection-end="318" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
@@ -1177,13 +1161,6 @@
       </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/SettingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="25" selection-start="1742" selection-end="1742" vertical-scroll-proportion="0.0" vertical-offset="661" max-vertical-offset="1666">
           <folding />
         </state>
       </provider>
@@ -1217,56 +1194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="39" selection-start="3486" selection-end="3486" vertical-scroll-proportion="-12.211538" vertical-offset="827" max-vertical-offset="4811">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6434#8510#0" expanded="true" />
-            <element signature="e#8479#8480#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="298" column="35" selection-start="10874" selection-end="10874" vertical-scroll-proportion="-15.56" vertical-offset="3980" max-vertical-offset="5355">
-          <folding>
-            <element signature="e#6714#6754#0" expanded="true" />
-            <element signature="e#6952#6992#0" expanded="true" />
-            <element signature="e#7430#7464#0" expanded="true" />
-            <element signature="e#12326#12379#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="63" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="3791">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="4" selection-start="1970" selection-end="1994" vertical-scroll-proportion="-5.673077" vertical-offset="793" max-vertical-offset="5134">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6839#8811#0" expanded="true" />
-            <element signature="e#8780#8781#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="45" selection-start="637" selection-end="637" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="1802">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Coffee/src/main/res/layout/custom_list_item.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -1277,10 +1204,89 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="56" selection-start="2328" selection-end="2328" vertical-scroll-proportion="0.0" vertical-offset="2293" max-vertical-offset="4828">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6434#8510#0" expanded="true" />
+            <element signature="e#8479#8480#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/HistoryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="39" selection-start="1513" selection-end="1513" vertical-scroll-proportion="0.6497623" vertical-offset="253" max-vertical-offset="1275">
+        <state line="55" column="47" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.0" vertical-offset="610" max-vertical-offset="1275">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="39" selection-start="2293" selection-end="2312" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1326">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="34" selection-start="1946" selection-end="1946" vertical-scroll-proportion="-4.68" vertical-offset="546" max-vertical-offset="5321">
+          <folding>
+            <element signature="e#6740#6780#0" expanded="true" />
+            <element signature="e#6978#7018#0" expanded="true" />
+            <element signature="e#7456#7490#0" expanded="true" />
+            <element signature="e#12254#12307#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="1549" selection-end="1549" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="3485">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/CoffeeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="220" column="21" selection-start="9100" selection-end="9100" vertical-scroll-proportion="-43.52" vertical-offset="2652" max-vertical-offset="5440">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7045#9017#0" expanded="true" />
+            <element signature="e#8986#8987#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/res/layout/activity_coffee.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="0" selection-start="4021" selection-end="4021" vertical-scroll-proportion="-20.653847" vertical-offset="1112" max-vertical-offset="2890">
+          <folding>
+            <element signature="e#446#481#0" expanded="true" />
+            <element signature="e#511#546#0" expanded="true" />
+            <element signature="e#574#607#0" expanded="true" />
+            <element signature="e#638#671#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/StatisticsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="45" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" vertical-offset="32" max-vertical-offset="663">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="34" selection-start="791" selection-end="791" vertical-scroll-proportion="0.2746114" vertical-offset="215" max-vertical-offset="1989">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

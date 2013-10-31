@@ -13,12 +13,23 @@ import org.apache.http.util.EntityUtils;
  */
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
-    private String samUrl = "http://192.168.1.175/api/db.php";
-    private String loginUrl = "http://192.168.1.175/login/login.php";
+    private String loginUrl = "http://dev.softwerk.se:81/login/login.php";
+    private String statsUrl = "http://192.168.1.90/login/statistics.php";
+
+
+    public Integer getStatistics(String user, String pass) {
+        String statisticsInt = getWebservice(statsUrl+"?username="+user+"&password="+pass);
+        statisticsInt = statisticsInt.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsInt);
+    }
 
 
     public String getHistory(String username, String password) {
-        String history = getWebservice(samUrl+"?command=getHistory");
+        String history = getWebservice(url+"/db.php?command=getHistory");
+        return history;
+    }
+    public String getlatestHistory(String username, String password) {
+        String history = getWebservice(url+"/db.php?command=getlatestHistory");
         return history;
     }
 
