@@ -211,6 +211,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                                     p = (int) timeOn;
                                     error = false;
                                 }if (p == timeOn && !error && check) {
+                                        progressBar.setProgress(100);
                                     setVisable(View.GONE);
                                     setStatusText("DONE!", error);
                                 }
