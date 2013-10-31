@@ -1,9 +1,10 @@
 <?php 
 	require_once('../../config.php');
 
-	if (isset($_GET['user']) && isset($_GET['pass'])) {
+	if (isset($_GET['user']) && isset($_GET['pass'])){
 		$username = $_GET['user'];
 		$password = $_GET['pass'];
+		$true = "false";
 		
 		$db = new Db();
 		$db_username = $db->getUsername($username);
@@ -16,9 +17,8 @@
 				if (count($db_password) > 0) {
 			
 					if ($db_password->password == $password) {
-						echo "true:".$db_username->id;
-						//echo $db_username->id;
-						
+						$true = "true";
+	
 					} else {
 						echo "false";
 					}
@@ -30,9 +30,11 @@
 			}
 		} else {
 			echo "false";
+		} 
+		if ($true == "true") {
+			$statistics = $db->getStatistics();
+			echo count($statistics);
 		}
-  	} else {
-		echo "not set";
+	} else {
+		echo "wrong login";
 	}
-
-?>

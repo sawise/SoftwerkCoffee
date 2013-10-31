@@ -230,6 +230,12 @@
 			#username-span {
 				font-style:italic;
 			}
+			.stats_bold {
+				font-weight:bold;
+			}
+			.stats_p {
+				font-size:16px;
+			}
 		</style>
         <script type="text/javascript">
 			var a = 0;

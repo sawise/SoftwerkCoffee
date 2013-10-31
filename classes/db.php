@@ -16,6 +16,7 @@
 		private $history_sql = "SELECT history.id, history.date_time, users.id AS u_user_id, users.username AS username,
 		 actions.id AS a_action_id, actions.actionname AS actionname FROM history LEFT JOIN actions ON actions.id = history.action_id
 		 LEFT JOIN users ON users.id = history.user_id ORDER BY history.id ASC ";
+		private $statistics_sql = "SELECT actions.id AS toggleCoffee FROM history LEFT JOIN actions ON actions.id = history.action_id WHERE actions.id = 1";
 		
 		public function getUsers() {
     		$sth = $this->dbh->query($this->users_sql);
@@ -113,6 +114,19 @@
 				return null;
 			}
 		}
+		
+		public function getStatistics() {
+    		$sth = $this->dbh->query($this->statistics_sql);
+      		$sth->setFetchMode(PDO::FETCH_CLASS, 'Statistics');
+
+      		$objects = array();
+
+      		while($obj = $sth->fetch()) {
+        		$objects[] = $obj;
+      		}
+
+      		return $objects;
+    	}
 		
 		public function query($sql, $class_name) {
       		$sth = $this->dbh->query($sql);

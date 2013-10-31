@@ -1,6 +1,8 @@
 <?php
 	require_once('../config.php');
    //	require_once(ROOT_PATH.'/classes/authorization.php');
+   $page_title = "History";
+   
 	$db = new Db();
 	$histories = $db->getHistory();
 ?>
