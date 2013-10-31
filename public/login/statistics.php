@@ -1,9 +1,9 @@
 <?php 
 	require_once('../../config.php');
 
-	if (isset($_GET['user']) && isset($_GET['pass'])){
-		$username = $_GET['user'];
-		$password = $_GET['pass'];
+	if (isset($_GET['username']) && isset($_GET['password'])){
+		$username = $_GET['username'];
+		$password = $_GET['password'];
 		$true = "false";
 		
 		$db = new Db();

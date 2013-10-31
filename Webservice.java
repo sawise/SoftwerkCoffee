@@ -13,12 +13,19 @@ import org.apache.http.util.EntityUtils;
  */
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
-    private String loginUrl = "http://192.168.1.90/login/login.php";
+    private String loginUrl = "http://dev.softwerk.se:81/login/login.php";
+    private String statsUrl = "http://192.168.1.90/login/statistics.php";
 
 
-    public String loginScript(String username, String password) {
-        String loginScriptString = getWebservice(loginUrl+"?username="+username+"&password="+password);
-        Log.i("login", loginUrl+"?username="+username+"&password="+password);
+    public Integer getStatistics(String user, String pass) {
+        String statisticsInt = getWebservice(statsUrl+"?username="+user+"&password="+pass);
+        statisticsInt = statisticsInt.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsInt);
+    }
+
+    public String loginScript(String user, String pass) {
+        String loginScriptString = getWebservice(loginUrl+"?username="+user+"&password="+pass);
+        Log.i("login", loginUrl+"?username="+user+"&password="+pass);
         return loginScriptString;
     }
 
@@ -27,6 +34,16 @@ public class Webservice {
         Log.i("Session", url+"/?user="+user+"&pass="+pass+"&command=getSession");
         int currentProgressInt = Integer.parseInt(currentProgressStr);
         return currentProgressInt;
+    }
+
+    public String getAutoswitchTime(String user, String pass){
+        return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getAutoswitchtime");
+    }
+    public void saveAutoswitchTime(String user, String pass, String time){
+        if(time.contains(" ")){
+            time = time.replace(" ", "%20");
+        }
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=saveAutoswitchtime&time="+time);
     }
 
     public String getAutoswitchStatus(String user, String pass){
@@ -48,11 +65,11 @@ public class Webservice {
         return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getTime");
     }
 
-    public void toggleCoffeepowder(String user, String pass){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    public void toggleCoffeepowder(String user, String pass,String id){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder&u_id="+id);
     }
-    public void untoggleCoffeepowder(String user, String pass){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleCoffeepowder");
+    public void untoggleCoffeepowder(String user, String pass,String id){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleCoffeepowder&u_id="+id);
     }
 
     public String getCoffeepowder(String user, String pass){
@@ -63,11 +80,11 @@ public class Webservice {
         getWebservice(url+"/?user="+user+"&pass="+pass+"&command=saveSession&percent="+progress);
     }
 
-    public void toggleCoffee(String user, String pass, String toggle){
+    public void toggleCoffee(String user, String pass,String id, String toggle){
         if(toggle.equals("off")){
-            getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
+            getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff&u_id="+id);
         } else if(toggle.equals("on")){
-            getWebservice(url+"/?user="+user+"&pass="+pass+"&"+"&command=turnOn");
+            getWebservice(url+"/?user="+user+"&pass="+pass+"&"+"&command=turnOn&u_id="+id);
         }
     }
 
