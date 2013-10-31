@@ -49,7 +49,7 @@ public class LoginActivity extends Activity {
     //Intent.putextra
     private String sendUser;
     private String sendPass;
-    private String[] pieces;
+
 
     // UI references.
     private EditText mUsernameView;
@@ -75,15 +75,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         db = new DatabaseHandler(this.getApplicationContext());
-        String test = "";
-        List<User> cl = db.getAllContacts();
-        for (User s : cl) {
-            test += s;
-            Log.i("s", ""+s);
-        }
-        test = test.replaceAll(" ","");
-        pieces = test.split(",");
-        if(!cl.isEmpty()){
+        if(!db.getAllContacts().isEmpty()){
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
@@ -291,8 +283,14 @@ public class LoginActivity extends Activity {
                 // Creates new instance of Webservice class
                 webService = new Webservice();
                 if (webService.loginScript(mUsername, SHA256(mPassword + salt)).contains("true")) {
+                    String userId = webService.loginScript(mUsername, SHA256(mPassword + salt));
+                    String[] pieces = userId.split(":");
                     sendUser = SHA256(mUsername + salt);
                     sendPass = SHA256(mPassword + salt);
+
+                    int idInt = Integer.parseInt(pieces[1]);
+                    User u = new User(idInt, sendUser, sendPass);
+                    db.addUser(u);
                     // Account exists, return true
                     return true;
                 } else {
@@ -332,10 +330,6 @@ public class LoginActivity extends Activity {
             if (success) {
                 // Go to MainActivity.
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-
-                /*User u = new User(db.getUserCount(), sendUser, sendPass);
-                db.addUser(u);*/
-
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
                 // Kill LoginActivity.

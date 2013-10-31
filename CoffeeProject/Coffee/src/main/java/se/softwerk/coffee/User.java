@@ -15,15 +15,15 @@ public class User {
     }
 
     // constructor
-    public User(int id, String country, String year) {
+    public User(int id, String user, String pass) {
         this._id = id;
-        this._user = country;
-        this._pass = year;
+        this._user = user;
+        this._pass = pass;
     }
 
     // constructor
-    public User(String country, String _pass) {
-        this._user = country;
+    public User(String user, String _pass) {
+        this._user = user;
         this._pass = _pass;
     }
 
@@ -31,7 +31,7 @@ public class User {
         return this._id;
     }
 
-    // setting country
+    // setting user
     public void setId(int id) {
         this._id = id;
     }
@@ -40,23 +40,23 @@ public class User {
         return this._user;
     }
 
-    // setting country
+    // setting user
     public void setUser(String user) {
         this._user = user;
     }
 
-    // getting year
+    // getting pass
     public String getPass() {
         return this._pass;
     }
 
-    // setting year
+    // setting pass
     public void setPass(String pass) {
         this._pass = pass;
     }
 
     @Override
     public String toString() {
-        return _user + ", " + _pass;
+        return _id + "," +_user + ", " + _pass;
     }
 }

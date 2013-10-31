@@ -87,8 +87,8 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         }
         test = test.replaceAll(" ","");
         pieces = test.split(",");
-        Log.i("stest", test);
-        Log.i("stest", pieces[0]+"<->"+pieces[1]);
+        Log.i("test", test);
+
 
         statusText = (TextView) rootView.findViewById(R.id.statusText);
         timeElapsedText = (TextView) rootView.findViewById(R.id.timeElapsedtext);
@@ -116,9 +116,9 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         anim.setRepeatMode(Animation.REVERSE);
         anim.setRepeatCount(5);
 
-        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
-        coffeepowderStatus = webService.getCoffeepowder(pieces[0], pieces[1]);
-        autoswitchStatus = webService.getAutoswitchStatus(pieces[0], pieces[1]);
+        currentProgressInt = webService.getSession(pieces[1], pieces[2]);
+        coffeepowderStatus = webService.getCoffeepowder(pieces[1], pieces[2]);
+        autoswitchStatus = webService.getAutoswitchStatus(pieces[1], pieces[2]);
         Log.i("Statuses", coffeepowderStatus+"<->"+autoswitchStatus);
 
         if(currentProgressInt > 0){
@@ -144,21 +144,21 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         if(buttonView == coffeeSwitch){
             if(isChecked){
                 check = true;
-                currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+                currentProgressInt = webService.getSession(pieces[1], pieces[2]);
                 long epoch = System.currentTimeMillis()/1000;
                 currentTime = epoch;
                 long epochEnd = epoch+timeOn;
 
                 Log.i("progresss before", currentProgressInt+"<->"+currentTime);
                 if(currentProgressInt <= 0){
-                    webService.toggleCoffee(pieces[0], pieces[1], "on");
-                    currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+                    webService.toggleCoffee(pieces[1], pieces[2], pieces[0], "on");
+                    currentProgressInt = webService.getSession(pieces[1], pieces[2]);
                 } else {
                     calculateProgress(epoch, currentProgressInt);
                 }
             } else if(!isChecked){
                 check = false;
-                webService.toggleCoffee(pieces[0], pieces[1], "off");
+                webService.toggleCoffee(pieces[1], pieces[2], pieces[0] , "off");
                 setStatusText("STOPPED!", error);
                 progress = 0;
             }
@@ -217,16 +217,16 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             }
         } else if(buttonView == coffeepowderSwitch){
             if(isChecked){
-                webService.toggleCoffeepowder(pieces[0], pieces[1]);
+                webService.toggleCoffeepowder(pieces[1], pieces[2] , pieces[0]);
             } else{
-                webService.untoggleCoffeepowder(pieces[0], pieces[1]);
+                webService.untoggleCoffeepowder(pieces[1], pieces[2], pieces[0]);
             }
 
         } else if(buttonView == autoSwitch){
             if(isChecked){
-                webService.toggleAutoswitch(pieces[0], pieces[1]);
+                webService.toggleAutoswitch(pieces[1], pieces[2]);
             } else{
-                webService.untoggleAutoswitch(pieces[0], pieces[1]);
+                webService.untoggleAutoswitch(pieces[1], pieces[2]);
             }
     }
     }

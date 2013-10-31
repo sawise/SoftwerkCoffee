@@ -81,7 +81,7 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
         coffeepowderToggle = (ToggleButton) rootView.findViewById(R.id.coffeepowderToggle);
         autoswitchToggle = (ToggleButton) rootView.findViewById(R.id.autoSwitchToggle);
 
-        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+        currentProgressInt = webService.getSession(pieces[1], pieces[2]);
 
         coffeeToggle.setOnCheckedChangeListener(this);
         coffeeToggle.setEnabled(false);
@@ -101,9 +101,9 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
             coffeeToggle.setChecked(true);
         }
 
-        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
-        coffeepowderStatus = webService.getCoffeepowder(pieces[0], pieces[1]);
-        autoswitchStatus = webService.getAutoswitchStatus(pieces[0], pieces[1]);
+        currentProgressInt = webService.getSession(pieces[1], pieces[2]);
+        coffeepowderStatus = webService.getCoffeepowder(pieces[1], pieces[2]);
+        autoswitchStatus = webService.getAutoswitchStatus(pieces[1], pieces[2]);
         Log.i("Statuses", coffeepowderStatus+"<->"+autoswitchStatus);
 
         if(currentProgressInt > 0){
@@ -130,21 +130,21 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
         if(buttonView == coffeeToggle){
                 if(isChecked){
                     check = true;
-                    currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+                    currentProgressInt = webService.getSession(pieces[1], pieces[2]);
                     long epoch = System.currentTimeMillis()/1000;
                     currentTime = epoch;
                     long epochEnd = epoch+timeOn;
 
                     Log.i("progresss before", currentProgressInt+"<->"+currentTime);
                     if(currentProgressInt <= 0){
-                        webService.toggleCoffee(pieces[0], pieces[1], "on");
-                        currentProgressInt = webService.getSession(pieces[0], pieces[1]);
+                        webService.toggleCoffee(pieces[1], pieces[2], pieces[0], "on");
+                        currentProgressInt = webService.getSession(pieces[1], pieces[2]);
                     } else {
                         calculateProgress(epoch, currentProgressInt);
                     }
                 } else if(!isChecked){
                     check = false;
-                    webService.toggleCoffee(pieces[0], pieces[1], "off");
+                    webService.toggleCoffee(pieces[1], pieces[2], pieces[0], "off");
                     setStatusText("STOPPED!", error);
                     progress = 0;
                 }
@@ -201,15 +201,15 @@ public class CoffeeActivity2 extends Fragment implements ToggleButton.OnCheckedC
             }
         } else if(buttonView == coffeepowderToggle){
             if(isChecked){
-                webService.toggleCoffeepowder(pieces[0], pieces[1]);
+                webService.toggleCoffeepowder(pieces[1], pieces[2], pieces[0]);
             } else{
-                webService.untoggleCoffeepowder(pieces[0], pieces[1]);
+                webService.untoggleCoffeepowder(pieces[1], pieces[2], pieces[0]);
             }
         }   else if(buttonView == autoswitchToggle){
         if(isChecked){
-            webService.toggleAutoswitch(pieces[0], pieces[1]);
+            webService.toggleAutoswitch(pieces[1], pieces[2]);
         } else{
-            webService.untoggleAutoswitch(pieces[0], pieces[1]);
+            webService.untoggleAutoswitch(pieces[1], pieces[2]);
         }
     }
     }

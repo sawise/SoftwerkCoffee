@@ -295,9 +295,9 @@
              	<?php $username = $_SESSION['user_username']; ?>
 			 	<div class="well well-small" id="user_info">
           			<?php if ($page_title != "Settings") : ?>
-                    	<p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> <a href="settings.php">Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
+                    	<p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> <a href="settings.php">Settings</a> | <a href="history.php">History</a> | <a class="logout_link" href="logout.php">Log out</a></p>
 					<?php else : ?>
-                        <p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> Settings | <a class="logout_link" href="logout.php">Log out</a></p>
+                        <p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> Settings | <a href="history.php">History</a> | <a class="logout_link" href="logout.php">Log out</a></p>
 					<?php endif ?>
       			</div>
       		<?php endif ?>

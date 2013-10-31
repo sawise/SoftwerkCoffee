@@ -17,7 +17,8 @@
 				if (count($db_password) > 0) {
 			
 					if ($db_password->password == $password) {
-						echo "true";
+						echo "true:".$db_username->id;
+						//echo $db_username->id;
 						
 					} else {
 						echo "false";

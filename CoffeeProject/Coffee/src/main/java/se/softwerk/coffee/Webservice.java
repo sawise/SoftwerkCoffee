@@ -13,8 +13,14 @@ import org.apache.http.util.EntityUtils;
  */
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
-    private String loginUrl = "http://192.168.1.90/login/login.php";
+    private String samUrl = "http://192.168.1.175/api/db.php";
+    private String loginUrl = "http://192.168.1.175/login/login.php";
 
+
+    public String getHistory(String username, String password) {
+        String history = getWebservice(samUrl+"?command=getHistory");
+        return history;
+    }
 
     public String loginScript(String username, String password) {
         String loginScriptString = getWebservice(loginUrl+"?username="+username+"&password="+password);
@@ -50,19 +56,15 @@ public class Webservice {
         getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleautoswitch");
     }
 
-    public void clearSession(String user, String pass){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
-    }
-
     public String getTime(String user, String pass){
         return getWebservice(url+"/?user="+user+"&pass="+pass+"&command=getTime");
     }
 
-    public void toggleCoffeepowder(String user, String pass){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder");
+    public void toggleCoffeepowder(String user, String pass,String id){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=toggleCoffeepowder&u_id="+id);
     }
-    public void untoggleCoffeepowder(String user, String pass){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleCoffeepowder");
+    public void untoggleCoffeepowder(String user, String pass,String id){
+        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleCoffeepowder&u_id="+id);
     }
 
     public String getCoffeepowder(String user, String pass){
@@ -73,11 +75,11 @@ public class Webservice {
         getWebservice(url+"/?user="+user+"&pass="+pass+"&command=saveSession&percent="+progress);
     }
 
-    public void toggleCoffee(String user, String pass, String toggle){
+    public void toggleCoffee(String user, String pass,String id, String toggle){
         if(toggle.equals("off")){
-            getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
+            getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff&u_id="+id);
         } else if(toggle.equals("on")){
-            getWebservice(url+"/?user="+user+"&pass="+pass+"&"+"&command=turnOn");
+            getWebservice(url+"/?user="+user+"&pass="+pass+"&"+"&command=turnOn&u_id="+id);
         }
     }
 
