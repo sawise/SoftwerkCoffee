@@ -15,7 +15,7 @@
 		private $actions_sql = "SELECT * FROM actions";
 		private $history_sql = "SELECT history.id, history.date_time, users.id AS u_user_id, users.username AS username,
 		 actions.id AS a_action_id, actions.actionname AS actionname FROM history LEFT JOIN actions ON actions.id = history.action_id
-		 LEFT JOIN users ON users.id = history.user_idORDER BY history.id ASC ";
+		 LEFT JOIN users ON users.id = history.user_id ORDER BY history.id ASC ";
 		
 		public function getUsers() {
     		$sth = $this->dbh->query($this->users_sql);
@@ -99,8 +99,16 @@
 			while($obj = $sth->fetch()) {
 				$objects[] = $obj;
 			}
-			if (count($objects) > 0) {
-				return $objects[0];
+			return $objects;
+		}
+
+		public function createHistory($user_id, $action_id){
+			$data = array($user_id, $action_id);
+			$sth = $this->dbh->prepare("INSERT INTO history (user_id, action_id) VALUES (?, ?)");
+			$sth->execute($data);
+
+			if($sth->rowCount() > 0) {
+				return $this->dbh->lastInsertId();
 			} else {
 				return null;
 			}

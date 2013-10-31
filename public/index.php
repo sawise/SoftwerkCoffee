@@ -29,12 +29,13 @@
 		$autoswitch = getSession('crontab'); 
 		echo strlen($autoswitch);
 	}
-  
+  	$userid = $_SESSION['user_id'];
 	$page_title = "Coffee";
 	$error = false;
 	$timestart = 0;
 	$timeend = 0;
 	$timeleft = 0;
+
 		
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
@@ -135,7 +136,7 @@ function coffeeSwitch(){
 		var timeon = 600;
 		var dateunix = Math.round(new Date().getTime()/1000.0);
 		if(session <= 0){
-			togglePHP("turnOn", 0);	
+			togglePHP("turnOn", 0, "<?php echo $userid ?>");	
 				start =  dateunix;
 				end =  start+timeon;
 		}else if (session > dateunix){
@@ -166,7 +167,7 @@ function coffeeSwitch(){
                        document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
                 } else if(document.getElementById('coffeeSwitch').checked == false){
                         console.log("Coffee is off");
-                        togglePHP("turnOff", 0);        
+                        togglePHP("turnOff", 0, "<?php echo $userid ?>");        
                         document.getElementById("progressbar").style.height="0%";
                         document.getElementById("progress").innerHTML="STOPPED!";
                         if(document.getElementById("coffeepowderSwitch").checked == false){
@@ -186,11 +187,11 @@ function coffeeSwitch(){
 
 document.getElementById('coffeepowderSwitch').addEventListener('change', coffeepowderSwitch, false);
 function coffeepowderSwitch(){
-        togglePHP("toggleCoffeepowder", 0);
+        togglePHP("toggleCoffeepowder", 0, <?php echo $userid ?>);
         if(document.getElementById('coffeepowderSwitch').checked){
                 document.getElementById('coffeeSwitch').disabled = false;
                 document.getElementById('CoffeeswitchDiv').className = "checkbox toggle ios";
-        } else if(document.getElementById('coffeepowderSwitch').checked == false && document.getElementById('coffeeSwitch').checked == false)$
+        } else if(document.getElementById('coffeepowderSwitch').checked == false && document.getElementById('coffeeSwitch').checked == false){
                 document.getElementById('coffeeSwitch').disabled = true;
                 document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
         }
@@ -199,13 +200,13 @@ function coffeepowderSwitch(){
 document.getElementById('autoSwitch').addEventListener('change', autoSwitch, false);
 function autoSwitch(){
 	 if(document.getElementById('autoSwitch').checked){
-	 	togglePHP("toggleautoswitch", 0);
+	 	togglePHP("toggleautoswitch", 0, 0);
 	 } else {
-	 	togglePHP("untoggleautoswitch", 0);
+	 	togglePHP("untoggleautoswitch", 0, 0);
 	 }
 
 }
-       function togglePHP(command, session){
+       function togglePHP(command, session, userid){
                 xmlHttp = new XMLHttpRequest();
                   xmlHttp.onreadystatechange=function(){
 	                  if (xmlHttp.readyState!=4){
@@ -216,6 +217,8 @@ function autoSwitch(){
 	                }
                 if(session > 0){
                         xmlHttp.open( "GET", "<?php echo $url ?>"+command+"&percent="+session, false );
+                } else if(userid > 0){
+                		xmlHttp.open( "GET", "<?php echo $url ?>"+command+"&u_id="+userid, false );
                 } else {
                         xmlHttp.open( "GET", "<?php echo $url ?>"+command, false );
                 }

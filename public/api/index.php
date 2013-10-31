@@ -5,7 +5,8 @@
  //TESTING
   
         if (isset($_GET['user']) && isset($_GET['pass']) && $_GET['user'] == USER && $_GET['pass'] == PASS){
-            $crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
+            $db = new Db();
+            //$crontab = new Ssh2_crontab_manager('dev.softwerk.se', '2222', 'pi', 'raspberry');
                 if(!isset($_GET['command'])){
                     echo "This is the webservice-page";
                 }
@@ -34,13 +35,14 @@
                    }
 
                      if(isset($_GET['command']) && isset($_GET['time']) && $_GET['command'] == "saveAutoswitchtime"){
-                    $time = $_GET['time'];
-                    saveSession($time, 'autoswitchtime');  
-                    echo $time;
+                        $time = $_GET['time'];
+                        saveSession($time, 'autoswitchtime');  
+                        echo $time;
                 }
 
                    if(isset($_GET['command']) && $_GET['command'] == "toggleautoswitch"){
                     $autoswitchTime = getSession('autoswitchtime'); 
+
                         $croncommand =  $autoswitchTime.' curl "http://localhost/api/?user='.USER.'&pass='.PASS.'&command=turnOff"';
                       $croncommand = preg_replace('/\s+/', ' ', $croncommand);
                       $crontab->append_cronjob($croncommand);
@@ -60,9 +62,10 @@
                     }
                 }
 
-                if(isset($_GET['command']) && $_GET['command'] == "turnOff"){
+                if(isset($_GET['command']) && $_GET['command'] == "turnOff"  && isset($_GET['u_id'])){
                     saveSession(0, 'php_session');  
-                    $crontab->exec("sudo python /home/pi/coffee-off.py");
+                    $db->createHistory($_GET['u_id'], "3");
+                    //$crontab->exec("sudo python /home/pi/coffee-off.py");
                     echo "Turn off the Coffee machine";
                 }
 
@@ -72,7 +75,8 @@
                     echo $percent;
                 }
 
-                if(isset($_GET['command']) && $_GET['command'] == "turnOn"){
+                if(isset($_GET['command']) && $_GET['command'] == "turnOn" && isset($_GET['u_id'])){
+                    $db->createHistory($_GET['u_id'], "1");
                     echo "Turn on the Coffee machine";
                     $crontab->exec("sudo python /home/pi/coffee-on.py");
                 }
@@ -89,7 +93,8 @@
                     echo $dateunix;
                 }
 
-                if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"){
+                if(isset($_GET['command']) && $_GET['command'] == "toggleCoffeepowder"  && isset($_GET['u_id'])){
+                    $db->createHistory($_GET['u_id'], "2");
                         $coffeepowderStatus = saveSession( "1", 'coffeepowderstatus'); 
                         echo "Coffee loaded";                    
                 }

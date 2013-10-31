@@ -2,7 +2,7 @@
 	require_once('../config.php');
    //	require_once(ROOT_PATH.'/classes/authorization.php');
 	$db = new Db();
-	$history = $db->getHistory();
+	$histories = $db->getHistory();
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 
@@ -18,13 +18,12 @@
          </thead>
 		 <tbody>
             <tr>
-			<?php 
-			for ($i = 1; $i <= 10; $i++) {
-    		echo '<td></td>';
-    		echo '<td></td>';
-    		echo '<td></td></tr>';
-			}
-?>
+		<?php foreach($histories as $history) : ?>
+    		<td><?php echo $history->date_time ?></td>
+    		<td><?php echo $history->username ?></td>
+    		<td><?php echo $history->actionname ?></td></tr>
+			<?php endforeach ?>
+
  			
  		</tbody></table>
         	

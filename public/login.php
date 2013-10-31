@@ -23,6 +23,7 @@
 					if ($db_password->password == $password) {
 						$_SESSION['is_logged_in'] = true;
 						$_SESSION['user_username'] = $db_username->username;
+                                      $_SESSION['user_id'] = $db_username->id;
 						
 						if (isset($_SESSION['return_to'])) {
 							$return_to = $_SESSION['return_to'];

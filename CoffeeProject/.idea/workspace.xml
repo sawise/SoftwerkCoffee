@@ -175,7 +175,7 @@
       <file leaf-file-name="Webservice.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="92" selection-start="897" selection-end="897" vertical-scroll-proportion="0.59699" vertical-offset="0" max-vertical-offset="1921">
+            <state line="25" column="92" selection-start="897" selection-end="897" vertical-scroll-proportion="0.5118859" vertical-offset="0" max-vertical-offset="1666">
               <folding />
             </state>
           </provider>
@@ -563,10 +563,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1431" />
-    <option name="y" value="24" />
-    <option name="width" value="759" />
-    <option name="height" value="1176" />
+    <option name="x" value="1430" />
+    <option name="y" value="-8" />
+    <option name="width" value="1537" />
+    <option name="height" value="1209" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1033,7 +1033,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1431" y="24" width="759" height="1176" extended-state="4" />
+    <frame x="1430" y="-8" width="1537" height="1209" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1047,7 +1047,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33017975" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3908382" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3786591" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1179,7 +1179,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Coffee/src/main/java/se/softwerk/coffee/Webservice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="92" selection-start="897" selection-end="897" vertical-scroll-proportion="0.59699" vertical-offset="0" max-vertical-offset="1921">
+        <state line="25" column="92" selection-start="897" selection-end="897" vertical-scroll-proportion="0.5118859" vertical-offset="0" max-vertical-offset="1666">
           <folding />
         </state>
       </provider>
