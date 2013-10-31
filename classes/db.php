@@ -114,35 +114,6 @@
 			}
 		}
 		
-		/*
-		public function getUsername($username) {
-    		$sth = $this->dbh->query($this->sql_username." FROM users WHERE username = '$username'");
-      		$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
-
-      		$objects = array();
-			
-      		while($obj = $sth->fetch()) {
-        		$objects[] = $obj;
-      		}
-			
-			return $objects;
-    	}
-		
-		public function getPassword($password) {
-    		$sth = $this->dbh->query("SELECT password FROM users WHERE password = '$password'");
-      		$sth->setFetchMode(PDO::FETCH_CLASS, 'Users');
-
-      		$objects = array();
-			
-      		while($obj = $sth->fetch()) {
-        		$objects[] = $obj;
-      		}
-			
-			return $objects;
-    	}
-		*/
-		
-		
 		public function query($sql, $class_name) {
       		$sth = $this->dbh->query($sql);
       		$sth->setFetchMode(PDO::FETCH_CLASS, $class_name);
