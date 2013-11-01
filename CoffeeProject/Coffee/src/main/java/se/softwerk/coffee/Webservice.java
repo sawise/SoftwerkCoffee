@@ -14,7 +14,7 @@ import org.apache.http.util.EntityUtils;
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
     private String loginUrl = "http://dev.softwerk.se:81/login/login.php";
-    private String statsUrl = "http://192.168.1.90/login/statistics.php";
+    private String statsUrl = "http://dev.softwerk.se:81/login/statistics.php";
 
 
     public Integer getStatistics(String user, String pass) {
@@ -25,11 +25,11 @@ public class Webservice {
 
 
     public String getHistory(String username, String password) {
-        String history = getWebservice(url+"/db.php?command=getHistory");
+        String history = getWebservice(url+"/db.php?user="+username+"&pass="+password+"&command=getHistory");
         return history;
     }
     public String getlatestHistory(String username, String password) {
-        String history = getWebservice(url+"/db.php?command=getlatestHistory");
+        String history = getWebservice(url+"/db.php?user="+username+"&pass="+password+"&command=getlatestHistory");
         return history;
     }
 
