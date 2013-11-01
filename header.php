@@ -6,11 +6,18 @@
 		<!--<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js'></script>-->
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js?ver=1.7.0'></script>
 <script>
- $('body').hide();
 
+
+	   		
+ //jQuery('body').hide();
 		jQuery(window).ready(function() {
-	   		jQuery('body').fadeIn(3000);
-	   		var loading = true;
+	   		//jQuery('body').fadeIn(3000);
+			$('body').hide();
+			//$('#container').fadeOut('slow', function(){
+        		$('body').fadeIn(2000);
+				jQuery('#loaderImagee').fadeOut(1000);
+    		//});
+	   		//jQuery('#container').fadeIn(3000);	   		
 	    console.log("body fading in...");
 	});
 		
@@ -24,6 +31,10 @@
 				text-align:center;
 				background: url('img/bg.jpg') fixed;
 				background-repeat:repeat;
+			}
+			
+			footer {
+				margin:2em;
 			}
 
 			.progressbg{
@@ -129,7 +140,6 @@
 			}
 
 			.divbg{
-				
 				background: #FFFFFF;
 				border: 2px, #00FF00;
 				opacity:0.9;
@@ -163,7 +173,7 @@
 				padding-top:2em;
 			}
 			.container {
-				margin-top:2em;
+				margin-top:1em;
 			}
 			.login-form {
 				display:inline-block;
@@ -230,11 +240,17 @@
 			#username-span {
 				font-style:italic;
 			}
-			.stats_bold {
+			.stats-bold {
 				font-weight:bold;
 			}
-			.stats_p {
+			.stats-p {
 				font-size:16px;
+			}
+			#stats-div {
+				display:block;
+				float:left;
+				padding-top:1em;
+				text-align:left;
 			}
 		</style>
         <script type="text/javascript">
@@ -301,9 +317,9 @@
              	<?php $username = $_SESSION['user_username']; ?>
 			 	<div class="well well-small" id="user_info">
           			<?php if ($page_title != "Settings") : ?>
-                    	<p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> <a href="settings.php">Settings</a> | <a href="history.php">History</a> | <a class="logout_link" href="logout.php">Log out</a></p>
+                    	<p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> <a href="settings.php">Settings</a> | <a class="logout_link" href="logout.php">Log out</a></p>
 					<?php else : ?>
-                        <p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> Settings | <a href="history.php">History</a> | <a class="logout_link" href="logout.php">Log out</a></p>
+                        <p>Logged in as <span id="username-span"><?php echo $username; ?></span> <br /> Settings | <a class="logout_link" href="logout.php">Log out</a></p>
 					<?php endif ?>
       			</div>
       		<?php endif ?>

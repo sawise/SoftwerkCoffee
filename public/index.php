@@ -2,9 +2,13 @@
 	require_once('../config.php');
    	require_once(ROOT_PATH.'/classes/authorization.php');
 	
-	//$username = $_SESSION['user_username'];
-
-   	$url = 'api/?user='.USER.'&pass='.PASS.'&command=';
+	if(isset($_SESSION['user_id'])) {
+		$userid = $_SESSION['user_id'];
+		$db = new Db();
+		$username = $db->getUser($userid)->username;
+		$password = $db->getUser($userid)->password;
+		$url = 'api/?user='.$username.'&pass='.$password.'&command=';
+	}
 
 	$progressSession = 0; 
 	$coffeepowderStatus = 0;
@@ -12,36 +16,41 @@
 	$autoswitch = 0;
 	if(file_exists(ROOT_PATH.'/tmp/php_session.txt')){
 		$progressSession = getSession('php_session'); 
-		echo $progressSession;
+		echo '<p style="display:none;">'.$progressSession.'</p>';
 		echo '<script language="javascript">
-										console.log("currentsession: '.$progressSession.'");
-								</script>';
+					console.log("currentsession: '.$progressSession.'");
+				</script>';
 	}
 	if(file_exists(ROOT_PATH.'/tmp/coffeestatus.txt')){
 		$coffeeStatus = getSession('coffeestatus'); 
-		echo $coffeeStatus;
+		echo '<p style="display:none;">'.$coffeeStatus.'</p>';
 	}
 		if(file_exists(ROOT_PATH.'/tmp/coffeepowderstatus.txt')){
 		$coffeepowderStatus = getSession('coffeepowderstatus'); 
-		echo $coffeepowderStatus;
+		echo '<p style="display:none;">'.$coffeepowderStatus.'</p>';
 	}
 	if(file_exists(ROOT_PATH.'/tmp/crontab.txt')){
 		$autoswitch = getSession('crontab'); 
-		echo strlen($autoswitch);
+		echo '<p style="display:none;">'.strlen($autoswitch).'</p>';
 	}
-  	$userid = $_SESSION['user_id'];
 	$page_title = "Coffee";
 	$error = false;
 	$timestart = 0;
 	$timeend = 0;
 	$timeleft = 0;
-
 		
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
 
 
 	<section id="mainDiv" class="index divbg">
+    
+        <ul class="nav nav-pills nav-fixed-top">
+          <li class="active"><a href="index.php">Home</a></li>
+          <li><a href="history.php">History</a></li>
+          <li><a href="statistics.php">Statistics</a></li>
+        </ul>
+        
 		<!--<div class="inDiv"><a href="#" onClick="run()">Softwerk Coffee</a></div>-->
 		<div class="progress-div inDiv">
 			<div class="progressbg">

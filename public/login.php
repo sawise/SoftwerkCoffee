@@ -4,13 +4,12 @@
 	if (!(isset($_COOKIE['remember_me']))) {	//if username cookie isn't set
 		$_COOKIE['remember_me'] = "";			//changes value of username-input to null
 	}
-	
-	$db = new Db();
 		
   	if (isset($_POST) && isset($_POST['username'])) {
 		$username = $_POST['username'];
 		$password = hash('sha256', $_POST['password'].SALT);
 		
+		$db = new Db();
 		$db_username = $db->getUsername($username);
 		$db_password = $db->getPassword($password);
 		
@@ -22,7 +21,6 @@
 			
 					if ($db_password->password == $password) {
 						$_SESSION['is_logged_in'] = true;
-						$_SESSION['user_username'] = $db_username->username;
                       	$_SESSION['user_id'] = $db_username->id;
 						
 						if (isset($_SESSION['return_to'])) {

@@ -1,7 +1,7 @@
 <?php
 	require_once('../config.php');
-   //	require_once(ROOT_PATH.'/classes/authorization.php');
-   $page_title = "History";
+   	require_once(ROOT_PATH.'/classes/authorization.php');
+   	$page_title = "History";
    
 	$db = new Db();
 	$histories = $db->getHistory();
@@ -10,6 +10,13 @@
 
 
 	<section id="mainDiv" class="index divbg">
+    
+    	<ul class="nav nav-pills nav-justified">
+          <li><a href="index.php">Home</a></li>
+          <li class="active"><a href="history.php">History</a></li>
+          <li><a href="statistics.php">Statistics</a></li>
+        </ul>
+        
 		<!--<div class="inDiv"><a href="#" onClick="run()">Softwerk Coffee</a></div>-->
 	
 		<div class="inDiv">
@@ -25,17 +32,11 @@
     		<td><?php echo $history->username ?></td>
     		<td><?php echo $history->actionname ?></td></tr>
 			<?php endforeach ?>
-
  			
  		</tbody></table>
         	
 		</div>
 		
-
 	</section> 
-
-
-    
-
 
 <?php require_once(ROOT_PATH.'/footer.php'); ?>
