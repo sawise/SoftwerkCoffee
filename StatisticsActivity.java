@@ -17,6 +17,8 @@ public class StatisticsActivity extends Fragment {
     private TextView totalText;
     private Webservice webService;
     private Integer stats;
+    private Integer statsWeek;
+    private Integer statsMonth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,11 +30,12 @@ public class StatisticsActivity extends Fragment {
 
         webService = new Webservice();
         stats = webService.getStatistics("user", "34c1d5a41b77e2b42ddb3f351ac6fbee0ad74d4ac523ea05695aaf87b220bbf0");
+        statsWeek = webService.getStatisticsPastWeek("user", "34c1d5a41b77e2b42ddb3f351ac6fbee0ad74d4ac523ea05695aaf87b220bbf0");
+        statsMonth = webService.getStatisticsPastMonth("user", "34c1d5a41b77e2b42ddb3f351ac6fbee0ad74d4ac523ea05695aaf87b220bbf0");
 
-        weekText.setText("0 pots (0 litres)");
-        monthText.setText("0 pots (0 litres)");
-        totalText.setText(stats + " pots / "
-                    + stats*12 + " cups / " + stats*1.5 + " litres.");
+        weekText.setText(statsWeek + " pots / " + statsWeek*12 + " cups / " + statsWeek*1.5 + " litres.");
+        monthText.setText(statsMonth + " pots / " + statsMonth*12 + " cups / " + statsMonth*1.5 + " litres.");
+        totalText.setText(stats + " pots / " + stats*12 + " cups / " + stats*1.5 + " litres.");
 
         return rootView;
     }

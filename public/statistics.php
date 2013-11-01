@@ -1,6 +1,6 @@
 <?php
 	require_once('../config.php');
-   	//require_once(ROOT_PATH.'/classes/authorization.php');
+   	require_once(ROOT_PATH.'/classes/authorization.php');
    	$page_title = "Statistics";
    
 	$db = new Db();

@@ -13,19 +13,42 @@ import org.apache.http.util.EntityUtils;
  */
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
-    private String loginUrl = "http://dev.softwerk.se:81/login/login.php";
-    private String statsUrl = "http://192.168.1.90/login/statistics.php";
+    private String loginUrl = "http://dev.softwerk.se:81/api/login.php";
+    private String statsUrl = "http://dev.softwerk.se:81/api/statistics.php";
+    private String statsWeekUrl = "http://dev.softwerk.se:81/api/statisticsweek.php";
+    private String statsMonthUrl = "http://dev.softwerk.se:81/api/statisticsmonth.php";
 
 
     public Integer getStatistics(String user, String pass) {
-        String statisticsInt = getWebservice(statsUrl+"?username="+user+"&password="+pass);
-        statisticsInt = statisticsInt.replaceAll("\\s+","");
-        return Integer.parseInt(statisticsInt);
+        String statisticsString = getWebservice(statsUrl+"?username="+user+"&password="+pass);
+        statisticsString = statisticsString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsString);
     }
 
-    public String loginScript(String user, String pass) {
-        String loginScriptString = getWebservice(loginUrl+"?username="+user+"&password="+pass);
-        Log.i("login", loginUrl+"?username="+user+"&password="+pass);
+    public Integer getStatisticsPastWeek(String user, String pass) {
+        String statisticsWeekString = getWebservice(statsWeekUrl+"?username="+user+"&password="+pass);
+        statisticsWeekString = statisticsWeekString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsWeekString);
+    }
+
+    public Integer getStatisticsPastMonth(String user, String pass) {
+        String statisticsMonthString = getWebservice(statsMonthUrl+"?username="+user+"&password="+pass);
+        statisticsMonthString = statisticsMonthString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsMonthString);
+    }
+
+    public String getHistory(String username, String password) {
+        String history = getWebservice(url+"/db.php?user="+username+"&pass="+password+"&command=getHistory");
+        return history;
+    }
+    public String getlatestHistory(String username, String password) {
+        String history = getWebservice(url+"/db.php?user="+username+"&pass="+password+"&command=getlatestHistory");
+        return history;
+    }
+
+    public String loginScript(String username, String password) {
+        String loginScriptString = getWebservice(loginUrl+"?username="+username+"&password="+password);
+        Log.i("login", loginUrl+"?username="+username+"&password="+password);
         return loginScriptString;
     }
 
@@ -55,10 +78,6 @@ public class Webservice {
     }
     public void untoggleAutoswitch(String user, String pass){
         getWebservice(url+"/?user="+user+"&pass="+pass+"&command=untoggleautoswitch");
-    }
-
-    public void clearSession(String user, String pass){
-        getWebservice(url+"/?user="+user+"&pass="+pass+"&command=turnOff");
     }
 
     public String getTime(String user, String pass){
