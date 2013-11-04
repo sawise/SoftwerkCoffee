@@ -174,7 +174,7 @@ function coffeeSwitch(){
                         document.getElementById('progress').style.display='';
                         document.getElementById("progressbar").style.height="+"+percent+"%";
                        document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
-                } else if(document.getElementById('coffeeSwitch').checked == false && x > timeon){
+                } else if(document.getElementById('coffeeSwitch').checked == false && x < timeon){
                         console.log("Coffee is off");
                         togglePHP("turnOff", 0, "<?php echo $userid ?>");        
                         document.getElementById("progressbar").style.height="0%";
