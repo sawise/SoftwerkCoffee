@@ -174,7 +174,7 @@ function coffeeSwitch(){
                         document.getElementById('progress').style.display='';
                         document.getElementById("progressbar").style.height="+"+percent+"%";
                        document.getElementById("progress").innerHTML="<br>"+percent+"%  |  Time left: "+minutesLeft+":"+secondsLeft+"  |  Time elapsed: "+minutesElapsed+":"+secondsElapsed;
-                } else if(document.getElementById('coffeeSwitch').checked == false){
+                } else if(document.getElementById('coffeeSwitch').checked == false && x >= timeon){
                         console.log("Coffee is off");
                         togglePHP("turnOff", 0, "<?php echo $userid ?>");        
                         document.getElementById("progressbar").style.height="0%";
@@ -196,13 +196,17 @@ function coffeeSwitch(){
 
 document.getElementById('coffeepowderSwitch').addEventListener('change', coffeepowderSwitch, false);
 function coffeepowderSwitch(){
-        togglePHP("toggleCoffeepowder", 0, <?php echo $userid ?>);
+        
         if(document.getElementById('coffeepowderSwitch').checked){
+        	togglePHP("toggleCoffeepowder", 0, <?php echo $userid ?>);
                 document.getElementById('coffeeSwitch').disabled = false;
                 document.getElementById('CoffeeswitchDiv').className = "checkbox toggle ios";
-        } else if(document.getElementById('coffeepowderSwitch').checked == false && document.getElementById('coffeeSwitch').checked == false){
+        } else if(document.getElementById('coffeepowderSwitch').checked == false){
+        	togglePHP("untoggleCoffeepowder", 0, <?php echo $userid ?>);
                 document.getElementById('coffeeSwitch').disabled = true;
-                document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
+                if(document.getElementById('coffeeSwitch').checked == false){
+                		document.getElementById('CoffeeswitchDiv').className = "checkbox toggle iosdisabled";
+               }
         }
 }
 

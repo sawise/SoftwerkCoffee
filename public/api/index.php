@@ -66,7 +66,7 @@
 
 			if(isset($_GET['command']) && $_GET['command'] == "autoswitchStatus"){
 				$autoswitch = getSession('crontab'); 
-				if(strlen($autoswitch) <= 0){
+				if(strlen($autoswitch) > 0){
 					echo "Autoswitch is on";
 				} else {
 					echo "Autoswitch is off";

@@ -21,12 +21,14 @@
 			
 					if ($db_password->password == $password) {
 						$_SESSION['is_logged_in'] = true;
+						$_SESSION['user_username'] = $username;
                       	$_SESSION['user_id'] = $db_username->id;
 						
 						if (isset($_SESSION['return_to'])) {
 							$return_to = $_SESSION['return_to'];
 							$_SESSION['return_to'] = null;
 							header('location: '.$return_to);
+
 						} else {
 							$year = time() + 31536000;
 			
