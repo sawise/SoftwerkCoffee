@@ -142,7 +142,7 @@ function coffeeSwitch(){
 		var timeleft = 0;
 		var timeelapsed = 0;
 		var progress = 0;
-		var timeon = 600;
+		var timeon = 780;
 		var dateunix = Math.round(new Date().getTime()/1000.0);
 		if(session <= 0){
 			togglePHP("turnOn", 0, "<?php echo $userid ?>");	
