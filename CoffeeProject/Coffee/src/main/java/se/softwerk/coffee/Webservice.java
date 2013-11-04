@@ -6,6 +6,7 @@ import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -17,14 +18,28 @@ public class Webservice  {
     private String url = "http://dev.softwerk.se:81/api";
     private String loginUrl = "http://dev.softwerk.se:81/login/login.php";
     private String statsUrl = "http://dev.softwerk.se:81/login/statistics.php";
+    private String statsTotalUrl = "http://dev.softwerk.se:81/api/statistics.php";
+    private String statsWeekUrl = "http://dev.softwerk.se:81/api/statisticsweek.php";
+    private String statsMonthUrl = "http://dev.softwerk.se:81/api/statisticsmonth.php";
 
 
 
+    public Integer getStatisticsTotal(String user, String pass) {
+        String statisticsTotalString = getWebservice(statsTotalUrl+"?username="+user+"&password="+pass);
+        statisticsTotalString = statisticsTotalString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsTotalString);
+    }
 
-    public Integer getStatistics(String user, String pass) {
-        String statisticsInt = getWebservice(statsUrl+"?username="+user+"&password="+pass);
-        statisticsInt = statisticsInt.replaceAll("\\s+","");
-        return Integer.parseInt(statisticsInt);
+    public Integer getStatisticsPastWeek(String user, String pass) {
+        String statisticsWeekString = getWebservice(statsWeekUrl+"?username="+user+"&password="+pass);
+        statisticsWeekString = statisticsWeekString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsWeekString);//
+    }
+
+    public Integer getStatisticsPastMonth(String user, String pass) {
+        String statisticsMonthString = getWebservice(statsMonthUrl+"?username="+user+"&password="+pass);
+        statisticsMonthString = statisticsMonthString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsMonthString);
     }
 
 
@@ -106,7 +121,7 @@ public class Webservice  {
             HttpResponse httpResponse = httpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
             output = EntityUtils.toString(httpEntity);
-            Log.i("output", output);
+            Log.i("httpoutput", output);
         } catch (Exception e){
             Log.i("Error...", "something went wrong o.O"+e);
         }

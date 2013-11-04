@@ -1,8 +1,12 @@
 package se.softwerk.coffee;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +33,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,7 +56,6 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     private Switch coffeeSwitch;
     private Switch coffeepowderSwitch;
     private Switch autoSwitch;
-    private String url = "http://dev.softwerk.se:81"; //"http://46.194.99.157";
     private String coffeepowderStatus;
     private String autoswitchStatus;
     private long currentProgressInt = 0;
@@ -75,6 +79,8 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     //private AsyncActivity asyncActivity;
     CheckNet checkNet;
 
+    private PendingIntent pendingIntent;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_coffee, container, false);
@@ -85,20 +91,21 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         }
 
 
+
         db = new DatabaseHandler(this.getActivity());
         webService = new Webservice();
         checkNet = new CheckNet(this.getActivity());
         //asyncActivity = new AsyncActivity();
 
-        String test = "";
+        String hasheddata = "";
         List<User> cl = db.getAllContacts();
         for (User s : cl) {
-            test += s;
+            hasheddata += s;
             Log.i("s", ""+s);
         }
-        test = test.replaceAll(" ","");
-        pieces = test.split(",");
-        Log.i("test", test);
+        hasheddata = hasheddata.replaceAll(" ", "");
+        pieces = hasheddata.split(",");
+
 
         statusText = (TextView) rootView.findViewById(R.id.statusText);
         timeElapsedText = (TextView) rootView.findViewById(R.id.timeElapsedtext);
@@ -140,7 +147,6 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             coffeepowderStatus = webService.getCoffeepowder(pieces[1], pieces[2]);
             autoswitchStatus = webService.getAutoswitchStatus(pieces[1], pieces[2]);
 
-
             if(currentProgressInt > 0){
                 coffeeSwitch.setChecked(true);
                 coffeeSwitch.setEnabled(true);
@@ -180,17 +186,20 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if(buttonView == coffeeSwitch){
+            Intent myIntent = new Intent(getActivity(), NotificationActvity.class);
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+            pendingIntent = PendingIntent.getService(getActivity(), 0, myIntent, 0);
             if(isChecked){
                 check = true;
                 currentProgressInt = webService.getSession(pieces[1], pieces[2]);
                 long epoch = System.currentTimeMillis()/1000;
                 currentTime = epoch;
                 long epochEnd = epoch+timeOn;
-
-                Log.i("progresss before", currentProgressInt+"<->"+currentTime);
                 if(currentProgressInt <= 0){
                     webService.toggleCoffee(pieces[1], pieces[2], pieces[0], "on");
                     currentProgressInt = webService.getSession(pieces[1], pieces[2]);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, epoch+timeOn, pendingIntent);
+                    Log.i("Time now and then:", System.currentTimeMillis()/1000+"<->"+currentProgressInt);
                 } else {
                     calculateProgress(epoch, currentProgressInt);
                 }
@@ -206,7 +215,6 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             if(currentTime < currentProgressInt ){
                 new Thread(new Runnable() {
                     int p = (int) progress;
-
                     public void run() {
                         while (p < timeOn) {
                             try {
@@ -273,11 +281,12 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
                     webService.toggleAutoswitch(pieces[1], pieces[2]);
                     autoswitchStatus = "";
                 }
+
             } else{
                 webService.untoggleAutoswitch(pieces[1], pieces[2]);
                 autoswitchStatus = "";
             }
-    }
+        }
     }
 
     public void setStatusText(String status, boolean error){
@@ -288,6 +297,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             statusText.setTextColor(Color.RED);
             coffeeSwitch.setChecked(false);
         } if (!error){
+            statusText.setTextColor(Color.BLACK);
             statusText.clearAnimation();
         }
     }
@@ -326,18 +336,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             timeLeft = Long.parseLong(timeLeftStr);
             timeElapsed = timeOn-timeLeft;
             progress = (int) timeElapsed;
-            /*Log.i("currenttime", ""+currentTime);
-            Log.i("timeend", ""+session);
-            Log.i("timeleft", currentTime+"-"+session+"="+timeLeft);
-            Log.i("timeelapsed", ""+timeElapsed);
-            Log.i("progress", progress+"");*/
         }
-
-    }
-
-    public String noEnter(String str){
-        String st = str.replaceAll("\\s+","");
-        return st;
     }
 
     public String timeWithTwochar(long value){

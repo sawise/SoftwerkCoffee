@@ -26,7 +26,6 @@ public class HistoryActivity extends Fragment {
     private DatabaseHandler db;
     private String[] pieces;
     private String[] rows;
-    //private String[] rowitem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,14 +33,34 @@ public class HistoryActivity extends Fragment {
 
         webService = new Webservice();
         db = new DatabaseHandler(getActivity());
+
         historyList = (ListView) rootView.findViewById(R.id.historyList);
-        String test = "";
+
+        data = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.custom_list_item, data);
+        historyList.setAdapter(adapter);
+
+        getHistory();
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getHistory();
+    }
+
+    public void getHistory(){
+        adapter.clear();
+
+        String hasheddata = "";
         List<User> cl = db.getAllContacts();
         for (User s : cl) {
-            test += s;
+            hasheddata += s;
         }
-        test = test.replaceAll(" ","");
-        pieces = test.split(",");
+        hasheddata = hasheddata.replaceAll(" ","");
+        pieces = hasheddata.split(",");
 
         String history = webService.getHistory(pieces[1], pieces[2]);
         Log.i("History", history);
@@ -50,34 +69,16 @@ public class HistoryActivity extends Fragment {
 
         historyList.setFastScrollEnabled(true);
 
-
-        data = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.custom_list_item, data);
-        historyList.setAdapter(adapter);
-
-        for(String row : rows){
-            String[] rowitem = row.split(";;");
-            String noEnter = rowitem[0].replace("\n", "");
-            Log.i("rows", noEnter+" "+rowitem[1]+" "+rowitem[2]);
-            adapter.add(noEnter+"\n"+rowitem[1]+"\n"+rowitem[2]);
-
+        if(rows.length > 0){
+            for(String row : rows){
+                String[] rowitem = row.split(";;");
+                String noEnter = rowitem[0].replace("\n", "");
+                Log.i("rows", noEnter+" "+rowitem[1]+" "+rowitem[2]);
+                adapter.add(noEnter+"\n"+rowitem[1]+"\n"+rowitem[2]);
+            }
+        } else {
+            adapter.add("Nothing here...");
         }
 
-        //adapter.add("no history yet");
-
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        adapter.clear();
-        for(String row : rows){
-            String[] rowitem = row.split(";;");
-            String noEnter = rowitem[0].replace("\n", "");
-            Log.i("rows", noEnter+" "+rowitem[1]+" "+rowitem[2]);
-            adapter.add(noEnter+"\n"+rowitem[1]+"\n"+rowitem[2]);
-        }
     }
 }

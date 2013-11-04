@@ -80,17 +80,17 @@ public class LoginActivity extends Activity {
 
         db = new DatabaseHandler(this.getApplicationContext());
 
-        if(checkNet.isInternetOn()){
+        //if(checkNet.isInternetOn()){
             if(!db.getAllContacts().isEmpty()){
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
                 finish();
             }
-        } else {
+        /*} else {
             Toast.makeText(getApplicationContext(), "You have no internet...", Toast.LENGTH_SHORT).show();
             db.deleteAll();
-        }
+        }*/
             // Set up the login form.
             mUsername = getIntent().getStringExtra(EXTRA_TEXT);
             mUsernameView = (EditText) findViewById(R.id.username);

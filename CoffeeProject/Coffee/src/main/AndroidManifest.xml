@@ -30,6 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="se.softwerk.coffee.NotificationActvity" />
         <activity
             android:name="se.softwerk.coffee.SettingsActivity"
             android:label="Settings" >
