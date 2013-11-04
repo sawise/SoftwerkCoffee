@@ -48,6 +48,9 @@ public class HistoryActivity extends Fragment {
         rows = history.split("::");
         Log.i("History", rows[0]);
 
+        historyList.setFastScrollEnabled(true);
+
+
         data = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.custom_list_item, data);
         historyList.setAdapter(adapter);

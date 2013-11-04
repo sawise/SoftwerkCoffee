@@ -1,5 +1,6 @@
 package se.softwerk.coffee;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,9 +24,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,8 +69,11 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
     private String histories;
     private String[] historiesArray;
     private String[] lastHistoryArray;
+    //ArrayList<String> sendtoWebservice = new ArrayList<String>();
     private String lastHistory;
     private DatabaseHandler db;
+    //private AsyncActivity asyncActivity;
+    CheckNet checkNet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +87,9 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
 
         db = new DatabaseHandler(this.getActivity());
         webService = new Webservice();
+        checkNet = new CheckNet(this.getActivity());
+        //asyncActivity = new AsyncActivity();
+
         String test = "";
         List<User> cl = db.getAllContacts();
         for (User s : cl) {
@@ -90,13 +99,6 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         test = test.replaceAll(" ","");
         pieces = test.split(",");
         Log.i("test", test);
-
-        histories = webService.getlatestHistory(pieces[1], pieces[2]);
-        historiesArray = histories.split("::");
-        lastHistoryArray = historiesArray[0].split(";;");
-
-        Log.i("Last history", lastHistoryArray[0]);
-
 
         statusText = (TextView) rootView.findViewById(R.id.statusText);
         timeElapsedText = (TextView) rootView.findViewById(R.id.timeElapsedtext);
@@ -124,29 +126,55 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         anim.setRepeatMode(Animation.REVERSE);
         anim.setRepeatCount(5);
 
-        currentProgressInt = webService.getSession(pieces[1], pieces[2]);
-        coffeepowderStatus = webService.getCoffeepowder(pieces[1], pieces[2]);
-        autoswitchStatus = webService.getAutoswitchStatus(pieces[1], pieces[2]);
+        /*String currentProgressStr =  callWebservice("0", pieces[1], pieces[2], "getSession");
+        String[] commands = {"getSession", "getlatestHistory", "getCoffeepowderstatus", "autoswitchStatus"};
+        for (int i=0; i<commands.length; i++) {
+            asyncActivity.execute("0", pieces[1], pieces[2], commands[i]);
+        }*/
+        //db.deleteAll();
+        if(checkNet.isInternetOn()){
+            histories = webService.getlatestHistory(pieces[1], pieces[2]);
+            historiesArray = histories.split("::");
+            lastHistoryArray = historiesArray[0].split(";;");
+            currentProgressInt = webService.getSession(pieces[1], pieces[2]);
+            coffeepowderStatus = webService.getCoffeepowder(pieces[1], pieces[2]);
+            autoswitchStatus = webService.getAutoswitchStatus(pieces[1], pieces[2]);
 
 
-        Log.i("Statuses", coffeepowderStatus+"<->"+autoswitchStatus);
-
-        if(currentProgressInt > 0){
-            coffeeSwitch.setChecked(true);
-            coffeeSwitch.setEnabled(true);
+            if(currentProgressInt > 0){
+                coffeeSwitch.setChecked(true);
+                coffeeSwitch.setEnabled(true);
+            }
+            if(coffeepowderStatus.contains("is loaded")){
+                coffeepowderSwitch.setChecked(true);
+                coffeeSwitch.setEnabled(true);
+                Log.i("coffeepowder session", "yeees");
+            }
+            if(autoswitchStatus.contains("is on")){
+                autoSwitch.setChecked(true);
+                Log.i("autoswitch session", "yeees");
+            }
+        } else {
+            Toast.makeText(this.getActivity(), "You have no internet...", Toast.LENGTH_SHORT).show();
         }
-        if(coffeepowderStatus.contains("is loaded")){
-            coffeepowderSwitch.setChecked(true);
-            coffeeSwitch.setEnabled(true);
-            Log.i("coffeepowder session", "yeees");
-        }
-        if(autoswitchStatus.contains("is on")){
-            autoSwitch.setChecked(true);
-            Log.i("autoswitch session", "yeees");
-        }
-
         return rootView;
+
     }
+
+   /* public String callWebservice(String u_id, String user, String pass, String command){
+        Log.i("callAsync", "loading "+System.currentTimeMillis()/1000);
+        String[] send = {u_id, user, pass, command};
+        String output = "";
+        try {
+                output = asyncActivity.execute(send).get();
+            Log.i("outputt", output);
+            } catch (Exception e){
+                Log.i("output failed", ""+e);
+            }
+        Log.i("callAsync",  "loading "+System.currentTimeMillis()/1000);
+        return output;
+
+    }*/
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -230,16 +258,24 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
             }
         } else if(buttonView == coffeepowderSwitch){
             if(isChecked){
-                webService.toggleCoffeepowder(pieces[1], pieces[2] , pieces[0]);
+                if(!coffeepowderStatus.contains("is loaded")){
+                    webService.toggleCoffeepowder(pieces[1], pieces[2] , pieces[0]);
+                    coffeepowderStatus = "";
+                }
             } else{
                 webService.untoggleCoffeepowder(pieces[1], pieces[2], pieces[0]);
+                coffeepowderStatus = "";
             }
 
         } else if(buttonView == autoSwitch){
             if(isChecked){
-                webService.toggleAutoswitch(pieces[1], pieces[2]);
+                if(!autoswitchStatus.contains("is on")){
+                    webService.toggleAutoswitch(pieces[1], pieces[2]);
+                    autoswitchStatus = "";
+                }
             } else{
                 webService.untoggleAutoswitch(pieces[1], pieces[2]);
+                autoswitchStatus = "";
             }
     }
     }
@@ -249,6 +285,7 @@ public class CoffeeActivity extends Fragment implements Switch.OnCheckedChangeLi
         statusText.setText(status);
         if(error){
             statusText.startAnimation(anim);
+            statusText.setTextColor(Color.RED);
             coffeeSwitch.setChecked(false);
         } if (!error){
             statusText.clearAnimation();

@@ -1,5 +1,6 @@
 package se.softwerk.coffee;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -11,10 +12,13 @@ import org.apache.http.util.EntityUtils;
 /**
  * Created by sam on 10/9/13.
  */
-public class Webservice {
+public class Webservice  {
+
     private String url = "http://dev.softwerk.se:81/api";
     private String loginUrl = "http://dev.softwerk.se:81/login/login.php";
     private String statsUrl = "http://dev.softwerk.se:81/login/statistics.php";
+
+
 
 
     public Integer getStatistics(String user, String pass) {
@@ -34,7 +38,7 @@ public class Webservice {
     }
 
     public String loginScript(String username, String password) {
-        String loginScriptString = getWebservice(loginUrl+"?username="+username+"&password="+password);
+        String loginScriptString = getWebservice(loginUrl+"?user="+username+"&pass="+password);
         Log.i("login", loginUrl+"?username="+username+"&password="+password);
         return loginScriptString;
     }

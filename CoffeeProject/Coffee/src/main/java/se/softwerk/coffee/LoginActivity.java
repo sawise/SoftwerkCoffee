@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.database.*;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -67,51 +69,57 @@ public class LoginActivity extends Activity {
     private String salt = "34A75DD4C4DF5E4DDFC68CA975B35";
 
     private Webservice webService;
+    private CheckNet checkNet;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        checkNet = new CheckNet(this);
 
         db = new DatabaseHandler(this.getApplicationContext());
-        //db.deleteAll();
-        if(!db.getAllContacts().isEmpty()){
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
-            Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
-            finish();
+
+        if(checkNet.isInternetOn()){
+            if(!db.getAllContacts().isEmpty()){
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+                Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "You have no internet...", Toast.LENGTH_SHORT).show();
+            db.deleteAll();
         }
+            // Set up the login form.
+            mUsername = getIntent().getStringExtra(EXTRA_TEXT);
+            mUsernameView = (EditText) findViewById(R.id.username);
+            mUsernameView.setText(mUsername);
 
-        // Set up the login form.
-        mUsername = getIntent().getStringExtra(EXTRA_TEXT);
-        mUsernameView = (EditText) findViewById(R.id.username);
-        mUsernameView.setText(mUsername);
-
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+            mPasswordView = (EditText) findViewById(R.id.password);
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mLoginStatusView = findViewById(R.id.login_status);
-        mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+            mLoginFormView = findViewById(R.id.login_form);
+            mLoginStatusView = findViewById(R.id.login_status);
+            mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+            findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
+            Log.i("LoginActivity", "Version: " +  android.os.Build.VERSION.SDK_INT);
 
-        Log.i("LoginActivity", "Version: " +  android.os.Build.VERSION.SDK_INT);
     }
 
     @Override
@@ -283,40 +291,21 @@ public class LoginActivity extends Activity {
             try {
                 // Creates new instance of Webservice class
                 webService = new Webservice();
-                if (webService.loginScript(mUsername, SHA256(mPassword + salt)).contains("true")) {
-                    String userId = webService.loginScript(mUsername, SHA256(mPassword + salt));
-                    String[] pieces = userId.split(":");
-                    int idInt = Integer.parseInt(pieces[1]);
-                    User u = new User(idInt, mUsername, SHA256(mPassword + salt));
-                    db.addUser(u);
-                    // Account exists, return true
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            // Check if credentials match.
-           /* try {
-                for (String credential : readFromFile()) {
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(SHA256(mUsername + salt))) {
-                        // Account exists, return true if the password matches.
-                        sendUser = pieces[0];
-                        sendPass = pieces[1];
-                        return pieces[1].equals(SHA256(mPassword + salt));
+                    if (webService.loginScript(mUsername, SHA256(mPassword + salt)).contains("true")) {
+                        String userId = webService.loginScript(mUsername, SHA256(mPassword + salt));
+                        String[] pieces = userId.split(":");
+                        int idInt = Integer.parseInt(pieces[1]);
+                        User u = new User(idInt, mUsername, SHA256(mPassword + salt));
+                        db.addUser(u);
+                        // Account exists, return true
+                        return true;
                     } else {
                         return false;
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }*/
-
             return false;
         }
 
@@ -329,6 +318,7 @@ public class LoginActivity extends Activity {
                 // Go to MainActivity.
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
+                showProgress(true);
                 Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
                 // Kill LoginActivity.
                 finish();

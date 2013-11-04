@@ -56,7 +56,8 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         pieces = test.split(",");
 
         webService = new Webservice();
-        autoswitchTime = webService.getAutoswitchTime(pieces[0], pieces[1]);
+
+        autoswitchTime = webService.getAutoswitchTime(pieces[1], pieces[2]);
         autoswitch = (EditTextPreference) findPreference("autoswitch");
         autoswitchTime = autoswitchTime.replace("\n", "");
             autoswitch.setText(autoswitchTime);
