@@ -14,15 +14,14 @@ import org.apache.http.util.EntityUtils;
 public class Webservice {
     private String url = "http://dev.softwerk.se:81/api";
     private String loginUrl = "http://dev.softwerk.se:81/api/login.php";
-    private String statsUrl = "http://dev.softwerk.se:81/api/statistics.php";
+    private String statsTotalUrl = "http://dev.softwerk.se:81/api/statistics.php";
     private String statsWeekUrl = "http://dev.softwerk.se:81/api/statisticsweek.php";
     private String statsMonthUrl = "http://dev.softwerk.se:81/api/statisticsmonth.php";
 
-
-    public Integer getStatistics(String user, String pass) {
-        String statisticsString = getWebservice(statsUrl+"?username="+user+"&password="+pass);
-        statisticsString = statisticsString.replaceAll("\\s+","");
-        return Integer.parseInt(statisticsString);
+    public Integer getStatisticsTotal(String user, String pass) {
+        String statisticsTotalString = getWebservice(statsTotalUrl+"?username="+user+"&password="+pass);
+        statisticsTotalString = statisticsTotalString.replaceAll("\\s+","");
+        return Integer.parseInt(statisticsTotalString);
     }
 
     public Integer getStatisticsPastWeek(String user, String pass) {
@@ -47,7 +46,7 @@ public class Webservice {
     }
 
     public String loginScript(String username, String password) {
-        String loginScriptString = getWebservice(loginUrl+"?username="+username+"&password="+password);
+        String loginScriptString = getWebservice(loginUrl+"?user="+username+"&pass="+password);
         Log.i("login", loginUrl+"?username="+username+"&password="+password);
         return loginScriptString;
     }
