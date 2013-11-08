@@ -209,10 +209,10 @@
 				float:right;
 			}
 			#settings-div {
-				float:left;
+				float:right;
 				display:block;
 				margin-top:-4em;
-				margin-left:1em;
+				margin-right:1em;
 			}
 			#txt {
 				margin:0 10px 0 10px;
