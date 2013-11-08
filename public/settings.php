@@ -11,10 +11,11 @@
 	
 ?>
 <?php require_once(ROOT_PATH.'/header.php'); ?>
-	<div id="settings-div">
- 		<a href="index.php">&larr; Back to Coffee</a>
-   	</div>
+
     <section class="settings divbg">
+    	<div id="settings-div">
+    		<a href="index.php">&larr; Back to Coffee</a>
+       	</div>
       <form method="get" action="settings.php">
          Autoswitch: <input type="text" id="autoswitchTime" name="autoswitchTime" value=<?php     echo '"'.$autoswitchTime.'"';    ?>/>
                 <button type="submit" class="btn btn-default">Save</button>

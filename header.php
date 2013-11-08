@@ -210,9 +210,9 @@
 			}
 			#settings-div {
 				float:left;
-				position:fixed;
-				top:5em;
-				left:1em;
+				display:block;
+				margin-top:-4em;
+				margin-left:1em;
 			}
 			#txt {
 				margin:0 10px 0 10px;
