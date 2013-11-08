@@ -16,10 +16,9 @@
     	<div id="settings-div">
     		<a href="index.php">&larr; Back to Coffee</a>
        	</div>
-      <form method="get" action="settings.php">
+      <form class="form-inline" method="get" action="settings.php">
          Autoswitch: <input type="text" id="autoswitchTime" name="autoswitchTime" value=<?php     echo '"'.$autoswitchTime.'"';    ?>/>
                 <button type="submit" class="btn btn-default">Save</button>
-                <button href="index.php" class="btn btn-default">Go back</button>
       </form>
       <pre>
 # Minute   Hour   Day of Month       Month          Day of Week        Command    
